@@ -1,9 +1,10 @@
 import React from 'react'
-
+import { SideBar, Forms } from './index'
 const Student = () => {
   return (
     <div>
-      <h1> Student </h1>
+    <SideBar />
+    <Forms />
     </div>
   )
 }
