@@ -1,9 +1,10 @@
 import React from 'react'
+import PersnolInfo from './forms/PersnolInfo'
 
 export default function Forms() {
   return (
     <div>
-      <h3> Forms </h3>
+      <PersnolInfo />
     </div>
   )
 }
