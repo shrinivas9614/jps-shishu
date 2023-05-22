@@ -1,9 +1,11 @@
-import React from 'react'
+import React from "react";
 
 function TeacherForm() {
   return (
-    <div>TeacherForm</div>
-  )
+    <div>
+      <h1>TeacherForm</h1>
+    </div>
+  );
 }
 
 export default TeacherForm;
