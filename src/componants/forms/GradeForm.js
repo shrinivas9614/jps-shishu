@@ -41,11 +41,13 @@ export default function GradeForm() {
             </FormGroup>
         </Col>
       </Row>
-      <Row>
-        <Col md={4}>
-            <Button md={2} type='submit'> insert grade </Button>
-        </Col>
-      </Row>
+      
+        
+            <div className='d-flex justify-content-center mt-3 '>
+                <Button md={2} type='submit'> insert grade </Button>
+            </div>
+        
+      
         </Form>
 
       
