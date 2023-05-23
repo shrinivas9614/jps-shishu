@@ -6,10 +6,10 @@ export default function Forms() {
     <div>
       <BrowserRouter>
         <Routes>
-          <Route path="/teacher" element={ <TeacherForm/> }/>
-          <Route path="/students" element={ <PersnolInfo/> } />
-          <Route path="/grade" element={ <GradeForm/> } />
-          <Route path="/question" element={ <QuestionForm/> } />
+          <Route path="/teacher form" element={ <TeacherForm/> }/>
+          <Route path="/students form" element={ <PersnolInfo/> } />
+          <Route path="/grade form" element={ <GradeForm/> } />
+          <Route path="/question form" element={ <QuestionForm/> } />
         </Routes>
       </BrowserRouter>
       
