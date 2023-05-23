@@ -1,6 +1,6 @@
-import React from 'react';
-import { SideBar, Forms } from './index';
-import { Col, Container, Row } from 'react-bootstrap';
+import React from "react";
+import { SideBar, Forms } from "./index";
+import { Col, Container, Row } from "react-bootstrap";
 
 const Student = () => {
   return (

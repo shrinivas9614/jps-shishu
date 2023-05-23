@@ -1,7 +1,7 @@
-import React from 'react';
-import { sidebarIcons } from './sidebardata';
-import { Nav } from 'react-bootstrap';
-import './sideBar.css'
+import React from "react";
+import { sidebarIcons } from "./sidebardata";
+import { Nav } from "react-bootstrap";
+import "./sideBar.css";
 
 export default function Sidebar() {
   return (
