@@ -1,4 +1,4 @@
-import Student from './componants/Student';
+import Student from "./componants/Student";
 
 function App() {
   return (
