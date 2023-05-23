@@ -22,8 +22,8 @@ function TeacherForm() {
   return (
     <div>
       <h2 className="d-flex justify-content-center ">Teacher Form</h2>
-      <Form>
-        <Row>
+      <Form style={{ backgroundColor: "#eee" }}>
+        <Row className="mb-2">
           <Col md={6}>
             <Form.Group>
               <Form.Label>Employee ID</Form.Label>
@@ -31,7 +31,7 @@ function TeacherForm() {
             </Form.Group>
           </Col>
         </Row>
-        <Row>
+        <Row className="mb-2">
           <Col md={6}>
             <Form.Group>
               <Form.Label>Teacher ID</Form.Label>
@@ -45,7 +45,7 @@ function TeacherForm() {
             </Form.Group>
           </Col>
         </Row>
-        <Row>
+        <Row className="mb-2">
           <Col md={4}>
             <Form.Group>
               <Form.Label>First Name</Form.Label>
@@ -65,7 +65,7 @@ function TeacherForm() {
             </Form.Group>
           </Col>
         </Row>
-        <Row>
+        <Row className="mb-2">
           <Col md={6}>
             <FormGroup>
               <FormLabel>PAN Number</FormLabel>
@@ -85,7 +85,7 @@ function TeacherForm() {
             </FormGroup>
           </Col>
         </Row>
-        <Row>
+        <Row className="mb-2">
           <Col md={6}>
             <Form.Group>
               <Form.Label>Email ID</Form.Label>
@@ -102,7 +102,7 @@ function TeacherForm() {
             </Form.Group>
           </Col>
         </Row>
-        <Row>
+        <Row className="mb-2">
           <Col md={6}>
             <Form.Group>
               <Form.Label>Address</Form.Label>
@@ -120,7 +120,7 @@ function TeacherForm() {
             </Form.Group>
           </Col>
         </Row>
-        <Row>
+        <Row className="mb-2">
           <Col md={6}>
             <Form.Group>
               <Form.Label>State</Form.Label>
@@ -158,7 +158,7 @@ function TeacherForm() {
             </Form.Group>
           </Col>
         </Row>
-        <Row>
+        <Row className="mb-2">
           <Col md={6}>
             <Form.Group>
               <Form.Label>Pincode</Form.Label>
@@ -188,7 +188,7 @@ function TeacherForm() {
             </Form.Group>
           </Col>
         </Row>
-        <Row>
+        <Row className="mb-2">
           <Col md={6}>
             <Form.Group>
               <Form.Label> Designation </Form.Label>
@@ -202,7 +202,7 @@ function TeacherForm() {
             </Form.Group>
           </Col>
         </Row>
-        <Row>
+        <Row className="mb-2">
           <Col md={6}>
             <Form.Group>
               <Form.Label>Height</Form.Label>
@@ -220,7 +220,7 @@ function TeacherForm() {
             </Form.Group>
           </Col>
         </Row>
-        <Row>
+        <Row className="mb-2">
           <Col md={6}>
             <Form.Group>
               <Form.Label> Batch ID </Form.Label>
@@ -235,7 +235,7 @@ function TeacherForm() {
           </Col>
         </Row>
 
-        <Row>
+        <Row className="mb-2">
           <Col md={10}>
             <div className="d-flex gap-2 justify-content-center mt-3 ">
               <Button variant="primary" size="lg">
