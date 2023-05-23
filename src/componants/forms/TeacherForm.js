@@ -22,7 +22,7 @@ function TeacherForm() {
   return (
     <div>
       <h2 className="d-flex justify-content-center ">Teacher Form</h2>
-      <Form style={{ backgroundColor: "#eee" }}>
+      <Form >
         <Row className="mb-2">
           <Col md={6}>
             <Form.Group>

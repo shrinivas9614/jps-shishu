@@ -20,7 +20,28 @@ export default function GradeForm() {
               <FormControl placeholder="grade ID" name="grade id" />
             </FormGroup>
           </Col>
+          <Col md={4}>
+            <FormGroup>
+              <FormLabel>Grade Code</FormLabel>
+              <FormControl placeholder="grade code" name="grade code" />
+            </FormGroup>
+          </Col>
         </Row>
+        <Row>
+          <Col md={4}>
+            <Form.Group>
+              <Form.Label>created Date</Form.Label>
+              <Form.Control type="date" />
+            </Form.Group>
+          </Col>
+          <Col md={4}>
+            <Form.Group>
+              <Form.Label>Updated Date</Form.Label>
+              <Form.Control type="date" />
+            </Form.Group>
+          </Col>
+        </Row>
+
         <Row>
           <Col md={4}>
             <FormGroup>
