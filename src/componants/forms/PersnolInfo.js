@@ -1,34 +1,47 @@
 import React, { useEffect, useState } from "react";
 import { Button, Col, Form, FormGroup, InputGroup, Row } from "react-bootstrap";
 import { states, bloodGroups } from "../utils/Utils";
-import api from "./api";
+import api from "./APIS";
 
 export default function PersonalInfo() {
   const [selectedState, setSelectedState] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
   const [students, setStudents] = useState([]);
   const [formData, setFormData] = useState({
-    studentId: "",
-    aadharNumber: "",
-    firstName: "",
-    middleName: "",
-    lastName: "",
-    emailId: "",
-    phoneNumber: "",
-    address: "",
-    country: "",
-    pinCode: "",
-    dateOfBirth: "",
-    gender: "",
-    admissionDate: "",
+    student: "",
+    firstname: "",
+    middlename: "",
+    lastname: "",
     age: "",
+    emai: "",
+    avatar: "",
+    birthplace: "",
+    blood_group: "",
+    caste: "",
+    city: "",
+    country: "",
+    gender: "",
     height: "",
-    weight: "",
-    bloodGroup: "",
-    gradeId: "",
-    userId: "",
-    category: "",
-    subCategory: "",
+    waight: "",
+    aadhar_number: "",
+    address_line1: "",
+    addmission_number: "",
+    date_of_admission: "",
+    date_of_birth: "",
+    app_token: "",
+    mode_of_transport: "",
+    mother_tongue: "",
+    nationality: "",
+    permenant_registration_number: "",
+    phone: "",
+    pincode: "",
+    religion: "",
+    school_house: "",
+    state: "",
+    grade_id: "",
+    user_id: "",
+    cast_category: "",
+    sub_cast: "",
   });
 
   useEffect(() => {
@@ -37,7 +50,7 @@ export default function PersonalInfo() {
 
   const fetchStudents = () => {
     api
-      .get("/students")
+      .get("/")
       .then((response) => {
         console.log(response.data); // process the response data
         setStudents(response.data); // update the state with the fetched data
@@ -50,32 +63,45 @@ export default function PersonalInfo() {
   const handleSubmit = (e) => {
     e.preventDefault();
     api
-      .post("/students", formData)
+      .post("/", formData)
       .then((response) => {
         console.log(response.data); // process the response data
         // Optionally, you can reset the form fields after successful submission
         setFormData({
-          studentId: "",
-          aadharNumber: "",
-          firstName: "",
-          middleName: "",
-          lastName: "",
-          emailId: "",
-          phoneNumber: "",
-          address: "",
-          country: "",
-          pinCode: "",
-          dateOfBirth: "",
-          gender: "",
-          admissionDate: "",
+          student: "",
+          firstname: "",
+          middlename: "",
+          lastname: "",
           age: "",
+          emai: "",
+          avatar: "",
+          birthplace: "",
+          blood_group: "",
+          caste: "",
+          city: "",
+          country: "",
+          gender: "",
           height: "",
-          weight: "",
-          bloodGroup: "",
-          gradeId: "",
-          userId: "",
-          category: "",
-          subCategory: "",
+          waight: "",
+          aadhar_number: "",
+          address_line1: "",
+          addmission_number: "",
+          date_of_admission: "",
+          date_of_birth: "",
+          app_token: "",
+          mode_of_transport: "",
+          mother_tongue: "",
+          nationality: "",
+          permenant_registration_number: "",
+          phone: "",
+          pincode: "",
+          religion: "",
+          school_house: "",
+          state: "",
+          grade_id: "",
+          user_id: "",
+          cast_category: "",
+          sub_cast: "",
         });
         fetchStudents(); // Fetch the updated list of students
       })
@@ -103,7 +129,7 @@ export default function PersonalInfo() {
               <Form.Control
                 name="studentId"
                 placeholder="123456"
-                value={formData.studentId}
+                value={formData.student}
                 onChange={handleChange}
               />
             </Form.Group>
@@ -114,13 +140,12 @@ export default function PersonalInfo() {
               <Form.Control
                 name="aadharNumber"
                 placeholder="1234 1234 1234"
-                value={formData.aadharNumber}
+                value={formData.aadhar_number}
                 onChange={handleChange}
               />
             </Form.Group>
           </Col>
         </Row>
-        // ...
         <Row>
           <Col md={4}>
             <Form.Group>
@@ -128,7 +153,7 @@ export default function PersonalInfo() {
               <Form.Control
                 name="firstName"
                 placeholder="ex. ramesh"
-                value={formData.firstName}
+                value={formData.firstname}
                 onChange={handleChange}
               />
             </Form.Group>
@@ -139,7 +164,7 @@ export default function PersonalInfo() {
               <Form.Control
                 name="middleName"
                 placeholder="ex. ganesh"
-                value={formData.middleName}
+                value={formData.middlename}
                 onChange={handleChange}
               />
             </Form.Group>
@@ -150,7 +175,7 @@ export default function PersonalInfo() {
               <Form.Control
                 name="lastName"
                 placeholder="ex. deshmuk"
-                value={formData.lastName}
+                value={formData.lastname}
                 onChange={handleChange}
               />
             </Form.Group>
@@ -163,7 +188,7 @@ export default function PersonalInfo() {
               <Form.Control
                 name="emailId"
                 placeholder="name@example.com"
-                value={formData.emailId}
+                value={formData.emai}
                 onChange={handleChange}
               />
             </Form.Group>
@@ -176,7 +201,7 @@ export default function PersonalInfo() {
                 <Form.Control
                   name="phoneNumber"
                   placeholder="9421458711"
-                  value={formData.phoneNumber}
+                  value={formData.phone}
                   onChange={handleChange}
                 />
               </InputGroup>
@@ -191,7 +216,7 @@ export default function PersonalInfo() {
                 as="textarea"
                 name="address"
                 placeholder="Address"
-                value={formData.address}
+                value={formData.address_line1}
                 onChange={handleChange}
               />
             </Form.Group>
@@ -252,7 +277,7 @@ export default function PersonalInfo() {
               <Form.Control
                 name="pinCode"
                 placeholder="413001"
-                value={formData.pinCode}
+                value={formData.pincode}
                 onChange={handleChange}
               />
             </Form.Group>
@@ -263,7 +288,7 @@ export default function PersonalInfo() {
               <Form.Control
                 type="date"
                 name="dateOfBirth"
-                value={formData.dateOfBirth}
+                value={formData.date_of_birth}
                 onChange={handleChange}
               />
             </Form.Group>
@@ -290,7 +315,7 @@ export default function PersonalInfo() {
               <Form.Control
                 type="date"
                 name="admissionDate"
-                value={formData.admissionDate}
+                value={formData.date_of_admission}
                 onChange={handleChange}
               />
             </Form.Group>
@@ -330,7 +355,7 @@ export default function PersonalInfo() {
                 type="text"
                 name="weight"
                 placeholder="weight ex=50 kg"
-                value={formData.weight}
+                value={formData.waight}
                 onChange={handleChange}
               />
             </Form.Group>
@@ -340,7 +365,7 @@ export default function PersonalInfo() {
               <Form.Label>Blood Group</Form.Label>
               <Form.Select
                 name="bloodGroup"
-                value={formData.bloodGroup}
+                value={formData.blood_group}
                 onChange={handleChange}
               >
                 {bloodGroups.map((bgrup) => (
@@ -424,7 +449,7 @@ export default function PersonalInfo() {
               </InputGroup>
             </Form.Group>
           </Col>
-        </Row>  
+        </Row>
         <Row>
           <Col md={10}>
             <div className="d-flex gap-2 justify-content-center mt-3">
