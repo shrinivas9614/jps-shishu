@@ -1,10 +1,15 @@
 import Student from "./componants/Student";
-// import AdminLogin from "./componants/forms/AdminLogin";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import AdminLogin from "./componants/Admin/AdminLogin";
 function App() {
   return (
     <div className="App">
-      <Student />
+          <Student />
+      <BrowserRouter>
+        <Routes>
 
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
