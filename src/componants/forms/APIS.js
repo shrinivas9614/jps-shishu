@@ -1,9 +1,9 @@
-import api from './api'; // assuming this code is in a separate file
+import axios from "axios";
 
-api.get('/students')
-  .then(response => {
-    console.log(response.data); // process the response data
-  })
-  .catch(error => {
-    console.error(error); // handle any errors
-  });
+export default axios.create({
+  baseURL: "http://127.0.0.1:8000/stu-registration",
+  headers: {
+    Accept: "application/json",
+    "Content-Type": "application/json",
+  },
+});
