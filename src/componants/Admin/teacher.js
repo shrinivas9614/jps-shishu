@@ -3,9 +3,11 @@ import Adminsidebar from './adminSidebard'
 import TeacherForm from '../forms/TeacherForm'
 import { TeacherList } from './teacherList'
 import { Card } from 'react-bootstrap'
+import { ViewTeacherInfo } from './viewTeacherInfo'
 
 export const Teacher = () => {
     const [show, setShow] = useState("list")
+    const [Id,setId]=useState();
     const _setOpenCallback = useCallback(
         (show) => {
             setShow(show)
@@ -13,8 +15,9 @@ export const Teacher = () => {
     )
     const shows = () => {
         switch (show) {
-            case "add": return <TeacherForm {...{ _setOpenCallback }} />;
-            case "list": return <TeacherList {...{_setOpenCallback}}/>;
+            case "add": return <TeacherForm {...{ _setOpenCallback}} />;
+            case "list": return <TeacherList {...{_setOpenCallback,setId }}/>;
+            case "teacherInfo":return <ViewTeacherInfo{...{Id,_setOpenCallback}}/>
         }
     }
     return (

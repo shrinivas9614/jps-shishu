@@ -80,6 +80,8 @@ function TeacherForm({ _setOpenCallback }) {
             }}
             validationSchema={schema}
             onSubmit={(values, { setStatus, setSubmitting }) => {            
+              values.state=selectedState?selectedState:''
+              values.city=selectedCity?selectedCity:''
               api.post("/teacher-registration", values)
                 .then((response) => {
                   console.log("response", response)
@@ -273,6 +275,7 @@ function TeacherForm({ _setOpenCallback }) {
                           }
                           placeholder="Select state"
                         >
+                          <option value selected hidden>select state</option>
                           {states.map((state, index) => (
                             <option key={index} value={index}>
                               {state.name}
@@ -291,6 +294,7 @@ function TeacherForm({ _setOpenCallback }) {
                           onChange={(e) => setSelectedCity(e.target.value)}
                           placeholder="City"
                         >
+                          <option value selected hidden>select city</option>
                           {selectedState !== "" &&
                             states[selectedState].cities.map((city, index) => (
                               <option key={index} value={index}>

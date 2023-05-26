@@ -3,11 +3,11 @@ import { Button, Card, Col, Row, Table } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import api from '../forms/APIS'
 
-export const TeacherList = ({ _setOpenCallback }) => {
+export const TeacherList = ({ _setOpenCallback,setId }) => {
     const [teacher, setTeacher] = useState([])
     const getTeacherList = () => {
         api
-            .get("/teacher-registration")
+            .get("/teacher-list")
             .then((response) => {
                 console.log(response.data); // process the response data
                 setTeacher(response.data); // update the state with the fetched data
@@ -59,8 +59,12 @@ export const TeacherList = ({ _setOpenCallback }) => {
                                     <td>{tea.email}</td>
                                     <td>{tea.phone}</td>
                                     <td>
-                                    <Button>
-                                        view 
+                                    <Button
+                                    onClick={()=>{
+                                        _setOpenCallback("teacherInfo")
+                                        setId(tea.id)}}
+                                    >
+                                        <i class="fa fa-eye" aria-hidden="true"></i>
                                     </Button>    
                                     </td>                                    
                                 </tr>
