@@ -41,13 +41,39 @@ function TeacherForm({ _setOpenCallback }) {
       </Card.Header>
       <Card.Body>
         <Formik
-          initialValues={{}}
-
+          initialValues={{
+            aadhar_number: '',
+            address_line_1: '',
+            city: '',
+            country: '',
+            date_of_birth: '',
+            date_of_joining: '',
+            email: '',
+            employee_id: '',
+            designation: '',
+            father_name: '',
+            firstname: '',
+            gender: '',
+            height: '',
+            lastname: '',
+            marital_status: '',
+            middlename: '',
+            mobile: '',
+            pan_number: '',
+            phone: '',
+            pincode: '',
+            spause_name: '',
+            state: '',
+            weight: '',
+          }}
           onSubmit={(values, { setStatus, setSubmitting }) => {
-            api.post("/teacher-registration", values)
-              .then((response) => {
-                console.log("response", response)
-              })
+            values.state = selectedState;
+            values.city = selectedCity;
+            console.log("Final values",values)
+            // api.post("/teacher-registration", values)
+            //   .then((response) => {
+            //     console.log("response", response)
+            //   })
 
           }}
         >
@@ -63,26 +89,30 @@ function TeacherForm({ _setOpenCallback }) {
             status
           }) => (
             <>
-              <Form>
+              <Form onSubmit={handleSubmit}>
                 <Row className="mb-2">
-                  <Col md={6}>
+                  {/* <Col md={6}>
                     <Form.Group>
                       <Form.Label>Employee ID</Form.Label>
                       <Form.Control name="employeeId" placeholder="123456" />
                     </Form.Group>
-                  </Col>
+                  </Col> */}
                 </Row>
                 <Row className="mb-2">
-                  <Col md={6}>
+                  {/* <Col md={6}>
                     <Form.Group>
                       <Form.Label>Teacher ID</Form.Label>
                       <Form.Control name="TeacherId" placeholder="123456" />
                     </Form.Group>
-                  </Col>
+                  </Col> */}
                   <Col md={6}>
                     <Form.Group>
                       <Form.Label>Aadhar number</Form.Label>
-                      <Form.Control name="Aadhar number" placeholder="1234 1234 1234" />
+                      <Form.Control
+                        name="aadhar_number"
+                        value={values.aadhar_number}
+                        onChange={handleChange}
+                        placeholder="1234 1234 1234" />
                     </Form.Group>
                   </Col>
                 </Row>
@@ -90,19 +120,34 @@ function TeacherForm({ _setOpenCallback }) {
                   <Col md={4}>
                     <Form.Group>
                       <Form.Label>First Name</Form.Label>
-                      <Form.Control name="firstName" placeholder="First Name " />
+                      <Form.Control
+                        placeholder="First Name "
+                        name="firstname"
+                        value={values.firstname}
+                        onChange={handleChange}
+                      />
                     </Form.Group>
                   </Col>
                   <Col md={4}>
                     <Form.Group>
                       <Form.Label>Middle Name</Form.Label>
-                      <Form.Control name="middleName" placeholder="Middle Name" />
+                      <Form.Control
+                        placeholder="Middle Name"
+                        name="middlename"
+                        value={values.middlename}
+                        onChange={handleChange}
+                      />
                     </Form.Group>
                   </Col>
                   <Col md={4}>
                     <Form.Group>
                       <Form.Label>Last Name</Form.Label>
-                      <Form.Control name="lastName" placeholder="Last Name" />
+                      <Form.Control
+                        placeholder="Last Name"
+                        name="lastname"
+                        value={values.lastname}
+                        onChange={handleChange}
+                      />
                     </Form.Group>
                   </Col>
                 </Row>
@@ -111,8 +156,10 @@ function TeacherForm({ _setOpenCallback }) {
                     <FormGroup>
                       <FormLabel>PAN Number</FormLabel>
                       <FormControl
-                        name="PAN NUMBER"
                         placeholder="ABCD1234E"
+                        name="pan_number"
+                        value={values.pan_number}
+                        onChange={handleChange}
                       ></FormControl>
                     </FormGroup>
                   </Col>
@@ -120,8 +167,10 @@ function TeacherForm({ _setOpenCallback }) {
                     <FormGroup>
                       <FormLabel>Father Name</FormLabel>
                       <FormControl
-                        name="Father Name"
                         placeholder="Father Name"
+                        name="father_name"
+                        value={values.father_name}
+                        onChange={handleChange}
                       ></FormControl>
                     </FormGroup>
                   </Col>
@@ -130,7 +179,11 @@ function TeacherForm({ _setOpenCallback }) {
                   <Col md={6}>
                     <Form.Group>
                       <Form.Label>Email ID</Form.Label>
-                      <Form.Control name="emailId" placeholder="name@example.com" />
+                      <Form.Control
+                        name="email"
+                        value={values.email}
+                        onChange={handleChange}
+                        placeholder="name@example.com" />
                     </Form.Group>
                   </Col>
                   <Col md={6}>
@@ -138,7 +191,11 @@ function TeacherForm({ _setOpenCallback }) {
                       <Form.Label> phone number </Form.Label>
                       <InputGroup className="mb-3">
                         <InputGroup.Text id="basic-addon1">+91</InputGroup.Text>
-                        <Form.Control placeholder="9421458711" />
+                        <Form.Control placeholder="9421458711"
+                          name="phone"
+                          value={values.phone}
+                          onChange={handleChange}
+                        />
                       </InputGroup>
                     </Form.Group>
                   </Col>
@@ -149,15 +206,22 @@ function TeacherForm({ _setOpenCallback }) {
                       <Form.Label>Address</Form.Label>
                       <Form.Control
                         as="textarea"
-                        name="address"
                         placeholder="Address"
+                        name="address_line_1"
+                        value={values.address_line_1}
+                        onChange={handleChange}
                       />
                     </Form.Group>
                   </Col>
                   <Col md={6}>
                     <Form.Group>
                       <Form.Label>Country</Form.Label>
-                      <Form.Control name="country" placeholder="Country" />
+                      <Form.Control
+                        placeholder="Country"
+                        name="country"
+                        value={values.country}
+                        onChange={handleChange}
+                      />
                     </Form.Group>
                   </Col>
                 </Row>
@@ -168,7 +232,10 @@ function TeacherForm({ _setOpenCallback }) {
                       <Form.Select
                         className="mb-2"
                         value={selectedState}
-                        onChange={(e) => setSelectedState(e.target.value)}
+                        onChange={(e) => {
+                          setSelectedState(e.target.value)
+                        }
+                        }
                         placeholder="Select state"
                       >
                         {states.map((state, index) => (
@@ -203,13 +270,22 @@ function TeacherForm({ _setOpenCallback }) {
                   <Col md={6}>
                     <Form.Group>
                       <Form.Label>Pincode</Form.Label>
-                      <Form.Control name="pinCode" placeholder="413001" />
+                      <Form.Control
+                        placeholder="413001"
+                        name="pincode"
+                        value={values.pincode}
+                        onChange={handleChange}
+                      />
                     </Form.Group>
                   </Col>
                   <Col md={6}>
                     <Form.Group>
                       <Form.Label>Gender</Form.Label>
-                      <Form.Select name="gender">
+                      <Form.Select
+                        name="gender"
+                        value={values.gender}
+                        onChange={handleChange}
+                      >
                         <option value="male">Male</option>
                         <option value="female">Female</option>
                         <option value="other">Other</option>
@@ -219,13 +295,22 @@ function TeacherForm({ _setOpenCallback }) {
                   <Col md={6}>
                     <Form.Group>
                       <Form.Label>Date of Birth</Form.Label>
-                      <Form.Control type="date" name="date Of Birth" />
+                      <Form.Control
+                        type="date"
+                        name="date_of_birth"
+                        value={values.date_of_birth}
+                        onChange={handleChange}
+                      />
                     </Form.Group>
                   </Col>
                   <Col md={6}>
                     <Form.Group>
                       <Form.Label>Date of Joining</Form.Label>
-                      <Form.Control type="date" name="Joining Date" />
+                      <Form.Control type="date"
+                        name="date_of_joining"
+                        value={values.date_of_joining}
+                        onChange={handleChange}
+                      />
                     </Form.Group>
                   </Col>
                 </Row>
@@ -233,13 +318,23 @@ function TeacherForm({ _setOpenCallback }) {
                   <Col md={6}>
                     <Form.Group>
                       <Form.Label> Designation </Form.Label>
-                      <Form.Control placeholder="Designation" />
+                      <Form.Control 
+                      placeholder="Designation"
+                        name="designation"
+                      value={values.designation}
+                      onChange={handleChange}
+                      />
                     </Form.Group>
                   </Col>
                   <Col md={6}>
                     <Form.Group>
                       <Form.Label> Marital Status </Form.Label>
-                      <Form.Control placeholder="Marital Status" />
+                      <Form.Control 
+                        placeholder="Marital Status" 
+                        name="marital_status"
+                        value={values.marital_status}
+                        onChange={handleChange}
+                      />
                     </Form.Group>
                   </Col>
                 </Row>
@@ -247,21 +342,28 @@ function TeacherForm({ _setOpenCallback }) {
                   <Col md={6}>
                     <Form.Group>
                       <Form.Label>Height</Form.Label>
-                      <Form.Control type="text" name="height" placeholder="6ft4in" />
+                      <Form.Control type="text"                       
+                      placeholder="6ft4in"
+                      name="height"
+                      value={values.height}
+                      onChange={handleChange}
+                      />
                     </Form.Group>
                   </Col>
                   <Col md={6}>
                     <Form.Group>
                       <Form.Label> Waight </Form.Label>
                       <Form.Control
-                        type="text"
-                        name="waight"
+                        type="text"                      
                         placeholder="waight ex=50 kg"
+                        name="weight"
+                        value={values.weight}
+                        onChange={handleChange}
                       />
                     </Form.Group>
                   </Col>
                 </Row>
-                <Row className="mb-2">
+                {/* <Row className="mb-2">
                   <Col md={6}>
                     <Form.Group>
                       <Form.Label> Batch ID </Form.Label>
@@ -274,7 +376,7 @@ function TeacherForm({ _setOpenCallback }) {
                       <Form.Control placeholder="user ID ex-123456" />
                     </Form.Group>
                   </Col>
-                </Row>
+                </Row> */}
 
                 <Row className="mb-2">
                   <Col md={10}>

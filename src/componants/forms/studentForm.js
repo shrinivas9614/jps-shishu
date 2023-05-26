@@ -4,6 +4,7 @@ import { states, bloodGroups } from "../utils/Utils";
 import api from "./APIS";
 import Adminsidebar from "../Admin/adminSidebard";
 import { Link } from "react-router-dom";
+import { Formik } from "formik";
 
 export default function StudentForm({ _setOpenCallback }) {
   const [selectedState, setSelectedState] = useState("");
@@ -138,7 +139,67 @@ export default function StudentForm({ _setOpenCallback }) {
               </Row>
             </Card.Header>
             <Card.Body>
-              <Form onSubmit={handleSubmit}>
+              <Formik
+                initialValues={{
+                  student: "",
+                  firstname: "",
+                  middlename: "",
+                  lastname: "",
+                  age: "",
+                  emai: "",
+                  avatar: "",
+                  birthplace: "",
+                  blood_group: "",
+                  caste: "",
+                  city: "",
+                  country: "",
+                  gender: "",
+                  height: "",
+                  waight: "",
+                  aadhar_number: "",
+                  address_line1: "",
+                  addmission_number: "",
+                  date_of_admission: "",
+                  date_of_birth: "",
+                  app_token: "",
+                  mode_of_transport: "",
+                  mother_tongue: "",
+                  nationality: "",
+                  permenant_registration_number: "",
+                  phone: "",
+                  pincode: "",
+                  religion: "",
+                  school_house: "",
+                  state: "",
+                  grade_id: "",
+                  user_id: "",
+                  cast_category: "",
+                  sub_cast: "",
+                }}
+                onSubmit={(values, { setStatus, setSubmitting }) => {  
+                  values.state = selectedState;
+                  values.city = selectedCity;            
+                  console.log("Final values", values)
+                  // api.post("/teacher-registration", values)
+                  //   .then((response) => {
+                  //     console.log("response", response)
+                  //   })
+
+                }}
+              >
+                {({
+                  values,
+                  errors,
+                  touched,
+                  handleChange,
+                  handleBlur,
+                  handleSubmit,
+                  isSubmitting,
+                  setFieldValue,
+                  status
+                }) => (
+                  <>
+                     <Form onSubmit={handleSubmit}>
                 {/* Rest of the form fields */}
                 <Row>
                   <Col md={6}>
@@ -171,7 +232,7 @@ export default function StudentForm({ _setOpenCallback }) {
                       <Form.Control
                         name="firstName"
                         placeholder="ex. ramesh"
-                        value={formData.firstname}
+                        value={values.firstname}
                         onChange={handleChange}
                       />
                     </Form.Group>
@@ -182,7 +243,7 @@ export default function StudentForm({ _setOpenCallback }) {
                       <Form.Control
                         name="middleName"
                         placeholder="ex. ganesh"
-                        value={formData.middlename}
+                        value={values.middlename}
                         onChange={handleChange}
                       />
                     </Form.Group>
@@ -193,7 +254,7 @@ export default function StudentForm({ _setOpenCallback }) {
                       <Form.Control
                         name="lastName"
                         placeholder="ex. deshmuk"
-                        value={formData.lastname}
+                        value={values.lastname}
                         onChange={handleChange}
                       />
                     </Form.Group>
@@ -206,7 +267,7 @@ export default function StudentForm({ _setOpenCallback }) {
                       <Form.Control
                         name="emailId"
                         placeholder="name@example.com"
-                        value={formData.emai}
+                        value={values.emai}
                         onChange={handleChange}
                       />
                     </Form.Group>
@@ -219,7 +280,7 @@ export default function StudentForm({ _setOpenCallback }) {
                         <Form.Control
                           name="phoneNumber"
                           placeholder="9421458711"
-                          value={formData.phone}
+                          value={values.phone}
                           onChange={handleChange}
                         />
                       </InputGroup>
@@ -234,7 +295,7 @@ export default function StudentForm({ _setOpenCallback }) {
                         as="textarea"
                         name="address"
                         placeholder="Address"
-                        value={formData.address_line1}
+                        value={values.address_line1}
                         onChange={handleChange}
                       />
                     </Form.Group>
@@ -245,7 +306,7 @@ export default function StudentForm({ _setOpenCallback }) {
                       <Form.Control
                         name="country"
                         placeholder="Country"
-                        value={formData.country}
+                        value={values.country}
                         onChange={handleChange}
                       />
                     </Form.Group>
@@ -295,7 +356,7 @@ export default function StudentForm({ _setOpenCallback }) {
                       <Form.Control
                         name="pinCode"
                         placeholder="413001"
-                        value={formData.pincode}
+                        value={values.pincode}
                         onChange={handleChange}
                       />
                     </Form.Group>
@@ -306,7 +367,7 @@ export default function StudentForm({ _setOpenCallback }) {
                       <Form.Control
                         type="date"
                         name="dateOfBirth"
-                        value={formData.date_of_birth}
+                        value={values.date_of_birth}
                         onChange={handleChange}
                       />
                     </Form.Group>
@@ -318,7 +379,7 @@ export default function StudentForm({ _setOpenCallback }) {
                       <Form.Label>Gender</Form.Label>
                       <Form.Select
                         name="gender"
-                        value={formData.gender}
+                        value={values.gender}
                         onChange={handleChange}
                       >
                         <option value="male">Male</option>
@@ -333,7 +394,7 @@ export default function StudentForm({ _setOpenCallback }) {
                       <Form.Control
                         type="date"
                         name="admissionDate"
-                        value={formData.date_of_admission}
+                        value={values.date_of_admission}
                         onChange={handleChange}
                       />
                     </Form.Group>
@@ -347,7 +408,7 @@ export default function StudentForm({ _setOpenCallback }) {
                         type="number"
                         name="age"
                         placeholder="Age"
-                        value={formData.age}
+                        value={values.age}
                         onChange={handleChange}
                       />
                     </Form.Group>
@@ -359,7 +420,7 @@ export default function StudentForm({ _setOpenCallback }) {
                         type="text"
                         name="height"
                         placeholder="6ft4in"
-                        value={formData.height}
+                        value={values.height}
                         onChange={handleChange}
                       />
                     </Form.Group>
@@ -373,7 +434,7 @@ export default function StudentForm({ _setOpenCallback }) {
                         type="text"
                         name="weight"
                         placeholder="weight ex=50 kg"
-                        value={formData.waight}
+                        value={values.waight}
                         onChange={handleChange}
                       />
                     </Form.Group>
@@ -383,7 +444,7 @@ export default function StudentForm({ _setOpenCallback }) {
                       <Form.Label>Blood Group</Form.Label>
                       <Form.Select
                         name="bloodGroup"
-                        value={formData.blood_group}
+                        value={values.blood_group}
                         onChange={handleChange}
                       >
                         {bloodGroups.map((bgrup) => (
@@ -400,7 +461,7 @@ export default function StudentForm({ _setOpenCallback }) {
                       <Form.Control
                         name="graidId"
                         placeholder="graid ID ex-123456"
-                        value={formData.graidId}
+                        value={values.graidId}
                         onChange={handleChange}
                       />
                     </Form.Group>
@@ -411,7 +472,7 @@ export default function StudentForm({ _setOpenCallback }) {
                       <Form.Control
                         name="userId"
                         placeholder="user ID ex-123456"
-                        value={formData.userId}
+                        value={values.userId}
                         onChange={handleChange}
                       />
                     </Form.Group>
@@ -424,7 +485,7 @@ export default function StudentForm({ _setOpenCallback }) {
                       <Form.Control
                         name="category"
                         placeholder="category"
-                        value={formData.category}
+                        value={values.category}
                         onChange={handleChange}
                       />
                     </Form.Group>
@@ -435,7 +496,7 @@ export default function StudentForm({ _setOpenCallback }) {
                       <Form.Control
                         name="religion"
                         placeholder="religion"
-                        value={formData.religion}
+                        value={values.religion}
                         onChange={handleChange}
                       />
                     </Form.Group>
@@ -448,7 +509,7 @@ export default function StudentForm({ _setOpenCallback }) {
                       <Form.Control
                         name="guardianName"
                         placeholder="guardian name"
-                        value={formData.guardianName}
+                        value={values.guardianName}
                         onChange={handleChange}
                       />
                     </Form.Group>
@@ -461,7 +522,7 @@ export default function StudentForm({ _setOpenCallback }) {
                         <Form.Control
                           name="guardianPhoneNumber"
                           placeholder="9421458711"
-                          value={formData.guardianPhoneNumber}
+                          value={values.guardianPhoneNumber}
                           onChange={handleChange}
                         />
                       </InputGroup>
@@ -481,6 +542,10 @@ export default function StudentForm({ _setOpenCallback }) {
                   </Col>
                 </Row>
               </Form>
+
+                  </>)}
+                  </Formik>
+           
             </Card.Body>
           </Card>
 
