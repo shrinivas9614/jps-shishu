@@ -91,7 +91,7 @@ function TeacherForm({ _setOpenCallback }) {
                 })
                 .catch((error)=>{
                   console.log("Error",error)
-                  alert("something wrong",error.message)
+                  alert("Mobile number or email already present please try another email or mobile number")
                 })
 
             }}
