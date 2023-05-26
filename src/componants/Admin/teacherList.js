@@ -43,26 +43,30 @@ export const TeacherList = ({ _setOpenCallback }) => {
                                 <th>First Name</th>
                                 <th>Last Name</th>
                                 <th>Email ID</th>
-                                <th>Phone Nsumber</th>
-                                <th>Gender</th>
+                                <th>Phone Nsumber</th>                                
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            {/* <tr>
-                              <td>1</td>
-                              <td>P</td>
-                              <td>B</td>
-                              <td>abc@gmail.com</td>
-                              <td>7867564534</td>
-                              <td>Male</td>
-                              <td>
-                                  <Button>
-                                      <i className='fa fa-edit' />
-                                  </Button>
-                              </td>
-                          </tr> */}
-
+                        <tbody>                          
+                          {
+                            teacher.length>0 &&
+                            teacher.map((tea,index)=>(
+                                <>
+                                <tr>
+                                    <td>{index+1}</td>
+                                    <td>{tea.firstname}</td>
+                                    <td>{tea.lastname}</td>
+                                    <td>{tea.email}</td>
+                                    <td>{tea.phone}</td>
+                                    <td>
+                                    <Button>
+                                        view 
+                                    </Button>    
+                                    </td>                                    
+                                </tr>
+                                </>
+                            ))
+                          }
                         </tbody>
                     </Table>
                 </Card.Body>
