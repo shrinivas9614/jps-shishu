@@ -1,11 +1,13 @@
 import React,{useState,useCallback} from 'react'
 import Adminsidebar from './adminSidebard'
-
-import { StudentList } from './studentList'
 import StudentForm from '../forms/studentForm'
+import { StudentList } from './studentList'
 import { Card } from 'react-bootstrap'
+import { ViewStudentInfo } from './ViewStudentInfo'
+
 export const Student = () => {
     const [show, setShow] = useState("list")
+    const [Id,setId]=useState();
     const _setOpenCallback = useCallback(
         (show) => {
             setShow(show)
@@ -14,7 +16,8 @@ export const Student = () => {
     const shows = () => {
         switch (show) {
             case "add": return <StudentForm {...{ _setOpenCallback }}/>;
-            case "list": return <StudentList {...{ _setOpenCallback }} />;
+            case "list": return <StudentList {...{ _setOpenCallback, setId }} />;
+            case "studentInfo":return <ViewStudentInfo{...{Id,_setOpenCallback}}/>
         }
     }
   return (
@@ -28,7 +31,6 @@ export const Student = () => {
                     </Card.Body>
                 </Card>
           </div>
-
     </>
   )
 }

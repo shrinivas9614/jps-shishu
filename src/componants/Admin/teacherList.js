@@ -43,7 +43,7 @@ export const TeacherList = ({ _setOpenCallback,setId }) => {
                                 <th>First Name</th>
                                 <th>Last Name</th>
                                 <th>Email ID</th>
-                                <th>Phone Nsumber</th>                                
+                                <th>Phone Number</th>                                
                                 <th>Action</th>
                             </tr>
                         </thead>

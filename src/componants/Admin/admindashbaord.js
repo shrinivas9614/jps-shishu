@@ -7,7 +7,7 @@ export const AdminDashboard = () => {
   const [countStudent, setCountStudent] = useState();
   const [countTeacher, setCountTeacher] = useState();
   const getStudent = () => {
-    api.get("/stu-registration")
+    api.get("/student-registration")
       .then((response) => {
         setCountStudent(response.data.length)
       })

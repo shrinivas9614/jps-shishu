@@ -3,11 +3,11 @@ import { Button, Card, Col, Row, Table } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import api from '../forms/APIS'
 
-export const StudentList = ({_setOpenCallback}) => {
+export const StudentList = ({_setOpenCallback, setId}) => {
     const [student, setStudent] = useState([])
     const getStudentList = () => {
         api
-            .get("/stu-registration")
+            .get("/student-list")
             .then((response) => {
                 console.log(response.data); // process the response data
                 setStudent(response.data); // update the state with the fetched data
@@ -19,6 +19,7 @@ export const StudentList = ({_setOpenCallback}) => {
     useEffect(() => {
         getStudentList();
     }, [])
+
   return (
     <>
           <Card>
@@ -46,7 +47,6 @@ export const StudentList = ({_setOpenCallback}) => {
                               <th>Email ID</th>
                               <th>Phone number</th>
                               <th>Gender</th>
-                              <th>Date of Admission</th>
                               <th>Action</th>
                           </tr>
                       </thead>
@@ -61,8 +61,15 @@ export const StudentList = ({_setOpenCallback}) => {
                                 <td>{stu.email}</td>
                                 <td>{stu.phone}</td>
                                 <td>{stu.gender}</td>
-                                <td>{stu.date_of_admission}</td>
-                                <td></td>
+                                <td>
+                                <Button
+                                    onClick={()=>{
+                                        _setOpenCallback("studentInfo")
+                                        setId(stu.id)}}
+                                    >
+                                        <i class="fa fa-eye" aria-hidden="true"></i>
+                                    </Button>  
+                                </td>
                             </tr>
                             </>
                          ))
@@ -72,8 +79,6 @@ export const StudentList = ({_setOpenCallback}) => {
                   </Table>
               </Card.Body>
           </Card>
-
-
     </>
   )
 }
