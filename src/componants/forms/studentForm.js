@@ -1,51 +1,15 @@
+
 import React, { useEffect, useState } from "react";
-import { Button, Card, Col, Form, FormGroup, InputGroup, Row } from "react-bootstrap";
+import { Button, Card, Col, Form, Row, InputGroup, FormGroup } from "react-bootstrap";
 import { states, bloodGroups } from "../utils/Utils";
-import api from "./APIS";
-import Adminsidebar from "../Admin/adminSidebard";
 import { Link } from "react-router-dom";
-import { Formik } from "formik";
+import { useFormik } from "formik";
+import api from "./APIS";
 
 export default function StudentForm({ _setOpenCallback }) {
   const [selectedState, setSelectedState] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
   const [students, setStudents] = useState([]);
-  const [formData, setFormData] = useState({
-    student: "",
-    firstname: "",
-    middlename: "",
-    lastname: "",
-    age: "",
-    emai: "",
-    avatar: "",
-    birthplace: "",
-    blood_group: "",
-    caste: "",
-    city: "",
-    country: "",
-    gender: "",
-    height: "",
-    waight: "",
-    aadhar_number: "",
-    address_line1: "",
-    addmission_number: "",
-    date_of_admission: "",
-    date_of_birth: "",
-    app_token: "",
-    mode_of_transport: "",
-    mother_tongue: "",
-    nationality: "",
-    permenant_registration_number: "",
-    phone: "",
-    pincode: "",
-    religion: "",
-    school_house: "",
-    state: "",
-    grade_id: "",
-    user_id: "",
-    cast_category: "",
-    sub_cast: "",
-  });
 
   useEffect(() => {
     fetchStudents();
@@ -53,174 +17,120 @@ export default function StudentForm({ _setOpenCallback }) {
 
   const fetchStudents = () => {
     api
-      .get("/")
+      .get("/stu-registration")
       .then((response) => {
-        console.log(response.data); // process the response data
-        setStudents(response.data); // update the state with the fetched data
+        console.log(response.data);
+        setStudents(response.data);
       })
       .catch((error) => {
-        console.error(error); // handle any errors
+        console.error(error);
       });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    api
-      .post("/", formData)
+  const StateValueChange = (event) => {
+    console.log("ewowryoweiuy", event.target.value)
+    formik.setFieldValue('state', event.target.value)
+    setSelectedState(event.target.value)
+  }
+
+  const CityValueChange = (event) => {
+    formik.setFieldValue('city', event.target.value)
+    setSelectedCity(event.target.value)
+  }
+
+  const handleSubmit = (values) => {
+    values['state'] = states[values['state']]['name']
+    console.log("Final values", JSON.stringify(values));
+    // Handle the submission logic here (e.g., update state, make API calls)
+    api.post("/stu-registration", JSON.stringify(values))
       .then((response) => {
-        console.log(response.data); // process the response data
-        // Optionally, you can reset the form fields after successful submission
-        setFormData({
-          student: "",
-          firstname: "",
-          middlename: "",
-          lastname: "",
-          age: "",
-          emai: "",
-          avatar: "",
-          birthplace: "",
-          blood_group: "",
-          caste: "",
-          city: "",
-          country: "",
-          gender: "",
-          height: "",
-          waight: "",
-          aadhar_number: "",
-          address_line1: "",
-          addmission_number: "",
-          date_of_admission: "",
-          date_of_birth: "",
-          app_token: "",
-          mode_of_transport: "",
-          mother_tongue: "",
-          nationality: "",
-          permenant_registration_number: "",
-          phone: "",
-          pincode: "",
-          religion: "",
-          school_house: "",
-          state: "",
-          grade_id: "",
-          user_id: "",
-          cast_category: "",
-          sub_cast: "",
-        });
-        fetchStudents(); // Fetch the updated list of students
+        console.log("response", response)
+        alert("Added successfully");
+        // _setOpenCallback("list");
       })
       .catch((error) => {
-        console.error(error); // handle any errors
-      });
+        console.log("Error", error)
+        alert("something wrong", error.message)
+      })
   };
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
+  const formik = useFormik({
+    initialValues: {
+      student:6,
+      aadhar_number: "",
+      firstname: "",
+      middlename: "",
+      lastname: "",
+      age: "",
+      email: "",
+      blood_group: "",
+      city: "",
+      country: "",
+      gender: "",
+      height: "",
+      weight: "",
+      address_line1: "",
+      date_of_admission: "",
+      date_of_birth: "",
+      phone: "",
+      pincode: "",
+      religion: "",
+      state: "",
+      grade_id: "",
+      user_id: "",
+      cast_category: "",
+      // avatar: "",
+      // birthplace: "",
+      // caste: "",
+      // addmission_number: "",
+      // app_token: "",
+      // mode_of_transport: "",
+      // mother_tongue: "",
+      // nationality: "",
+      // permenant_registration_number: "",
+      // school_house: "",
+      // sub_cast: "",
+      // Add other form field initial values here
+    },
+    onSubmit: handleSubmit,
+  });
 
   return (
     <div>
-      <div >
+      <div>
         <section className="container-fluid-leads-grid">
           <Card>
-            <Card.Header
-              style={{ backgroundColor: 'transparent' }}
-              className='border-0'>
+            <Card.Header style={{ backgroundColor: "transparent" }} className="border-0">
               <Row>
                 <Col>
-                  <Link
-                    className='float-end fs-5 text-danger'
-                    onClick={() => { _setOpenCallback("list") }}>
+                  <Link className="float-end fs-5 text-danger" onClick={() => { _setOpenCallback("list") }}>
                     <i className="fa fa-times" />
                   </Link>
                 </Col>
               </Row>
             </Card.Header>
             <Card.Body>
-              <Formik
-                initialValues={{
-                  student: "",
-                  firstname: "",
-                  middlename: "",
-                  lastname: "",
-                  age: "",
-                  emai: "",
-                  avatar: "",
-                  birthplace: "",
-                  blood_group: "",
-                  caste: "",
-                  city: "",
-                  country: "",
-                  gender: "",
-                  height: "",
-                  waight: "",
-                  aadhar_number: "",
-                  address_line1: "",
-                  addmission_number: "",
-                  date_of_admission: "",
-                  date_of_birth: "",
-                  app_token: "",
-                  mode_of_transport: "",
-                  mother_tongue: "",
-                  nationality: "",
-                  permenant_registration_number: "",
-                  phone: "",
-                  pincode: "",
-                  religion: "",
-                  school_house: "",
-                  state: "",
-                  grade_id: "",
-                  user_id: "",
-                  cast_category: "",
-                  sub_cast: "",
-                }}
-                onSubmit={(values, { setStatus, setSubmitting }) => {  
-                  values.state = selectedState;
-                  values.city = selectedCity;            
-                  console.log("Final values", values)
-                  // api.post("/teacher-registration", values)
-                  //   .then((response) => {
-                  //     console.log("response", response)
-                  //   })
-
-                }}
-              >
-                {({
-                  values,
-                  errors,
-                  touched,
-                  handleChange,
-                  handleBlur,
-                  handleSubmit,
-                  isSubmitting,
-                  setFieldValue,
-                  status
-                }) => (
-                  <>
-                     <Form onSubmit={handleSubmit}>
-                {/* Rest of the form fields */}
+              <Form onSubmit={formik.handleSubmit}>
                 <Row>
-                  <Col md={6}>
+                  {/* <Col md={6}>
                     <Form.Group>
                       <Form.Label>Student ID</Form.Label>
                       <Form.Control
-                        name="studentId"
+                        name="student"
                         placeholder="123456"
-                        value={formData.student}
-                        onChange={handleChange}
+                        value={formik.values.student}
+                        onChange={formik.handleChange}
                       />
                     </Form.Group>
-                  </Col>
+                  </Col> */}
                   <Col md={6}>
                     <Form.Group>
                       <Form.Label>Aadhar number</Form.Label>
                       <Form.Control
-                        name="aadharNumber"
+                        name="aadhar_number"
                         placeholder="1234 1234 1234"
-                        value={formData.aadhar_number}
-                        onChange={handleChange}
+                        value={formik.values.aadhar_number}
+                        onChange={formik.handleChange}
                       />
                     </Form.Group>
                   </Col>
@@ -230,10 +140,10 @@ export default function StudentForm({ _setOpenCallback }) {
                     <Form.Group>
                       <Form.Label>First Name</Form.Label>
                       <Form.Control
-                        name="firstName"
+                        name="firstname"
                         placeholder="ex. ramesh"
-                        value={values.firstname}
-                        onChange={handleChange}
+                        value={formik.values.firstname}
+                        onChange={formik.handleChange}
                       />
                     </Form.Group>
                   </Col>
@@ -241,10 +151,10 @@ export default function StudentForm({ _setOpenCallback }) {
                     <Form.Group>
                       <Form.Label>Middle Name</Form.Label>
                       <Form.Control
-                        name="middleName"
+                        name="middlename"
                         placeholder="ex. ganesh"
-                        value={values.middlename}
-                        onChange={handleChange}
+                        value={formik.values.middlename}
+                        onChange={formik.handleChange}
                       />
                     </Form.Group>
                   </Col>
@@ -252,10 +162,10 @@ export default function StudentForm({ _setOpenCallback }) {
                     <Form.Group>
                       <Form.Label>Last Name</Form.Label>
                       <Form.Control
-                        name="lastName"
+                        name="lastname"
                         placeholder="ex. deshmuk"
-                        value={values.lastname}
-                        onChange={handleChange}
+                        value={formik.values.lastname}
+                        onChange={formik.handleChange}
                       />
                     </Form.Group>
                   </Col>
@@ -265,10 +175,10 @@ export default function StudentForm({ _setOpenCallback }) {
                     <Form.Group>
                       <Form.Label>Email ID</Form.Label>
                       <Form.Control
-                        name="emailId"
+                        name="email"
                         placeholder="name@example.com"
-                        value={values.emai}
-                        onChange={handleChange}
+                        value={formik.values.email}
+                        onChange={formik.handleChange}
                       />
                     </Form.Group>
                   </Col>
@@ -278,10 +188,10 @@ export default function StudentForm({ _setOpenCallback }) {
                       <InputGroup className="mb-3">
                         <InputGroup.Text id="basic-addon1">+91</InputGroup.Text>
                         <Form.Control
-                          name="phoneNumber"
+                          name="phone"
                           placeholder="9421458711"
-                          value={values.phone}
-                          onChange={handleChange}
+                          value={formik.values.phone}
+                          onChange={formik.handleChange}
                         />
                       </InputGroup>
                     </Form.Group>
@@ -293,10 +203,10 @@ export default function StudentForm({ _setOpenCallback }) {
                       <Form.Label>Address</Form.Label>
                       <Form.Control
                         as="textarea"
-                        name="address"
+                        name="address_line1"
                         placeholder="Address"
-                        value={values.address_line1}
-                        onChange={handleChange}
+                        value={formik.values.address_line1}
+                        onChange={formik.handleChange}
                       />
                     </Form.Group>
                   </Col>
@@ -306,8 +216,8 @@ export default function StudentForm({ _setOpenCallback }) {
                       <Form.Control
                         name="country"
                         placeholder="Country"
-                        value={values.country}
-                        onChange={handleChange}
+                        value={formik.values.country}
+                        onChange={formik.handleChange}
                       />
                     </Form.Group>
                   </Col>
@@ -318,10 +228,11 @@ export default function StudentForm({ _setOpenCallback }) {
                       <Form.Label>State</Form.Label>
                       <Form.Select
                         className="mb-2"
-                        value={selectedState}
-                        onChange={(e) => setSelectedState(e.target.value)}
+                        value={formik.values.state}
+                        onChange={(e) => StateValueChange(e)}
                         placeholder="Select state"
                       >
+                        <option value=''>Select State</option>
                         {states.map((state, index) => (
                           <option key={index} value={index}>
                             {state.name}
@@ -335,8 +246,8 @@ export default function StudentForm({ _setOpenCallback }) {
                       <Form.Label>City</Form.Label>
                       <Form.Select
                         className="mb-2"
-                        value={selectedCity}
-                        onChange={(e) => setSelectedCity(e.target.value)}
+                        value={formik.values.city}
+                        onChange={(e) => CityValueChange(e)}
                         placeholder="City"
                       >
                         {selectedState !== "" &&
@@ -354,10 +265,10 @@ export default function StudentForm({ _setOpenCallback }) {
                     <Form.Group>
                       <Form.Label>Pincode</Form.Label>
                       <Form.Control
-                        name="pinCode"
+                        name="pincode"
                         placeholder="413001"
-                        value={values.pincode}
-                        onChange={handleChange}
+                        value={formik.values.pincode}
+                        onChange={formik.handleChange}
                       />
                     </Form.Group>
                   </Col>
@@ -366,9 +277,9 @@ export default function StudentForm({ _setOpenCallback }) {
                       <Form.Label>Date of Birth</Form.Label>
                       <Form.Control
                         type="date"
-                        name="dateOfBirth"
-                        value={values.date_of_birth}
-                        onChange={handleChange}
+                        name="date_of_birth"
+                        value={formik.values.date_of_birth}
+                        onChange={formik.handleChange}
                       />
                     </Form.Group>
                   </Col>
@@ -379,8 +290,8 @@ export default function StudentForm({ _setOpenCallback }) {
                       <Form.Label>Gender</Form.Label>
                       <Form.Select
                         name="gender"
-                        value={values.gender}
-                        onChange={handleChange}
+                        value={formik.values.gender}
+                        onChange={formik.handleChange}
                       >
                         <option value="male">Male</option>
                         <option value="female">Female</option>
@@ -393,9 +304,9 @@ export default function StudentForm({ _setOpenCallback }) {
                       <Form.Label>Admission Date</Form.Label>
                       <Form.Control
                         type="date"
-                        name="admissionDate"
-                        value={values.date_of_admission}
-                        onChange={handleChange}
+                        name="date_of_admission"
+                        value={formik.values.date_of_admission}
+                        onChange={formik.handleChange}
                       />
                     </Form.Group>
                   </Col>
@@ -408,8 +319,8 @@ export default function StudentForm({ _setOpenCallback }) {
                         type="number"
                         name="age"
                         placeholder="Age"
-                        value={values.age}
-                        onChange={handleChange}
+                        value={formik.values.age}
+                        onChange={formik.handleChange}
                       />
                     </Form.Group>
                   </Col>
@@ -420,8 +331,8 @@ export default function StudentForm({ _setOpenCallback }) {
                         type="text"
                         name="height"
                         placeholder="6ft4in"
-                        value={values.height}
-                        onChange={handleChange}
+                        value={formik.values.height}
+                        onChange={formik.handleChange}
                       />
                     </Form.Group>
                   </Col>
@@ -434,8 +345,8 @@ export default function StudentForm({ _setOpenCallback }) {
                         type="text"
                         name="weight"
                         placeholder="weight ex=50 kg"
-                        value={values.waight}
-                        onChange={handleChange}
+                        value={formik.values.weight}
+                        onChange={formik.handleChange}
                       />
                     </Form.Group>
                   </Col>
@@ -443,9 +354,9 @@ export default function StudentForm({ _setOpenCallback }) {
                     <FormGroup>
                       <Form.Label>Blood Group</Form.Label>
                       <Form.Select
-                        name="bloodGroup"
-                        value={values.blood_group}
-                        onChange={handleChange}
+                        name="blood_group"
+                        value={formik.values.blood_group}
+                        onChange={formik.handleChange}
                       >
                         {bloodGroups.map((bgrup) => (
                           <option key={bgrup}>{bgrup}</option>
@@ -459,10 +370,11 @@ export default function StudentForm({ _setOpenCallback }) {
                     <Form.Group>
                       <Form.Label>Graid ID</Form.Label>
                       <Form.Control
-                        name="graidId"
+                        name="grade_id"
+                        type="number"
                         placeholder="graid ID ex-123456"
-                        value={values.graidId}
-                        onChange={handleChange}
+                        value={formik.values.grade_id}
+                        onChange={formik.handleChange}
                       />
                     </Form.Group>
                   </Col>
@@ -470,10 +382,11 @@ export default function StudentForm({ _setOpenCallback }) {
                     <Form.Group>
                       <Form.Label>User ID</Form.Label>
                       <Form.Control
-                        name="userId"
+                        name="user_id"
+                        type="number"
                         placeholder="user ID ex-123456"
-                        value={values.userId}
-                        onChange={handleChange}
+                        value={formik.values.user_id}
+                        onChange={formik.handleChange}
                       />
                     </Form.Group>
                   </Col>
@@ -483,10 +396,10 @@ export default function StudentForm({ _setOpenCallback }) {
                     <Form.Group>
                       <Form.Label>Category</Form.Label>
                       <Form.Control
-                        name="category"
-                        placeholder="category"
-                        value={values.category}
-                        onChange={handleChange}
+                        name="cast_category"
+                        placeholder="cast_category"
+                        value={formik.values.cast_category}
+                        onChange={formik.handleChange}
                       />
                     </Form.Group>
                   </Col>
@@ -496,44 +409,44 @@ export default function StudentForm({ _setOpenCallback }) {
                       <Form.Control
                         name="religion"
                         placeholder="religion"
-                        value={values.religion}
-                        onChange={handleChange}
+                        value={formik.values.religion}
+                        onChange={formik.handleChange}
                       />
                     </Form.Group>
                   </Col>
                 </Row>
-                <Row>
+                {/* <Row>
                   <Col md={6}>
                     <Form.Group>
                       <Form.Label>Guardian's Name</Form.Label>
                       <Form.Control
                         name="guardianName"
                         placeholder="guardian name"
-                        value={values.guardianName}
-                        onChange={handleChange}
+                        value={formik.values.guardianName}
+                        onChange={formik.handleChange}
                       />
                     </Form.Group>
                   </Col>
                   <Col md={6}>
                     <Form.Group>
                       <Form.Label>Guardian's Phone Number</Form.Label>
-                      <InputGroup className="mb-3">
+                      <InputGroup className="mb-3">=
                         <InputGroup.Text id="basic-addon1">+91</InputGroup.Text>
                         <Form.Control
                           name="guardianPhoneNumber"
                           placeholder="9421458711"
-                          value={values.guardianPhoneNumber}
-                          onChange={handleChange}
+                          value={formik.values.guardianPhoneNumber}
+                          onChange={formik.handleChange}
                         />
                       </InputGroup>
                     </Form.Group>
                   </Col>
-                </Row>
+                </Row> */}
                 <Row>
                   <Col md={10}>
                     <div className="d-flex gap-2 justify-content-center mt-3">
                       <Button variant="primary" size="lg" type="submit">
-                        Next
+                        Submit
                       </Button>
                       <Button variant="primary" size="lg" onClick={fetchStudents}>
                         Reset
@@ -541,20 +454,13 @@ export default function StudentForm({ _setOpenCallback }) {
                     </div>
                   </Col>
                 </Row>
+                {/* Add other form fields here */}
+                {/* <Button type="submit">Submit</Button> */}
               </Form>
-
-                  </>)}
-                  </Formik>
-           
             </Card.Body>
           </Card>
-
-
-
         </section>
       </div>
-
-
     </div>
   );
 }
