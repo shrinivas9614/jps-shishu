@@ -7,6 +7,7 @@ import "./App.css";
 import { Teacher } from "./componants/Admin/teacher";
 import { Student } from "./componants/Admin/student";
 import { AdminDashboard } from "./componants/Admin/admindashbaord";
+import Grade from "./componants/Admin/Grade";
 function App() {
     return (
         <div className="App">
@@ -21,7 +22,7 @@ function App() {
                     element={<Teacher/>}></Route>
                     <Route 
                     path="/grade" 
-                    element={<GradeForm/>}></Route>
+                    element={<Grade/>}></Route>
                     <Route 
                     path="/student" 
                     element={<Student/>}></Route>

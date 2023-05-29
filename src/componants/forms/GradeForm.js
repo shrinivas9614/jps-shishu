@@ -12,7 +12,7 @@ import Adminsidebar from "../Admin/adminSidebard";
 export default function GradeForm() {
   return (
     <div>
-      <Adminsidebar/>
+      
       <h2 className=""> Grade Form </h2>
       <div className="content-wrapper-client-lead" style={{ minHeight: " 1043px" }}>
         <section className="container-fluid-leads-grid">
