@@ -10,60 +10,13 @@ import {
   FormLabel,
   Row,
 } from "react-bootstrap";
-import api from "./APIS"
-import { useFormik } from "formik";
 
-// import Adminsidebar from "../Admin/adminSidebard";
-export default function GradeForm({ _setOpenCallback }) {
-  const [grade, setGrade] = useState([]);
-
-
-  const fetchGrades = () => {
-    api
-      .get("/grade-list")
-      .then((response) => {
-        console.log(response.data);
-        setGrade(response.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  };
-
-  const handleSubmit = (values) => {
-   
-    // Handle the submission logic here (e.g., update state, make API calls)
-    api.post("/grade-list", JSON.stringify(values))
-      .then((response) => {
-        console.log("response", response)
-        alert("Added successfully");
-        // _setOpenCallback("list");
-      })
-      .catch((error) => {
-        console.log("Error", error)
-        alert("something wrong", error.message)
-      })
-  };
-
-
-  const formik = useFormik({
-    initialValues: {
-
-      grade_id:6,
-      grade_code:"",
-      created_date:"",
-      updated_date:"",
-      created_by:"",
-      uodated_by:"",
-      name:""
-    },
-    onSubmit: handleSubmit
-
-  })
-
+export default function GradeForm() {
   return (
     <div>
-      <div>
+      
+      <h2 className=""> Grade Form </h2>
+      <div className="content-wrapper-client-lead" style={{ minHeight: " 1043px" }}>
         <section className="container-fluid-leads-grid">
           <Card>
 

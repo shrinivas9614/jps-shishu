@@ -1,6 +1,5 @@
 import React from "react";
 import { sidebarIcons } from "./sidebardata";
-// import { Nav } from "react-bootstrap";
 import "./sideBar.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { PersnolInfo, GradeForm, TeacherForm } from "./index";
