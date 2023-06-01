@@ -17,7 +17,7 @@ export const Student = () => {
         switch (show) {
             case "add": return <StudentForm {...{ _setOpenCallback }}/>;
             case "list": return <StudentList {...{ _setOpenCallback, setId }} />;
-            case "studentInfo":return <ViewStudentInfo{...{Id,_setOpenCallback}}/>
+            // case "studentInfo":return <ViewStudentInfo{...{Id,_setOpenCallback}}/>
         }
     }
   return (

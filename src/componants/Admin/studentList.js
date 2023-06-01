@@ -7,7 +7,7 @@ export const StudentList = ({_setOpenCallback, setId}) => {
     const [student, setStudent] = useState([])
     const getStudentList = () => {
         api
-            .get("/student-list")
+            .get("/student-list ")
             .then((response) => {
                 console.log(response.data); // process the response data
                 setStudent(response.data); // update the state with the fetched data

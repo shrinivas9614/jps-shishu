@@ -53,7 +53,7 @@ export default function StudentForm({ _setOpenCallback }) {
 
   const fetchStudents = () => {
     api
-      .get("/")
+      .get("/student-registration ")
       .then((response) => {
         console.log(response.data); // process the response data
         setStudents(response.data); // update the state with the fetched data

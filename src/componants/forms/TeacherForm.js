@@ -13,19 +13,21 @@ import {
 } from "react-bootstrap";
 import { states } from "../utils/Utils";
 import { Formik } from "formik";
-import api from '../forms/APIS'
+import api from "../forms/APIS";
 import { Link } from "react-router-dom";
 import * as Yup from "yup";
 
 const schema = Yup.object().shape({
-  email: Yup.string().email('Invalid email').required('Email is required'),
+  email: Yup.string().email("Invalid email").required("Email is required"),
   firstname: Yup.string().required(),
   lastname: Yup.string().required(),
   phone: Yup.string()
-    .matches(/^[0-9]{10}$/, 'Invalid phone number')
-    .required('Phone number is required'),
-  aadhar_number: Yup.string()
-    .matches(/^[2-9]{1}[0-9]{11}$/, 'Invalid Aadhaar number'),
+    .matches(/^[0-9]{10}$/, "Invalid phone number")
+    .required("Phone number is required"),
+  aadhar_number: Yup.string().matches(
+    /^[2-9]{1}[0-9]{11}$/,
+    "Invalid Aadhaar number"
+  ),
 });
 
 function TeacherForm({ _setOpenCallback }) {
@@ -39,13 +41,17 @@ function TeacherForm({ _setOpenCallback }) {
     <>
       <Card>
         <Card.Header
-          style={{ backgroundColor: 'transparent' }}
-          className='border-0'>
+          style={{ backgroundColor: "transparent" }}
+          className="border-0"
+        >
           <Row>
             <Col>
               <Link
-                className='float-end fs-5 text-danger'
-                onClick={() => { _setOpenCallback("list") }}>
+                className="float-end fs-5 text-danger"
+                onClick={() => {
+                  _setOpenCallback("list");
+                }}
+              >
                 <i className="fa fa-times" />
               </Link>
             </Col>
@@ -54,46 +60,47 @@ function TeacherForm({ _setOpenCallback }) {
         <Card.Body>
           <Formik
             initialValues={{
-              aadhar_number: '',
-              address_line_1: '',
-              city: '',
-              country: '',
+              aadhar_number: "",
+              address_line_1: "",
+              city: "",
+              country: "",
               date_of_birth: new Date(),
               date_of_joining: new Date(),
-              email: '',
-              employee_id: '',
-              designation: '',
-              father_name: '',
-              firstname: '',
-              gender: '',
-              height: '',
-              lastname: '',
-              marital_status: '',
-              middlename: '',
-              mobile: '',
-              pan_number: '',
-              phone: '',
-              pincode: '',
-              spause_name: '',
-              state: '',
-              weight: '',
+              email: "",
+              employee_id: "",
+              designation: "",
+              father_name: "",
+              firstname: "",
+              gender: "",
+              height: "",
+              lastname: "",
+              marital_status: "",
+              middlename: "",
+              mobile: "",
+              pan_number: "",
+              phone: "",
+              pincode: "",
+              spause_name: "",
+              state: "",
+              weight: "",
             }}
             validationSchema={schema}
-            onSubmit={(values, { setStatus, setSubmitting }) => {            
-              values.state=selectedState?selectedState:''
-              values.city=selectedCity?selectedCity:''
-              api.post("/teacher-registration", values)
+            onSubmit={(values, { setStatus, setSubmitting }) => {
+              values.state = selectedState ? selectedState : "";
+              values.city = selectedCity ? selectedCity : "";
+              api
+                .post("/teacher-registration", values)
                 .then((response) => {
-                  console.log("response", response)
+                  console.log("response", response);
                   alert("Added successfully");
                   _setOpenCallback("list");
-                  
                 })
-                .catch((error)=>{
-                  console.log("Error",error)
-                  alert("Mobile number or email already present please try another email or mobile number")
-                })
-
+                .catch((error) => {
+                  console.log("Error", error);
+                  alert(
+                    "Mobile number or email already present please try another email or mobile number"
+                  );
+                });
             }}
           >
             {({
@@ -105,7 +112,7 @@ function TeacherForm({ _setOpenCallback }) {
               handleSubmit,
               isSubmitting,
               setFieldValue,
-              status
+              status,
             }) => (
               <>
                 <Form onSubmit={handleSubmit}>
@@ -132,7 +139,8 @@ function TeacherForm({ _setOpenCallback }) {
                           value={values.aadhar_number}
                           onChange={handleChange}
                           isInvalid={!!errors.aadhar_number}
-                          placeholder="1234 1234 1234" />
+                          placeholder="1234 1234 1234"
+                        />
                       </Form.Group>
                     </Col>
                   </Row>
@@ -213,18 +221,21 @@ function TeacherForm({ _setOpenCallback }) {
                           onChange={handleChange}
                           placeholder="name@example.com"
                           isInvalid={!!errors.email}
-                          />
-                          <Form.Control.Feedback type="invalid">
-                            {errors.email}
-                          </Form.Control.Feedback>
+                        />
+                        <Form.Control.Feedback type="invalid">
+                          {errors.email}
+                        </Form.Control.Feedback>
                       </Form.Group>
                     </Col>
                     <Col md={6}>
                       <Form.Group>
                         <Form.Label> phone number </Form.Label>
                         <InputGroup className="mb-3">
-                          <InputGroup.Text id="basic-addon1">+91</InputGroup.Text>
-                          <Form.Control placeholder="9421458711"
+                          <InputGroup.Text id="basic-addon1">
+                            +91
+                          </InputGroup.Text>
+                          <Form.Control
+                            placeholder="9421458711"
                             name="phone"
                             value={values.phone}
                             onChange={handleChange}
@@ -270,12 +281,13 @@ function TeacherForm({ _setOpenCallback }) {
                           className="mb-2"
                           value={selectedState}
                           onChange={(e) => {
-                            setSelectedState(e.target.value)
-                          }
-                          }
+                            setSelectedState(e.target.value);
+                          }}
                           placeholder="Select state"
                         >
-                          <option value selected hidden>select state</option>
+                          <option value selected hidden>
+                            select state
+                          </option>
                           {states.map((state, index) => (
                             <option key={index} value={index}>
                               {state.name}
@@ -294,7 +306,9 @@ function TeacherForm({ _setOpenCallback }) {
                           onChange={(e) => setSelectedCity(e.target.value)}
                           placeholder="City"
                         >
-                          <option value selected hidden>select city</option>
+                          <option value selected hidden>
+                            select city
+                          </option>
                           {selectedState !== "" &&
                             states[selectedState].cities.map((city, index) => (
                               <option key={index} value={index}>
@@ -345,7 +359,8 @@ function TeacherForm({ _setOpenCallback }) {
                     <Col md={6}>
                       <Form.Group>
                         <Form.Label>Date of Joining</Form.Label>
-                        <Form.Control type="date"
+                        <Form.Control
+                          type="date"
                           name="date_of_joining"
                           value={values.date_of_joining}
                           onChange={handleChange}
@@ -381,7 +396,8 @@ function TeacherForm({ _setOpenCallback }) {
                     <Col md={6}>
                       <Form.Group>
                         <Form.Label>Height</Form.Label>
-                        <Form.Control type="text"
+                        <Form.Control
+                          type="text"
                           placeholder="6ft4in"
                           name="height"
                           value={values.height}
@@ -420,9 +436,7 @@ function TeacherForm({ _setOpenCallback }) {
                   <Row className="mb-2">
                     <Col md={10}>
                       <div className="d-flex gap-2 justify-content-center mt-3 ">
-                        <Button
-                          type="submit"
-                          variant="primary" size="lg">
+                        <Button type="submit" variant="primary" size="lg">
                           {" "}
                           Submit{" "}
                         </Button>
@@ -440,7 +454,6 @@ function TeacherForm({ _setOpenCallback }) {
         </Card.Body>
       </Card>
     </>
-   
   );
 }
 

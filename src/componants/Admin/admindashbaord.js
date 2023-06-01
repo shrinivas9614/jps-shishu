@@ -6,8 +6,9 @@ import api from '../forms/APIS'
 export const AdminDashboard = () => {
   const [countStudent, setCountStudent] = useState();
   const [countTeacher, setCountTeacher] = useState();
+  const [countGrade, setCountGrade] = useState();
   const getStudent = () => {
-    api.get("/stu-registration")
+    api.get("/student-registration")
       .then((response) => {
         setCountStudent(response.data.length)
       })
@@ -20,9 +21,18 @@ export const AdminDashboard = () => {
       })
   }
 
+  const getGrade = () => {
+    api.get("grade-api")
+      .then((response) => {
+        setCountGrade(response.data.length)
+      })
+  }
+
+
   useEffect(() => {
     getStudent();
     getTeacher();
+    getGrade();
   }, [])
 
   return (
@@ -54,14 +64,14 @@ export const AdminDashboard = () => {
                   <Card className='bg-success' >
                     <Card.Body>
                       <a href="/grade" className='text-white fw-bold fs-4'>Grade</a>
-                      <p className='fs-3 text-white'>0</p>
+                      <p className='fs-3 text-white'> {countGrade} </p>
                     </Card.Body>
                   </Card>
                 </Col>
                 <Col lg={3} >
                   <Card className='bg-info'>
                     <Card.Body>
-                      <a href="" className='text-white fw-bold fs-4'>
+                      <a href="/assesment" className='text-white fw-bold fs-4'>
                         Assements
                       </a>
                       <p className='fs-3 text-white'>0</p>

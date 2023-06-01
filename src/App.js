@@ -8,6 +8,7 @@ import { Teacher } from "./componants/Admin/teacher";
 import { Student } from "./componants/Admin/student";
 import { AdminDashboard } from "./componants/Admin/admindashbaord";
 import Grade from "./componants/Admin/Grade";
+import Assesment from "./componants/Admin/Assesment";
 function App() {
     return (
         <div className="App">
@@ -26,6 +27,11 @@ function App() {
                     <Route 
                     path="/student" 
                     element={<Student/>}></Route>
+                    
+                    <Route 
+                    path="/assesment" 
+                    element={<Assesment/>}></Route>
+
                     <Route
                     path="/admin-dashboard"
                     element={<AdminDashboard/>}
