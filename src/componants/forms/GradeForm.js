@@ -20,7 +20,7 @@ const schema = Yup.object().shape({
   grade_code: Yup.string().required(),
 });
 
-const GradeForm = (_setOpenCallback) => {
+const GradeForm = ({_setOpenCallback}) => {
   return (
     <div>
       <div style={{ minHeight: " 1043px" }}>
@@ -34,9 +34,9 @@ const GradeForm = (_setOpenCallback) => {
                 <Col>
                   <Link
                     className="float-end fs-2 text-danger"
-                    onClick={() => {
-                      _setOpenCallback("list");
-                    }}
+                    onClick={()=>
+                    _setOpenCallback("list")
+                    }
                   >
                     <i className="fa fa-times" />
                   </Link>

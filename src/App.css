@@ -211,3 +211,8 @@ a:hover {
     text-decoration: none;
     outline: 50;    
 }
+
+img ,svg{
+    color: white;
+    font-size: 20px;
+}
