@@ -4,7 +4,7 @@ import QuestionForm from '../componants/forms/QuestionForm'
 import { MCQQuestioType, MCQQuestioTypen } from '../componants/Admin/mcqquestion'
 
 export const QuestionConatiner = () => {
-    const [show, setShow] = useState("assement")
+    const [show, setShow] = useState("mcq")
     const _setOpenCallback = useCallback(
         (show) => {
             setShow(show)

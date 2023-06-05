@@ -1,14 +1,14 @@
 import { Card, Col, Row, Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-const AdminAssesmentView = ({ _setOpenCallback }) => {
+const AssesmentQuestionList = ({ _setOpenCallback }) => {
   return (
     <Card>
       <Card.Header
         style={{ backgroundColor: "transparent" }}
         className="border-0"
       >
-        <Row>
+        {/* <Row>
           <Col>
             <Link
               className="float-end fs-5"
@@ -17,20 +17,19 @@ const AdminAssesmentView = ({ _setOpenCallback }) => {
               Add
             </Link>
           </Col>
-        </Row>
+        </Row> */}
       </Card.Header>
       <Card.Body>
         <Table striped bordered hover className="text-center">
           <thead>
             <tr>
               <th></th>
-              <th>Date of asssement</th>
-              <th>Assesment name</th>
+              <th>Date</th>
               <th>Class</th>
-              <th>Subject of assesment</th>
-              <th>Question type</th>
-              <th>Teacher name</th>
-              <th>Total marks</th>
+              <th>Subject</th>
+              <th>Topic</th>
+              <th>Question</th>
+              <th>Answer</th>
             </tr>
           </thead>
         </Table>
@@ -39,4 +38,4 @@ const AdminAssesmentView = ({ _setOpenCallback }) => {
   );
 };
 
-export default AdminAssesmentView;
+export default AssesmentQuestionList;

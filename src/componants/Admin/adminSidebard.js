@@ -47,6 +47,16 @@ function Adminsidebar() {
                 </a>
               </li>
               <li>
+                <a href="/grade">
+                  <FaBookOpen /> Subject
+                </a>
+              </li>
+              <li>
+                <a href="/grade">
+                  <FaBookOpen /> Chapter
+                </a>
+              </li>
+              <li>
                 <a href="assesment">
                   <AiFillQuestionCircle /> Assessment
                 </a>
