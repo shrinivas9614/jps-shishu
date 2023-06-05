@@ -8,6 +8,8 @@ import { Teacher } from "./componants/Admin/teacher";
 import { Student } from "./componants/Admin/student";
 import { AdminDashboard } from "./componants/Admin/admindashbaord";
 import Grade from "./componants/Admin/Grade";
+import Report from "./componants/Admin/Report";
+
 import Assesment from "./componants/Admin/Assesment";
 import { AssessmentContainer } from "./container/assessmentContainer";
 function App() {
@@ -21,6 +23,7 @@ function App() {
           <Route path="/student" element={<Student />}></Route>
 
           <Route path="/assesment" element={<AssessmentContainer />}></Route>
+          <Route path="/report" element={<Report />}></Route>
 
           <Route path="/admin-dashboard" element={<AdminDashboard />}></Route>
         </Routes>

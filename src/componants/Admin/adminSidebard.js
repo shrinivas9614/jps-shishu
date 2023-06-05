@@ -57,12 +57,12 @@ function Adminsidebar() {
                 </a>
               </li>
               <li>
-                <a href="assesment">
+                <a href="/assesment">
                   <AiFillQuestionCircle /> Assessment
                 </a>
               </li>
               <li>
-                <a href="report">
+                <a href="/report">
                   <TbReportSearch /> Report
                 </a>
               </li>
