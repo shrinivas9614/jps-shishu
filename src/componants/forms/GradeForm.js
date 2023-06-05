@@ -1,5 +1,5 @@
 import React from "react";
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
 import {
   Button,
@@ -50,17 +50,19 @@ const GradeForm = (_setOpenCallback) => {
                   name: "",
                 }}
                 validationSchema={schema}
-                onSubmit={(values, { setStatus, setSubmitting, _setOpenCallback  }) => {
+                onSubmit={(
+                  values,
+                  { setStatus, setSubmitting, _setOpenCallback }
+                ) => {
                   api
                     .post("/grade-api", values)
                     .then((res) => {
                       console.log("response", res);
                       Swal.fire({
-                        icon: 'success',
-                        title: 'Success!',
-                        text: 'File submitted successfully!',
-                      }).then(() => {
-                      });
+                        icon: "success",
+                        title: "Success!",
+                        text: "File submitted successfully!",
+                      }).then(() => {});
                     })
                     .catch((error) => {
                       console.log("error", error);

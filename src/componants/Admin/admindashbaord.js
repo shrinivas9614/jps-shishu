@@ -41,7 +41,7 @@ export const AdminDashboard = () => {
       <div className="content-wrapper-client-lead" >
         <Card>
           <Card.Body style={{ minHeight: " 1043px" }}>
-            <h2>Hi Admin,</h2>
+            <h2 className="text-center">Admin</h2>
             <div className='mt-4'>
               <Row>
                 <Col lg={3}>
