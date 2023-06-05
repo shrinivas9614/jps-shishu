@@ -1,0 +1,42 @@
+import { Card, Col, Row, Table } from "react-bootstrap";
+import { Link } from "react-router-dom";
+
+const AdminAssesmentView = ({ _setOpenCallback }) => {
+  return (
+    <Card>
+      <Card.Header
+        style={{ backgroundColor: "transparent" }}
+        className="border-0"
+      >
+        <Row>
+          <Col>
+            <Link
+              className="float-end fs-5"
+              onClick={() => _setOpenCallback("add")}
+            >
+              Add
+            </Link>
+          </Col>
+        </Row>
+      </Card.Header>
+      <Card.Body>
+        <Table striped bordered hover className="text-center">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>date of Asssement</th>
+              <th>assesmint name</th>
+              <th>class</th>
+              <th>subject of the asssment</th>
+              <th>Question type</th>
+              <th>teacher name</th>
+              <th>total marks</th>
+            </tr>
+          </thead>
+        </Table>
+      </Card.Body>
+    </Card>
+  );
+};
+
+export default AdminAssesmentView;

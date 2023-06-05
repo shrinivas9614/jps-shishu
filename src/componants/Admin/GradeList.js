@@ -6,25 +6,28 @@ import Swal from 'sweetalert2';
 
 export const GradeList = ({ _setOpenCallback, setId }) => {
   const [grade, setGrade] = useState([]);
+
   const get = () => {
     api
-      .get("/grade-api ")
+      .get("/grade-api")
       .then((response) => {
-        console.log(response.data); // process the response data
-        setGrade(response.data); // update the state with the fetched data
+        console.log(response.data);
+        setGrade(response.data);
       })
       .catch((error) => {
-        console.error(error); // handle any errors
+        console.error(error);
       });
   };
+
   const deleteGrade = (grade_id) => {
     Swal.fire({
       title: 'Are you sure?',
-      text: 'This action cannot be undone.',
+      text: "You won't be able to revert this!",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonText: 'Yes, delete it!',
-      cancelButtonText: 'Cancel',
+      cancelButtonText: 'No, cancel!',
+      reverseButtons: true
     }).then((result) => {
       if (result.isConfirmed) {
         api
@@ -46,7 +49,6 @@ export const GradeList = ({ _setOpenCallback, setId }) => {
       }
     });
   };
-  
 
   useEffect(() => {
     get();
@@ -70,20 +72,21 @@ export const GradeList = ({ _setOpenCallback, setId }) => {
         </Row>
       </Card.Header>
       <Card.Body>
-        <Table striped bordered hover className="text-center">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>grade code</th>
-              <th>name</th>
-              <th>created date</th>
-            </tr>
-          </thead>
-          <tbody>
-            {grade.length > 0 &&
-              grade.map((tea, index) => (
-                <>
-                  <tr>
+        <div className="table-responsive">
+          <Table striped bordered hover className="text-center">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Grade Code</th>
+                <th>Name</th>
+                <th>Created Date</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {grade.length > 0 &&
+                grade.map((tea, index) => (
+                  <tr key={tea.grade_id}>
                     <td>{index + 1}</td>
                     <td>{tea.grade_code}</td>
                     <td>{tea.name}</td>
@@ -98,10 +101,10 @@ export const GradeList = ({ _setOpenCallback, setId }) => {
                       </Button>
                     </td>
                   </tr>
-                </>
-              ))}
-          </tbody>
-        </Table>
+                ))}
+            </tbody>
+          </Table>
+        </div>
       </Card.Body>
     </Card>
   );
