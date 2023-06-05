@@ -9,10 +9,10 @@ import {
   FormLabel,
   Row,
 } from "react-bootstrap";
-function QuestionForm() {
+function MCQQuestionForm() {
   return (
     <div>
-      <h2 className="d-flex justify-content-center ">Question Form</h2>
+      {/* <h2 className="d-flex justify-content-center ">Question Form</h2> */}
       <Form>
         <Row className="mb-2">
           <Col md={6}>
@@ -171,4 +171,4 @@ function QuestionForm() {
   );
 }
 
-export default QuestionForm;
+export default MCQQuestionForm;

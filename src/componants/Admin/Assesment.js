@@ -21,15 +21,15 @@ import AdminAssesmentView from './AdminAssesmintView';
   }
   return (
     <>
-    <Adminsidebar />
-    <div className="content-wrapper-client-lead" style={{ minHeight: " 1043px" }}>
+    {/* <Adminsidebar /> */}
+   
         <Card style={{ minHeight: '1043px' }}>
             <Card.Body>
                 <h4 className='text-center'>Assesment</h4> 
             {shows()}
             </Card.Body>
         </Card>
-    </div>
+    
 </>
   )
 }
