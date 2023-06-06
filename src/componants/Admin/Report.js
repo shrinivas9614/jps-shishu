@@ -1,11 +1,9 @@
-import React, { useState, useCallback } from "react";
+import { useState, useCallback } from "react";
 import Adminsidebar from "./adminSidebard";
-import StudentForm from "../forms/studentForm";
-import { StudentList } from "./studentList";
 import { Card } from "react-bootstrap";
-import { ViewStudentInfo } from "./ViewStudentInfo";
-
-export const Student = () => {
+import GradeForm from "../forms/GradeForm";
+import GradeList from "./GradeList";
+export default function AdminGradeTable() {
   const [show, setShow] = useState("list");
   const [Id, setId] = useState();
   const _setOpenCallback = useCallback((show) => {
@@ -14,11 +12,10 @@ export const Student = () => {
   const shows = () => {
     switch (show) {
       case "add":
-        return <StudentForm {...{ _setOpenCallback }} />;
+        return <GradeForm {...{ _setOpenCallback }} />;
       case "list":
-        return <StudentList {...{ _setOpenCallback, setId }} />;
-      case "studentInfo":
-        return <ViewStudentInfo {...{ Id, _setOpenCallback }} />;
+        return <GradeList {...{ _setOpenCallback, setId }} />;
+      // case "teacherInfo":return <ViewTeacherInfo{...{Id,_setOpenCallback}}/>
       default:
     }
   };
@@ -31,11 +28,11 @@ export const Student = () => {
       >
         <Card style={{ minHeight: "1043px" }}>
           <Card.Body>
-            <h4 className="text-center">Student</h4>
+            <h4 className="text-center">Report</h4>
             {shows()}
           </Card.Body>
         </Card>
       </div>
     </>
   );
-};
+}

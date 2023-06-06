@@ -7,6 +7,11 @@ import * as RxIcons from "react-icons/rx";
 import * as MdIcons from "react-icons/md";
 import * as TbIcons from "react-icons/tb";
 import * as BsIcons from "react-icons/bs";
+import { MdDashboard } from "react-icons/md";
+import { RxAvatar } from "react-icons/rx";
+import { FaChalkboardTeacher, FaBookOpen } from "react-icons/fa";
+import { AiFillQuestionCircle, AiOutlineLogout } from "react-icons/ai";
+import { TbReportSearch } from "react-icons/tb";
 
 function Adminsidebar() {
   return (
@@ -79,6 +84,52 @@ function Adminsidebar() {
                 </a>
               </li>
               {/*  <? php}?> */}
+            <ul className="sidebar-menu active menu-open tree">
+              <li>
+                <a href="/admin-dashboard">
+                  <MdDashboard /> Dashboard
+                </a>
+              </li>
+              <li>
+                <a href="/student">
+                  <RxAvatar /> Student
+                </a>
+              </li>
+              <li>
+                <a href="/teacher">
+                  <FaChalkboardTeacher /> Teacher
+                </a>
+              </li>
+              <li>
+                <a href="/grade">
+                  <FaBookOpen /> Grade
+                </a>
+              </li>
+              <li>
+                <a href="/grade">
+                  <FaBookOpen /> Subject
+                </a>
+              </li>
+              <li>
+                <a href="/grade">
+                  <FaBookOpen /> Chapter
+                </a>
+              </li>
+              <li>
+                <a href="/assesment">
+                  <AiFillQuestionCircle /> Assessment
+                </a>
+              </li>
+              <li>
+                <a href="/report">
+                  <TbReportSearch /> Report
+                </a>
+              </li>
+              <li>
+                <a href="/">
+                  <AiOutlineLogout /> Logout
+                </a>
+              </li>
             </ul>
           </div>
         </section>

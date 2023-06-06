@@ -48,14 +48,14 @@ const Allocation = () => {
                 <button
                   onClick={(e) => handleTabView(e.target.id)}
                   id="teacher_list"
-                  className={"btn btn-primary btns mr-3 " + showTeacher}
+                  className={"btn btn-primary btns mr-3 me-4 " + showTeacher}
                 >
                   Teacher
                 </button>
                 <button
                   onClick={(e) => handleTabView(e.target.id)}
                   id="student_list"
-                  className={"btn btn-primary btns mr-3 " + showStudent}
+                  className={"btn btn-primary btns mr-3 me-4 " + showStudent}
                 >
                   Student
                 </button>

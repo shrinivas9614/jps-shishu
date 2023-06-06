@@ -11,7 +11,10 @@ import { Student } from "./componants/Admin/student";
 import { AdminDashboard } from "./componants/Admin/admindashbaord";
 import Grade from "./componants/Admin/Grade";
 import Allocation from "./componants/Admin/Allocation";
+import Report from "./componants/Admin/Report";
+
 import Assesment from "./componants/Admin/Assesment";
+import { AssessmentContainer } from "./container/assessmentContainer";
 function App() {
   return (
     <div className="App">
@@ -23,6 +26,11 @@ function App() {
           <Route path="/allocate-user" element={<Allocation />}></Route>
           <Route path="/student" element={<Student />}></Route>
           <Route path="/assesment" element={<Assesment />}></Route>
+          <Route path="/student" element={<Student />}></Route>
+
+          <Route path="/assesment" element={<AssessmentContainer />}></Route>
+          <Route path="/report" element={<Report />}></Route>
+
           <Route path="/admin-dashboard" element={<AdminDashboard />}></Route>
         </Routes>
       </BrowserRouter>
