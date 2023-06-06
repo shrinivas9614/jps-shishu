@@ -19,7 +19,6 @@ export const StudentList = ({_setOpenCallback, setId}) => {
     useEffect(() => {
         getStudentList();
     }, [])
-
   return (
     <>
           <Card>
@@ -79,6 +78,8 @@ export const StudentList = ({_setOpenCallback, setId}) => {
                   </Table>
               </Card.Body>
           </Card>
+
+
     </>
   )
 }
