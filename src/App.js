@@ -31,7 +31,7 @@ function App() {
           <Route path="/student" element={<Student />}></Route>
           <Route path="/subject" element={<Subject />}></Route>
           <Route path="/chapter" element={<Chapter />}></Route>
-          <Route path="/assesment" element={<AssessmentContainer />}></Route>
+          <Route path="/assessment" element={<AssessmentContainer />}></Route>
           <Route path="/report" element={<Report />}></Route>
           <Route path="/admin-dashboard" element={<AdminDashboard />}></Route>
         </Routes>

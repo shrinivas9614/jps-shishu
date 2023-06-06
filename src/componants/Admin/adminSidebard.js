@@ -67,7 +67,7 @@ function Adminsidebar() {
                 </a>
               </li>
               <li>
-                <a href="/assesment">
+                <a href="/assessment">
                   <AiFillQuestionCircle /> Assessment
                 </a>
               </li>
