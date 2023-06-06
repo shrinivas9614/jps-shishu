@@ -50,8 +50,11 @@ function Adminsidebar() {
                 </a>
               </li>
               <li>
-                <BsIcons.BsFillPersonCheckFill />
-                <a href="/allocate-user">Allocation</a>
+                <a href="/allocate-user">
+                  {" "}
+                  <BsIcons.BsFillPersonCheckFill />
+                  Allocation
+                </a>
               </li>
               <li>
                 <a href="/grade">
