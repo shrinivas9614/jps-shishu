@@ -13,7 +13,7 @@ import {
 } from "react-bootstrap";
 // import Adminsidebar from "../Admin/adminSidebard";
 import { Link } from "react-router-dom";
-const AssesmentForm = (_setOpenCallback) => {
+const AssesmentForm = ({ _setOpenCallback }) => {
   return (
     <>
       <div style={{ minHeight: " 1043px" }}>
