@@ -40,6 +40,12 @@ function Adminsidebar() {
                 </a>
               </li>
               <li>
+
+                <a href="/allocate-user">
+
+                  <BsIcons.BsFillPersonCheckFill />Allocation</a>
+              </li>
+              <li>
                 <a href="/teacher">
                   <FaChalkboardTeacher /> Teacher
                 </a>
@@ -49,17 +55,14 @@ function Adminsidebar() {
                   <FaBookOpen /> Grade
                 </a>
               </li>
+              
               <li>
-                <BsIcons.BsFillPersonCheckFill />
-                <a href="/allocate-user">Allocation</a>
-              </li>
-              <li>
-                <a href="/grade">
+                <a href="/subject">
                   <FaBookOpen /> Subject
                 </a>
               </li>
               <li>
-                <a href="/grade">
+                <a href="/chapter">
                   <FaBookOpen /> Chapter
                 </a>
               </li>
