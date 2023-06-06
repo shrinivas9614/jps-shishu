@@ -8,10 +8,8 @@ import StudentComp from "./StudentComp";
 import TeacherComp from "./TeacherComp";
 
 const Allocation = () => {
-  const [showTeacher, setShowTeacher] = useState("");
-  const [showStudent, setShowStudent] = useState("");
-  const [teacherList, setTeacherList] = useState(true);
-  const [studentList, setStudentList] = useState(false);
+  const [showTeacher, setShowTeacher] = useState(true);
+  const [showStudent, setShowStudent] = useState(false);
 
   useEffect =
     (() => {
@@ -21,13 +19,9 @@ const Allocation = () => {
 
   const handleTabView = (id) => {
     if (id == "student_list") {
-      setStudentList(true);
-      setTeacherList(false);
       setShowTeacher(false);
       setShowStudent(true);
     } else {
-      setStudentList(false);
-      setTeacherList(true);
       setShowTeacher(true);
       setShowStudent(false);
     }
@@ -48,14 +42,14 @@ const Allocation = () => {
                 <button
                   onClick={(e) => handleTabView(e.target.id)}
                   id="teacher_list"
-                  className={"btn btn-primary btns mr-3 me-4 " + showTeacher}
+                  className={"btn btn-primary btns mr-3 me-4 "}
                 >
                   Teacher
                 </button>
                 <button
                   onClick={(e) => handleTabView(e.target.id)}
                   id="student_list"
-                  className={"btn btn-primary btns mr-3 me-4 " + showStudent}
+                  className={"btn btn-primary btns mr-3 me-4 "}
                 >
                   Student
                 </button>

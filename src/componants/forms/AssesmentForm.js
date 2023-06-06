@@ -1,3 +1,5 @@
+/** @format */
+
 import React from "react";
 import {
   Button,
@@ -36,17 +38,21 @@ const AssesmentForm = (_setOpenCallback) => {
               <Row>
                 <Col>
                   <FormGroup>
-                    <FormLabel> Assesment Name </FormLabel>
+                    <FormLabel> Assessment Name </FormLabel>
                     <FormControl
-                      placeholder="asswsment name"
-                      name="assesment_name"
+                      placeholder="assessment name"
+                      name="assessment_name"
                     />
                   </FormGroup>
                 </Col>
                 <Col>
                   <FormGroup>
-                    <FormLabel>Date of Assesment</FormLabel>
-                    <FormControl type="date" placeholder="Date of Assesment" name="date" />
+                    <FormLabel>Date of Assessment</FormLabel>
+                    <FormControl
+                      type="date"
+                      placeholder="Date of Assessment"
+                      name="date"
+                    />
                   </FormGroup>
                 </Col>
               </Row>
@@ -59,7 +65,7 @@ const AssesmentForm = (_setOpenCallback) => {
                 </Col>
                 <Col>
                   <FormGroup>
-                    <FormLabel>Subject of Assesment </FormLabel>
+                    <FormLabel>Subject of Assessment </FormLabel>
                     <FormControl placeholder="subject" name="subject" />
                   </FormGroup>
                 </Col>
@@ -75,9 +81,9 @@ const AssesmentForm = (_setOpenCallback) => {
                   <FormGroup>
                     <FormLabel>types of Questions </FormLabel>
                     <Form.Select>
-                      <option>mcq </option>
-                      <option> match </option>
-                      <option> objectivve </option>
+                      <option>MCQ </option>
+                      <option> Match the Pairs </option>
+                      <option> Objective </option>
                       <option>@@##</option>
                     </Form.Select>
                   </FormGroup>

@@ -1,9 +1,6 @@
 /** @format */
 
 import React, { useState } from "react";
-import { components } from "react-select";
-import { answerOptions } from "../utils/Utils";
-import { default as ReactSelect } from "react-select";
 
 import {
   Col,
@@ -15,13 +12,7 @@ import {
   Row,
 } from "react-bootstrap";
 
-function MCQQuestionForm(props) {
-  const [optionSelected, setOptionSelected] = useState("");
-
-  const handleChange = (selected) => {
-    setOptionSelected(selected);
-  };
-
+function MatchThePairForm() {
   return (
     <div>
       {/* <h2 className="d-flex justify-content-center ">Question Form</h2> */}
@@ -139,29 +130,13 @@ function MCQQuestionForm(props) {
           </Col>
         </Row>
         <hr />
-        {props.mcq == true ? (
-          <Row className="mb-2">
-            <Col md={6}>
-              <Form.Group as={Col} controlId="my_multiselect_field">
-                <Form.Label>Answer</Form.Label>
-                <ReactSelect
-                  options={answerOptions}
-                  isMulti
-                  closeMenuOnSelect={false}
-                  hideoptionSelecteds={false}
-                  components={{
-                    Option,
-                  }}
-                  onChange={handleChange}
-                  allowSelectAll={true}
-                  value={optionSelected}
-                />
-              </Form.Group>
-            </Col>
-          </Row>
-        ) : (
-          ""
-        )}
+        <Row className="mb-2">
+          <Col md={6}>
+            <Form.Group as={Col} controlId="my_multiselect_field">
+              <Form.Label>Answer</Form.Label>
+            </Form.Group>
+          </Col>
+        </Row>
         <Row className="mb-2">
           <Col md={12}>
             <div className="d-flex gap-2 justify-content-center mt-3 ">
@@ -179,21 +154,4 @@ function MCQQuestionForm(props) {
   );
 }
 
-export default MCQQuestionForm;
-
-/** @format */
-
-const Option = (props) => {
-  return (
-    <div>
-      <components.Option {...props}>
-        <input
-          type="checkbox"
-          checked={props.isSelected}
-          onChange={() => null}
-        />{" "}
-        <label>{props.label}</label>
-      </components.Option>
-    </div>
-  );
-};
+export default MatchThePairForm;

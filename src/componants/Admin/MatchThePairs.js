@@ -4,11 +4,11 @@ import React, { useState } from "react";
 import { Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import QuestionForm from "../forms/QuestionForm";
-import AssesmentQuestionList from "./AsssementQuestionList";
+import MatchQuestionList from "./MatchQuestionList";
 
-export const MCQQuestionType = () => {
+export const MatchThePairs = () => {
   const [show, setShow] = useState(false);
-  const [mcq, setMcq] = useState(true);
+  const [match, setMatch] = useState(true);
   return (
     <div>
       {show == false && <Link onClick={() => setShow(true)}>Add Question</Link>}
@@ -18,7 +18,7 @@ export const MCQQuestionType = () => {
           <i className="fa fa-times"></i>
         </Link>
       )}
-      {show ? <QuestionForm mcq={mcq} /> : <AssesmentQuestionList />}
+      {show ? <QuestionForm match={match} /> : <MatchQuestionList />}
     </div>
   );
 };
