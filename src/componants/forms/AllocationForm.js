@@ -67,29 +67,29 @@ const AllocationForm = ({ _setOpenCallback }) => {
                     <>
                       <Form>
                         <Row>
-                          <Col md={4}>
-                            <FormGroup>
-                              <FormLabel>User</FormLabel>
-                              <select
-                                placeholder="User"
+                          <Col md={6}>
+                            <Form.Group>
+                              <Form.Label>User</Form.Label>
+                              <Form.Select
                                 name="user"
                                 value={values.user}
                                 onChange={handleChange}
-                                isInvalid={!!errors.user}
-                              />
-                            </FormGroup>
+                              >
+                                <option value="DEFAULT">Select User</option>
+                              </Form.Select>
+                            </Form.Group>
                           </Col>
-                          <Col md={4}>
-                            <FormGroup>
-                              <FormLabel>Grades</FormLabel>
-                              <select
-                                placeholder="grade"
+                          <Col md={6}>
+                            <Form.Group>
+                              <Form.Label>Grade</Form.Label>
+                              <Form.Select
                                 name="grade"
                                 value={values.grade}
                                 onChange={handleChange}
-                                isInvalid={!!errors.grade}
-                              />
-                            </FormGroup>
+                              >
+                                <option value="DEFAULT">Select Grade</option>
+                              </Form.Select>
+                            </Form.Group>
                           </Col>
                         </Row>
                         <div className="d-flex justify-content-center mt-3 ">

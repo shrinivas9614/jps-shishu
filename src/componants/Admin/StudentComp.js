@@ -26,10 +26,7 @@ const StudentComp = () => {
   };
 
   return (
-    <div
-      className="content-wrapper-client-lead"
-      style={{ minHeight: " 1043px" }}
-    >
+    <div style={{ minHeight: " 1043px" }}>
       <div>
         <h4 className="text-center">Student List</h4>
         {shows()}

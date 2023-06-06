@@ -5,7 +5,6 @@ import { Card, Col, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 const StudentAllotList = ({ _setOpenCallback }) => {
-  console.log("_setOpenCallback", _setOpenCallback);
   return (
     <div>
       <Card>

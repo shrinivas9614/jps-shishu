@@ -43,25 +43,22 @@ const Allocation = () => {
         <Card style={{ minHeight: "1043px" }}>
           <Card.Body>
             <h4 className="text-center">Allocation</h4>
-            {/* {shows()} */}
-            <div className="card-body">
-              <div className="row paddingL23" id="classDiv">
-                <div className="col-lg-12 pad-t-20 form-group">
-                  <button
-                    onClick={(e) => handleTabView(e.target.id)}
-                    id="teacher_list"
-                    className={"btn btns mr-3 " + showTeacher}
-                  >
-                    Teacher
-                  </button>
-                  <button
-                    onClick={(e) => handleTabView(e.target.id)}
-                    id="student_list"
-                    className={"btn btns mr-3 " + showStudent}
-                  >
-                    Student
-                  </button>
-                </div>
+            <div className="row paddingL23 text-center" id="classDiv">
+              <div className="col-lg-12 pad-t-20 form-group">
+                <button
+                  onClick={(e) => handleTabView(e.target.id)}
+                  id="teacher_list"
+                  className={"btn btn-primary btns mr-3 " + showTeacher}
+                >
+                  Teacher
+                </button>
+                <button
+                  onClick={(e) => handleTabView(e.target.id)}
+                  id="student_list"
+                  className={"btn btn-primary btns mr-3 " + showStudent}
+                >
+                  Student
+                </button>
               </div>
               <div className="card-content">
                 {showTeacher ? <TeacherComp /> : ""}
