@@ -17,7 +17,7 @@ import {
 
 const schema = Yup.object().shape({});
 
-const AllocationForm = ({ _setOpenCallback }) => {
+const TeacherAllocationForm = ({ _setOpenCallback }) => {
   useEffect = () => {};
   return (
     <div>
@@ -112,4 +112,4 @@ const AllocationForm = ({ _setOpenCallback }) => {
   );
 };
 
-export default AllocationForm;
+export default TeacherAllocationForm;

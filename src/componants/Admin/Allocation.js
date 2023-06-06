@@ -5,7 +5,7 @@ import { useState, useCallback } from "react";
 import Adminsidebar from "./adminSidebard";
 import { Card } from "react-bootstrap";
 import StudentComp from "./StudentComp";
-import TeacherAllotList from "./TeacherAllotList";
+import TeacherComp from "./TeacherComp";
 
 const Allocation = () => {
   const [showTeacher, setShowTeacher] = useState("");
@@ -64,7 +64,7 @@ const Allocation = () => {
                 </div>
               </div>
               <div className="card-content">
-                {showTeacher ? <TeacherAllotList /> : ""}
+                {showTeacher ? <TeacherComp /> : ""}
                 {showStudent ? <StudentComp /> : ""}
               </div>
             </div>
