@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Helmet } from "react-helmet";
 import { Button, Card, Form } from 'react-bootstrap'
 import { ViewStudentProfile } from './viewStudentProfile'
 import { StudentSidebar } from './studentSidebar'
@@ -8,6 +9,10 @@ export const StudentProfile = () => {
     const [edit, setEdit] = useState(false)
     return (
         <>
+            <Helmet>
+                <title>Student Profile | JPS</title>
+            </Helmet>
+
             <StudentSidebar />
             <div className="content-wrapper-client-lead" >
                 <Card>

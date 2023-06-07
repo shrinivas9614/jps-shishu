@@ -3,7 +3,8 @@
 import React from "react";
 import { MdDashboard } from "react-icons/md";
 import { RxAvatar } from "react-icons/rx";
-import { AiOutlineLogout } from "react-icons/ai";
+import { AiOutlineLogout, AiFillQuestionCircle } from "react-icons/ai";
+import { BiBookContent } from "react-icons/bi";
 
 function TeacherSidebar() {
   return (
@@ -27,13 +28,23 @@ function TeacherSidebar() {
           <div className="user-panel">
             <ul className="sidebar-menu active menu-open tree">
               <li>
-                <a href="/admin-dashboard">
+                <a href="/teacher-dashboard">
                   <MdDashboard /> Dashboard
                 </a>
               </li>
               <li>
-                <a href="/profile">
+                <a href="/teacher-profile">
                   <RxAvatar /> profile
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <BiBookContent />    Class
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <AiFillQuestionCircle /> Assessment
                 </a>
               </li>
               <li>

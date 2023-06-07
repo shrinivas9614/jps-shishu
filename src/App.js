@@ -29,26 +29,25 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
+          {/* ================  Admin Dashboard  ================= */}
           <Route path="/" element={<AdminLogin />}></Route>
+          <Route path="/admin-dashboard" element={<AdminDashboard />}></Route>
           <Route path="/teacher" element={<Teacher />}></Route>
-          <Route path="/grade" element={<Grade />}></Route>
           <Route path="/allocate-user" element={<Allocation />}></Route>
           <Route path="/student" element={<Student />}></Route>
-          {/* <Route path="/assesment" element={<Assesment />}></Route> */}
           <Route path="/student" element={<Student />}></Route>
+          <Route path="/grade" element={<Grade />}></Route>
           <Route path="/subject" element={<Subject />}></Route>
           <Route path="/chapter" element={<Chapter />}></Route>
           <Route path="/assessment" element={<AssessmentContainer />}></Route>
           <Route path="/report" element={<Report />}></Route>
-          <Route path="/admin-dashboard" element={<AdminDashboard />}></Route>
 
+          {/* ================  Teacher Dashboard  ================= */}
           <Route path="/teacher-login" element={<TeacherLogin />}></Route>
-          <Route
-            path="/teacher-dashboard"
-            element={<TeacherDashboard />}
-          ></Route>
-          <Route path="/profile" element={<TeacherProfile />}></Route>
+          <Route path="/teacher-dashboard" element={<TeacherDashboard />}></Route>
+          <Route path="/teacher-profile" element={<TeacherProfile />}></Route>
 
+          {/* ================  Student Dashboard  ================= */}
           <Route path="/student-login" element={<StudentLogin />}></Route>
           <Route path="/student-dashboard" element={<StudentDashboard />}></Route>
           <Route path="/student-profile" element={<StudentProfile />}></Route>

@@ -1,6 +1,7 @@
 /** @format */
 
 import React, { useState, useEffect } from "react";
+import { Helmet } from "react-helmet";
 import { Card, Col, Row } from "react-bootstrap";
 import Adminsidebar from "./adminSidebard";
 import api from "../forms/APIS";
@@ -35,6 +36,10 @@ export const AdminDashboard = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Admin Dashboard | JPS</title>
+      </Helmet>
+
       <Adminsidebar />
       <div className="content-wrapper-client-lead">
         <Card>

@@ -1,11 +1,15 @@
 import React from 'react'
+import { Helmet } from "react-helmet";
 import { Card, Row, Col, Form, Button } from 'react-bootstrap'
 
 export const EditStudentPorfile = () => {
     return (
         <>
-            <Card >
+            <Helmet>
+                <title>Edit Student Profile | JPS</title>
+            </Helmet>
 
+            <Card >
                 <Card.Body>
                     <Form>
                         <Row className='mb-3'>
