@@ -20,6 +20,9 @@ import { Chapter } from "./componants/Admin/chapter";
 import { TeacherLogin } from "../src/componants/Teacher/TeacherLogin";
 import { TeacherDashboard } from "../src/componants/Teacher/TeacherDashboard";
 import { TeacherProfile } from "../src/componants/Teacher/TeacherProfile";
+import StudentLogin from "./componants/student/studentLogin";
+import { StudentDashboard } from "./componants/student/studentDashboard";
+import { StudentProfile } from "./componants/student/studentProfile";
 
 function App() {
   return (
@@ -45,6 +48,11 @@ function App() {
             element={<TeacherDashboard />}
           ></Route>
           <Route path="/profile" element={<TeacherProfile />}></Route>
+
+          <Route path="/student-login" element={<StudentLogin />}></Route>
+          <Route path="/student-dashboard" element={<StudentDashboard />}></Route>
+          <Route path="/student-profile" element={<StudentProfile />}></Route>
+
         </Routes>
       </BrowserRouter>
     </div>
