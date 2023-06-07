@@ -54,10 +54,10 @@ export const states = [
 export const bloodGroups = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"];
 
 export const answerOptions = [
-  { value: "option1", label: "Option1" },
-  { value: "option2", label: "Option2" },
-  { value: "option3", label: "Option3" },
-  { value: "option4", label: "Option4" },
-  { value: "option5", label: "Option5" },
-  { value: "option6", label: "Option6" },
+  { label: "Option 1", value: "option1" },
+  { label: "Option 2", value: "option2" },
+  { label: "Option 3", value: "option3" },
+  { label: "Option 4", value: "option4" },
+  { label: "Option 5", value: "option5" },
+  { label: "Option 6", value: "option6" },
 ];
