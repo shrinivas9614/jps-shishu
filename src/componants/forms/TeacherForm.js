@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-
+import Swal from "sweetalert2";
 import {
   Button,
   Card,
@@ -89,19 +89,22 @@ function TeacherForm({ _setOpenCallback }) {
               values.state = selectedState ? selectedState : "";
               values.city = selectedCity ? selectedCity : "";
               api
-                .post("/teacher-registration", values)
-                .then((response) => {
-                  console.log("response", response);
-                  alert("Added successfully");
-                  _setOpenCallback("list");
-                })
-                .catch((error) => {
-                  console.log("Error", error);
-                  alert(
-                    "Mobile number or email already present please try another email or mobile number"
-                  );
-                });
-            }}
+              .then((res) => {
+                console.log("response", res);
+                Swal.fire({
+                  icon: "success",
+                  title: "Success!",
+                  text: "File submitted successfully!",
+                }).then(() => {});
+              })
+              .catch((error) => {
+                console.log("error", error);
+                alert("Error");
+              })
+              .finally(() => {
+                setSubmitting(false);
+              });
+          }}
           >
             {({
               values,
