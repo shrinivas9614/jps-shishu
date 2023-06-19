@@ -3,7 +3,8 @@ import { MdDashboard } from "react-icons/md";
 import { AiFillQuestionCircle, AiOutlineLogout } from "react-icons/ai";
 import { MdAccountCircle } from "react-icons/md";
 import { BiBookContent } from "react-icons/bi";
-export const StudentSidebar = () => {
+
+export const StudentSidebar = ({ id }) => {
     return (
         <>
             <>
@@ -16,17 +17,18 @@ export const StudentSidebar = () => {
                             <ul className="sidebar-menu active menu-open tree">
                                 <li>
                                     <a href="/student-dashboard">
-                                       <MdDashboard /> Dashboard
+                                        <MdDashboard /> Dashboard
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="/student-profile">
+                                    {/* <a href="/student-profile"> */}
+                                    <a href={`/student-profile/${id}`}>
                                         <MdAccountCircle /> Profile
                                     </a>
                                 </li>
                                 <li>
                                     <a href="/">
-                                        <BiBookContent/>    Class
+                                        <BiBookContent />    Class
                                     </a>
                                 </li>
                                 <li>

@@ -34,7 +34,7 @@ function App() {
           <Route path="/admin-dashboard" element={<AdminDashboard />}></Route>
           <Route path="/teacher" element={<Teacher />}></Route>
           <Route path="/allocate-user" element={<Allocation />}></Route>
-          <Route path="/student" element={<Student />}></Route>
+          {/* <Route path="/student" element={<Student />}></Route> */}
           <Route path="/student" element={<Student />}></Route>
           <Route path="/grade" element={<Grade />}></Route>
           <Route path="/subject" element={<Subject />}></Route>
@@ -45,12 +45,12 @@ function App() {
           {/* ================  Teacher Dashboard  ================= */}
           <Route path="/teacher-login" element={<TeacherLogin />}></Route>
           <Route path="/teacher-dashboard" element={<TeacherDashboard />}></Route>
-          <Route path="/teacher-profile" element={<TeacherProfile />}></Route>
+          <Route path="/teacher-profile/:id" element={<TeacherProfile />}></Route>
 
           {/* ================  Student Dashboard  ================= */}
           <Route path="/student-login" element={<StudentLogin />}></Route>
           <Route path="/student-dashboard" element={<StudentDashboard />}></Route>
-          <Route path="/student-profile" element={<StudentProfile />}></Route>
+          <Route path="/student-profile/:id" element={<StudentProfile />}></Route>
 
         </Routes>
       </BrowserRouter>
