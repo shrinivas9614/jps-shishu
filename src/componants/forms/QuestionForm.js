@@ -59,7 +59,7 @@ function MCQQuestionForm(props) {
     api
       .get("/grade-api")
       .then((res) => {
-        console.log("Grade response", "res.data.grade_id:", res.data.grade_id);
+        console.log("Grade response", res, "grade_id:", res.data.grade_id);
         setGradeResponse(res.data)
       })
       .catch((error) => {
@@ -206,13 +206,11 @@ function MCQQuestionForm(props) {
               </Col>
               <Col md={6}>
                 <FormGroup>
-                  <FormLabel>Subject</FormLabel>
+                  <FormLabel>Select Subject</FormLabel>
                   <Form.Select
-                    // as="select"
                     name="subject_id"
                     onChange={(e) => (setSelectedSubject(e.target.value))}
                     value={SelectedSubject}
-                  // onSelect={SelectedSubject}
                   >
                     <option selected>Subject</option>
                     {SubjectResponse.length > 0 &&

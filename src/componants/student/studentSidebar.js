@@ -28,7 +28,7 @@ export const StudentSidebar = ({ id }) => {
                                 </li>
                                 <li>
                                     <a href="/">
-                                        <BiBookContent />    Class
+                                        <BiBookContent />    Grade
                                     </a>
                                 </li>
                                 <li>

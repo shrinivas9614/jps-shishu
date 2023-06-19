@@ -23,7 +23,7 @@ const AssesmentQuestionList = ({ _setOpenCallback }) => {
         <Table striped bordered hover className="text-center">
           <thead>
             <tr>
-              <th></th>
+              <th>#</th>
               <th>Date</th>
               <th>Class</th>
               <th>Subject</th>
