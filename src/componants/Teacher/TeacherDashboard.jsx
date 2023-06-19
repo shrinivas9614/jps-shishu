@@ -3,15 +3,19 @@ import React from "react";
 import { Helmet } from "react-helmet";
 import { TeacherSidebar } from "./TeacherSidebar";
 import { Card } from 'react-bootstrap'
+import { useLocation } from 'react-router-dom';
 
 const TeacherDashboard = () => {
+  const location = useLocation();
+  const receivedData = location.state?.data;
+  console.log("receivedData: ", receivedData.Id)
   return (
     <>
       <Helmet>
         <title>Teacher Dashboard | JPS</title>
       </Helmet>
 
-      <TeacherSidebar />
+      <TeacherSidebar id={receivedData.Id}/>
       <div className="content-wrapper-client-lead" >
         <Card>
           <Card.Body style={{ minHeight: " 1043px" }}>

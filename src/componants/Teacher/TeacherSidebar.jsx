@@ -6,7 +6,7 @@ import { RxAvatar } from "react-icons/rx";
 import { AiOutlineLogout, AiFillQuestionCircle } from "react-icons/ai";
 import { BiBookContent } from "react-icons/bi";
 
-function TeacherSidebar() {
+function TeacherSidebar({ id }) {
   return (
     <>
       <div className="skin-blue sidebar-mini active menu-open">
@@ -33,7 +33,7 @@ function TeacherSidebar() {
                 </a>
               </li>
               <li>
-                <a href="/teacher-profile">
+                <a href={`/teacher-profile/${id}`}>
                   <RxAvatar /> profile
                 </a>
               </li>

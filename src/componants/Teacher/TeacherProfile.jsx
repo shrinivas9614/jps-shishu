@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, useEffect } from 'react'
 import { Helmet } from "react-helmet";
 import { Button, Card, Form } from 'react-bootstrap'
 import { TeacherSidebar } from './TeacherSidebar';
 import { ViewTeacherProfile } from './ViewTeacherProfile';
-import { EditTeacherProfile } from './EditTeacherProfile';
 import {
     Col,
     FormControl,
@@ -13,8 +12,25 @@ import {
     Row,
 } from "react-bootstrap";
 
+import { useParams } from 'react-router-dom';
+import EditTeacherProfile_new from './EditTeacherProfile';
+
 export const TeacherProfile = () => {
     const [edit, setEdit] = useState(false)
+    const [show, setShow] = useState("list")
+    const [Id, setId] = useState();
+    const { id } = useParams();
+    console.log("Teacher Id: ", id)
+    const _setOpenCallback = useCallback(
+        (show) => {
+            setShow(show)
+        },
+    )
+
+    useEffect(() => {
+        setId(id)
+
+    }, []);
 
     return (
         <>
@@ -61,8 +77,8 @@ export const TeacherProfile = () => {
 
                         {
                             edit ?
-                                <EditTeacherProfile />
-                                : <ViewTeacherProfile />
+                                <EditTeacherProfile_new id={id} setEdit={setEdit} {...{ _setOpenCallback, Id }} />
+                                : <ViewTeacherProfile id={id} {...{ _setOpenCallback, Id }} />
                         }
 
                     </Card.Body>
