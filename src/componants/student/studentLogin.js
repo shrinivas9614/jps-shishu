@@ -33,11 +33,13 @@ const StudentLogin = () => {
                     password: values.password
                 })
                 .then((response) => {
+                    console.log("response: ", response.data.profile.id);
                     console.log(response);
                     if (response.status === 200) {
                         alert("Successfully Logged In!");
-                        navigate('/student-dashboard')
-
+                        // navigate('/student-dashboard')
+                        // Navigate to the other page with data
+                        navigate('/student-dashboard', { state: { data: { Id: response.data.profile.id } } });
                     } else {
                         alert("Failed to login username and password does not match");
                     }

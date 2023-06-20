@@ -35,10 +35,12 @@ const TeacherLogin = () => {
           password: values.password,
         })
         .then((response) => {
-          console.log(response);
+          console.log("response: ", response.data.profile.id);
           if (response.status === 200) {
             alert("Successfully Logged In!");
-            navigate("/teacher-dashboard");
+            // navigate("/teacher-dashboard");
+            // Navigate to the other page with data
+            navigate('/teacher-dashboard', { state: { data: { Id: response.data.profile.id } } });
           } else {
             alert("Failed to login username and password does not match");
           }

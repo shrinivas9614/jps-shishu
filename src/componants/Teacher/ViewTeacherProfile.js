@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import {
     Button,
     Card,
@@ -10,8 +10,29 @@ import {
     InputGroup,
     Row,
 } from "react-bootstrap";
+import { Formik } from "formik";
+import api from '../forms/APIS'
+import { Link } from 'react-router-dom';
+import moment from "moment";
 
-export const ViewTeacherProfile = () => {
+export const ViewTeacherProfile = ({ Id, _setOpenCallback, id }) => {
+    console.log("ViewTeacherProfile", id)
+    const [view, setView] = useState();
+
+    const getTeacherinfo_new = () => {
+        api
+            .get("/teacher-detail/" + id + "/")
+            .then((response) => {
+                setView(response.data); // update the state with the fetched data
+                console.log("tea response.data", response.data)
+            })
+            .catch((error) => {
+                console.error(error); // handle any errors
+            });
+    }
+    useEffect(() => {
+        getTeacherinfo_new();
+    }, [])
 
     return (
         <>
@@ -22,8 +43,8 @@ export const ViewTeacherProfile = () => {
                             <Col md={6}>
                                 <Form.Group>
                                     <Form.Label>Aadhar number</Form.Label>
-                                    <Form.Control type="text"
-                                        placeholder="Aadhar number"
+                                    <Form.Control
+                                        value={view?.aadhar_number}
                                     />
                                 </Form.Group>
                             </Col>
@@ -32,23 +53,25 @@ export const ViewTeacherProfile = () => {
                             <Col md={4}>
                                 <Form.Group>
                                     <Form.Label>First Name</Form.Label>
-                                    <Form.Control placeholder="First Name "
-                                        type="text" />
-
+                                    <Form.Control
+                                        value={view?.firstname}
+                                    />
                                 </Form.Group>
                             </Col>
                             <Col md={4}>
                                 <Form.Group>
                                     <Form.Label>Middle Name</Form.Label>
-                                    <Form.Control placeholder="Middle Name"
-                                        type="text" />
+                                    <Form.Control
+                                        value={view?.middlename}
+                                    />
                                 </Form.Group>
                             </Col>
                             <Col md={4}>
                                 <Form.Group>
                                     <Form.Label>Last Name</Form.Label>
-                                    <Form.Control placeholder="Last Name"
-                                        type="text" />
+                                    <Form.Control
+                                        value={view?.lastname}
+                                    />
                                 </Form.Group>
                             </Col>
                         </Row>
@@ -57,8 +80,7 @@ export const ViewTeacherProfile = () => {
                                 <FormGroup>
                                     <FormLabel>Pan Number</FormLabel>
                                     <FormControl
-                                        placeholder="Pan Number"
-                                        type="text"
+                                        value={view?.pan_number}
                                     ></FormControl>
                                 </FormGroup>
                             </Col>
@@ -66,8 +88,7 @@ export const ViewTeacherProfile = () => {
                                 <FormGroup>
                                     <FormLabel>Father Name</FormLabel>
                                     <FormControl
-                                        placeholder="Father Name"
-                                        type="text"
+                                        value={view?.father_name}
                                     ></FormControl>
                                 </FormGroup>
                             </Col>
@@ -77,18 +98,20 @@ export const ViewTeacherProfile = () => {
                                 <Form.Group>
                                     <Form.Label>Email ID</Form.Label>
                                     <Form.Control
-                                        placeholder="Email ID"
-                                        type="text"
+                                        value={view?.email}
                                     />
                                 </Form.Group>
                             </Col>
                             <Col md={6}>
                                 <Form.Group>
                                     <Form.Label> phone number </Form.Label>
-                                    <Form.Control
-                                        placeholder="phone number"
-                                        type="text"
-                                    />
+                                    <InputGroup className="mb-3">
+                                        <InputGroup.Text id="basic-addon1">+91</InputGroup.Text>
+                                        <Form.Control
+                                            value={view?.phone}
+                                        />
+
+                                    </InputGroup>
                                 </Form.Group>
                             </Col>
                         </Row>
@@ -97,8 +120,9 @@ export const ViewTeacherProfile = () => {
                                 <Form.Group>
                                     <Form.Label>Address</Form.Label>
                                     <Form.Control
-                                        type="text"
-                                        placeholder="Address"
+                                        as="textarea"
+                                        value={view?.address_line_1}
+
                                     />
                                 </Form.Group>
                             </Col>
@@ -106,8 +130,7 @@ export const ViewTeacherProfile = () => {
                                 <Form.Group>
                                     <Form.Label>Country</Form.Label>
                                     <Form.Control
-                                        placeholder="Country"
-                                        type="text"
+                                        value={view?.country}
                                     />
                                 </Form.Group>
                             </Col>
@@ -117,8 +140,7 @@ export const ViewTeacherProfile = () => {
                                 <Form.Group>
                                     <Form.Label>State</Form.Label>
                                     <Form.Control
-                                        placeholder="State"
-                                        type="text"
+                                        value={view?.state}
                                     />
                                 </Form.Group>
                             </Col>
@@ -126,8 +148,7 @@ export const ViewTeacherProfile = () => {
                                 <Form.Group>
                                     <Form.Label>City</Form.Label>
                                     <Form.Control
-                                        placeholder="City"
-                                        type="text"
+                                        value={view?.city}
                                     />
                                 </Form.Group>
                             </Col>
@@ -137,8 +158,7 @@ export const ViewTeacherProfile = () => {
                                 <Form.Group>
                                     <Form.Label>Pincode</Form.Label>
                                     <Form.Control
-                                        placeholder="Pincode"
-                                        type="text"
+                                        value={view?.pincode}
                                     />
                                 </Form.Group>
                             </Col>
@@ -147,14 +167,16 @@ export const ViewTeacherProfile = () => {
                                     <Form.Label>Gender</Form.Label>
                                     <Form.Control
                                         type="text"
-                                    />
+                                        value={view?.gender}
+                                    >
+                                    </Form.Control>
                                 </Form.Group>
                             </Col>
                             <Col md={6}>
                                 <Form.Group>
                                     <Form.Label>Date of Birth</Form.Label>
                                     <Form.Control
-                                        type="date"
+                                        value={new Date(view?.date_of_birth).toLocaleDateString('en-IN', { day: '2-digit', month: '2-digit', year: 'numeric' }).split('/').join('/')}
                                     />
                                 </Form.Group>
                             </Col>
@@ -162,7 +184,7 @@ export const ViewTeacherProfile = () => {
                                 <Form.Group>
                                     <Form.Label>Date of Joining</Form.Label>
                                     <Form.Control
-                                        type="date"
+                                        value={new Date(view?.date_of_joining).toLocaleDateString('en-IN', { day: '2-digit', month: '2-digit', year: 'numeric' }).split('/').join('/')}
                                     />
                                 </Form.Group>
                             </Col>
@@ -172,8 +194,7 @@ export const ViewTeacherProfile = () => {
                                 <Form.Group>
                                     <Form.Label> Designation </Form.Label>
                                     <Form.Control
-                                        placeholder="Designation"
-                                        type="text"
+                                        value={view?.designation}
                                     />
                                 </Form.Group>
                             </Col>
@@ -181,8 +202,7 @@ export const ViewTeacherProfile = () => {
                                 <Form.Group>
                                     <Form.Label> Marital Status </Form.Label>
                                     <Form.Control
-                                        placeholder="Marital Status"
-                                        type="text"
+                                        value={view?.marital_status}
                                     />
                                 </Form.Group>
                             </Col>
@@ -191,9 +211,8 @@ export const ViewTeacherProfile = () => {
                             <Col md={6}>
                                 <Form.Group>
                                     <Form.Label>Height</Form.Label>
-                                    <Form.Control
-                                        type="text"
-                                        placeholder="6ft4in"
+                                    <Form.Control type="text"
+                                        value={view?.height}
                                     />
                                 </Form.Group>
                             </Col>
@@ -202,7 +221,7 @@ export const ViewTeacherProfile = () => {
                                     <Form.Label> Waight </Form.Label>
                                     <Form.Control
                                         type="text"
-                                        placeholder="waight ex=50 kg"
+                                        value={view?.weight}
                                     />
                                 </Form.Group>
                             </Col>

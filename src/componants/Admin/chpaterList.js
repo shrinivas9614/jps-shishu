@@ -1,6 +1,28 @@
-import React from 'react'
-import { Button, Card, Table } from 'react-bootstrap'
-export const ChapterList = ({ _setOpenCallback,edit }) => {
+import React, { useState, useEffect } from "react";
+import { Card, Col, Row, Table, Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import api from "../forms/APIS";
+import Swal from 'sweetalert2';
+
+export const ChapterList = ({ _setOpenCallback, setEdit }) => {
+    const [chapter, setChapter] = useState([]);
+
+    const getChapterList = () => {
+        api
+            .get("/chapter-api")
+            .then((response) => {
+                console.log("chapter list data", response.data);
+                setChapter(response.data);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    };
+
+    useEffect(() => {
+        getChapterList();
+    }, []);
+
     return (
         <Card>
             <Card.Body>
@@ -14,28 +36,37 @@ export const ChapterList = ({ _setOpenCallback,edit }) => {
                 <Table striped bordered className='text-center'>
                     <thead>
                         <tr>
-                            <th></th>                            
+                            <th>Sr.No</th>
+                            <th>Grade</th>
                             <th>Subject</th>
-                            <th>Topic</th>
-                            <th>Action</th>
+                            <th>Chapter</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Maths</td>
-                            <td>Addition</td>
-                            <td>
-                                <Button className='me-sm-1'
-                                onClick={()=>{_setOpenCallback("edit")}}
-                                >
-                                    <i className='fa fa-edit'></i>
-                                </Button>                                
-                            </td>
-                        </tr>
+                        {chapter.length > 0 &&
+                            chapter.map((sub_chptr, index) => (
+                                <tr key={sub_chptr.chapter_id}>
+                                    <td>{index + 1}</td>
+                                    <td>{sub_chptr.subject_id.grade_id.name}</td>
+                                    <td>{sub_chptr.subject_id.name}</td>
+                                    <td>{sub_chptr.name}</td>
+                                    <td>
+                                        <Button className='me-sm-1'
+                                            onClick={() => {
+                                                _setOpenCallback("edit")
+                                                setEdit(sub_chptr.id)
+                                            }}
+                                        >
+                                            <i className='fa fa-edit'></i>
+                                        </Button>
+                                    </td>
+                                </tr>
+                            ))}
                     </tbody>
                 </Table>
             </Card.Body>
         </Card>
-    )
-}
+    );
+};
+
+export default ChapterList;

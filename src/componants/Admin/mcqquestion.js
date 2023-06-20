@@ -11,7 +11,7 @@ export const MCQQuestionType = () => {
   const [mcq, setMcq] = useState(true);
   return (
     <div>
-      {show == false && <Link onClick={() => setShow(true)}>Add Question</Link>}
+      {show == false && <Link onClick={() => setShow(true)}>Add MCQ Question</Link>}
 
       {show == true && (
         <Link onClick={() => setShow(false)}>

@@ -6,7 +6,6 @@ import { answerOptions } from "../utils/Utils";
 import { Formik } from "formik";
 import api from "./APIS";
 import Swal from "sweetalert2";
-
 import {
   Col,
   Button,
@@ -33,40 +32,96 @@ const Option = (props) => {
 };
 
 function MCQQuestionForm(props) {
-  const [optionSelected, setOptionSelected] = useState("");
+  const [AnswerSelected, setAnswerSelected] = useState([]);
   const [questionType, setQuestionType] = useState(props?.mcq ? true : false);
   const [typeOfQuestion, setTypeOfQuestion] = useState(
     props?.mcq
       ? "objective"
       : props?.match
-      ? "matching_question"
-      : "relevent_picture"
+        ? "matching_question"
+        : "relevent_picture"
   );
 
-  const handleChangeOptions = (selected) => {
-    setOptionSelected(selected);
+  const handleAnswerSelected = (event) => {
+    // console.log("event.target.value::", event.target.value)
+    setAnswerSelected(event);
   };
 
-  useEffect(() => {
-    // getGrades();
-  }, []);
+  const [GradeResponse, setGradeResponse] = useState("")
+  const [SubjectResponse, setSubjectResponse] = useState("")
+  const [ChapterResponse, setChapterResponse] = useState("")
 
+  const [SelectedGrade, setSelectedGrade] = useState(null)
+  const [SelectedSubject, setSelectedSubject] = useState(null)
+  const [SelectedChapter, setSelectedChapter] = useState(null)
+
+  // Select Grade
   const getGrades = () => {
-    console.log("gets");
     api
       .get("/grade-api")
       .then((res) => {
-        console.log("response", res);
-        Swal.fire({
-          icon: "success",
-          title: "Success!",
-          text: "File submitted successfully!",
-        }).then((response) => {});
+        console.log("Grade response", res, "grade_id:", res.data.grade_id);
+        setGradeResponse(res.data)
       })
       .catch((error) => {
         console.log("error", error);
-        alert("Error");
       });
+  };
+
+  useEffect(() => {
+    getGrades();
+  }, []);
+
+  const handleDropdownGradeChange = (event) => {
+    setSelectedGrade(event.target.value);
+  };
+
+  // Select Subject
+  const getSubjects = (grade_id) => {
+    api
+      .get(`/subject-list/${grade_id}/`)
+
+      .then((res) => {
+        console.log("Subject response", res.data, "SelectedGrade", SelectedGrade);
+        setSubjectResponse(res.data)
+      })
+      .catch((error) => {
+        console.log("error", error);
+      });
+  };
+
+  useEffect(() => {
+    if (SelectedGrade) {
+      getSubjects(SelectedGrade);
+    }
+  }, [SelectedGrade]);
+
+  const handleDropdownSubjectChange = (event) => {
+    setSelectedSubject(event.target.value);
+  };
+
+  // Select Chapter
+  const getChapters = (subject_id) => {
+    api
+      .get(`/chapter-list/${subject_id}/`)
+
+      .then((response) => {
+        console.log("Chapter response", response.data, "SelectedSubject", SelectedSubject);
+        setChapterResponse(response.data)
+      })
+      .catch((error) => {
+        console.log("error", error);
+      });
+  };
+
+  useEffect(() => {
+    if (SelectedSubject) {
+      getChapters(SelectedSubject);
+    }
+  }, [SelectedSubject]);
+
+  const handleDropdownChapterChange = (event) => {
+    setSelectedChapter(event.target.value);
   };
 
   return (
@@ -84,19 +139,23 @@ function MCQQuestionForm(props) {
           question: "",
           option_count: 6,
           mark: "",
-          grade_id: "",
-          chapter_id: "",
-          subject_id: "",
           answer: "",
+          grade_id: SelectedGrade,
+          subject_id: SelectedSubject,
+          chapter_id: SelectedChapter,
         }}
         // validationSchema={{}}
         onSubmit={(values, { setStatus, setSubmitting, resetForm }) => {
-          values.answer = optionSelected;
+          // values.answer = AnswerSelected;
+          values.answer = JSON.stringify(AnswerSelected);
           const formData = {
             match_the_pairs_question: {},
             multiple_choice_question: {},
             select_relevent_picture_question: {},
             question_type: typeOfQuestion,
+            grade_id: SelectedGrade,
+            subject_id: SelectedSubject,
+            chapter_id: SelectedChapter,
           };
           if (typeOfQuestion == "objective") {
             formData["multiple_choice_question"] = values;
@@ -108,8 +167,8 @@ function MCQQuestionForm(props) {
               Swal.fire({
                 icon: "success",
                 title: "Success!",
-                text: "File submitted successfully!",
-              }).then(() => {});
+                text: "Objective Question Added successfully!",
+              }).then(() => { });
             })
             .catch((error) => {
               console.log("error", error);
@@ -138,31 +197,30 @@ function MCQQuestionForm(props) {
                   <FormLabel>Grade</FormLabel>
                   <Form.Select
                     name="grade_id"
-                    onChange={handleChange}
-                    selected={values.grade_id}
+                    onChange={handleDropdownGradeChange}
+                    value={SelectedGrade}
                   >
                     <option>Select Grade</option>
-                    <option>LKG</option>
-                    <option>UKG</option>
-                    <option>I</option>
-                    <option>II</option>
+                    {GradeResponse.length > 0 &&
+                      GradeResponse.map((grd, index) => (
+                        <option key={grd.grade_id} value={grd.grade_id} > {grd.name}</option>
+                      ))}
                   </Form.Select>
                 </FormGroup>
               </Col>
               <Col md={6}>
                 <FormGroup>
-                  <FormLabel>Subject</FormLabel>
+                  <FormLabel>Select Subject</FormLabel>
                   <Form.Select
                     name="subject_id"
-                    onChange={handleChange}
-                    selected={values.subject_id}
+                    onChange={(e) => (setSelectedSubject(e.target.value))}
+                    value={SelectedSubject}
                   >
-                    <option>Select Subject</option>
-                    <option>Marathi</option>
-                    <option>Hindi</option>
-                    <option>English</option>
-                    <option>Maths</option>
-                    <option>Drawing</option>
+                    <option selected>Subject</option>
+                    {SubjectResponse.length > 0 &&
+                      SubjectResponse.map((sub, index) => (
+                        <option value={sub.subject_id} > {sub.name}</option>
+                      ))}
                   </Form.Select>
                 </FormGroup>
               </Col>
@@ -173,15 +231,14 @@ function MCQQuestionForm(props) {
                   <FormLabel>Chapter</FormLabel>
                   <Form.Select
                     name="chapter_id"
-                    onChange={handleChange}
-                    selected={values.chapter_id}
+                    onChange={handleDropdownChapterChange}
+                    value={SelectedChapter}
                   >
-                    <option>Select Chapter</option>
-                    <option>Chapter 1</option>
-                    <option>Chapter 2</option>
-                    <option>Chapter 3</option>
-                    <option>Chapter 4</option>
-                    <option>Chapter 5</option>
+                    <option selected>Select Chapter</option>
+                    {ChapterResponse.length > 0 &&
+                      ChapterResponse.map((chptr, index) => (
+                        <option key={chptr.chapter_id} value={chptr.chapter_id} > {chptr.name}</option>
+                      ))}
                   </Form.Select>
                 </FormGroup>
               </Col>
@@ -354,13 +411,13 @@ function MCQQuestionForm(props) {
                       name="answer"
                       options={answerOptions}
                       closeMenuOnSelect={false}
-                      hideoptionSelecteds={false} // Corrected prop name
+                      hideAnswerSelecteds={false} // Corrected prop name
                       components={{
                         Option,
                       }}
                       allowSelectAll={true}
-                      value={optionSelected}
-                      onChange={handleChangeOptions}
+                      value={AnswerSelected}
+                      onChange={handleAnswerSelected}
                       isMulti
                     />
                   </Form.Group>
@@ -382,9 +439,10 @@ function MCQQuestionForm(props) {
               </Col>
             </Row>
           </Form>
-        )}
-      </Formik>
-    </div>
+        )
+        }
+      </Formik >
+    </div >
   );
 }
 

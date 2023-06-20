@@ -2,15 +2,20 @@ import React from 'react'
 import { Helmet } from "react-helmet";
 import { Card } from 'react-bootstrap'
 import { StudentSidebar } from './studentSidebar'
+import { useLocation } from 'react-router-dom';
 
-export const StudentDashboard = () => {
+const StudentDashboard = () => {
+  const location = useLocation();
+  const receivedData = location.state?.data;
+  console.log("StudentReceivedData: ", receivedData.Id)
+
   return (
     <>
       <Helmet>
         <title>Student Dashboard | JPS</title>
       </Helmet>
 
-      <StudentSidebar />
+      <StudentSidebar id={receivedData.Id} />
       <div className="content-wrapper-client-lead" >
         <Card>
           <Card.Body style={{ minHeight: " 1043px" }}>
@@ -20,5 +25,7 @@ export const StudentDashboard = () => {
         </Card>
       </div>
     </>
-  )
-}
+  );
+};
+
+export { StudentDashboard };
