@@ -1,8 +1,32 @@
 import { Formik } from 'formik'
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Row, Form, Col, Button, Card } from 'react-bootstrap';
+import api from '../forms/APIS'
 
-export const EditSubject = ({ _setOpenCallback }) => {
+export const EditSubject = ({ _setOpenCallback, subject_id, setEdit }) => {
+    const [view, setView] = useState();
+    const [show, setShow] = useState(false);
+
+    const getSubjectinfo = () => {
+        api
+            .get(`/subject-detail/${subject_id}/`)
+            .then((response) => {
+                setView(response.data);
+                console.log("get edit getSubjectinfo", response.data)
+                // console.log('new Date(view?.date_of_birth): ', new Date(response.data?.date_of_birth))
+                setShow(true)
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    }
+
+    console.log("view", view, "subject_id", subject_id)
+    useEffect(() => {
+        getSubjectinfo();
+        // setSelectedCity("");
+    }, []);
+
     return (
         <>
             <Card>
@@ -16,12 +40,25 @@ export const EditSubject = ({ _setOpenCallback }) => {
                 <Card.Body>
                     <Formik
                         initialValues={{
-                            grade_id: "",
-                            subject_name: "",
+                            grade_id: view?.grade_id,
+                            subject_name: view?.subject_name,
                         }}
                         onSubmit={(values, { setStatus, setSubmitting }) => {
                             console.log("final values", values);
 
+                            api
+                                .post(`/subject-detail/${subject_id}/`, values)
+                                .then((response) => {
+                                    console.log("Edit response Data: ", response.data);
+                                    setEdit(false)
+                                    alert("Subject Data Updated Successfully!");
+                                })
+                                .catch((error) => {
+                                    console.log("Error", error);
+                                    alert(
+                                        "Subject Data Not Updated!"
+                                    );
+                                });
                         }}
                     >
                         {({
@@ -42,8 +79,11 @@ export const EditSubject = ({ _setOpenCallback }) => {
                                             <Form.Group>
                                                 <Form.Label>Grade</Form.Label>
                                                 <Form.Select
+                                                    name="grade_id"
                                                     value={values.grade_id}
-                                                    placeholder="Select grade id"
+                                                    placeholder="Select Grade id"
+                                                    onChange={handleChange}
+                                                    type="text"
                                                 >
                                                     <option>Select Grade</option>
                                                 </Form.Select>
@@ -59,15 +99,16 @@ export const EditSubject = ({ _setOpenCallback }) => {
                                                     name="subject_name"
                                                     placeholder='Subject name'
                                                     value={values.subject_name}
+                                                    onChange={handleChange}
                                                 />
                                             </Form.Group>
                                         </Col>
                                     </Row>
+
                                     <div className='text-center mt-4'>
-                                        <Button
-                                            type="submit"
-                                        >
-                                            Submit
+                                        <Button type="submit" variant="primary" size="lg">
+                                            {" "}
+                                            Update{" "}
                                         </Button>
                                     </div>
                                 </Form>

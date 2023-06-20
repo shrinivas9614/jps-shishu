@@ -76,9 +76,9 @@ export const GradeList = ({ _setOpenCallback, setId }) => {
           <Table striped bordered hover className="text-center">
             <thead>
               <tr>
-                <th>#</th>
+                <th>Sr.No</th>
+                <th>Grade</th>
                 <th>Grade Code</th>
-                <th>Name</th>
                 <th>Created Date</th>
                 <th>Action</th>
               </tr>
@@ -88,9 +88,9 @@ export const GradeList = ({ _setOpenCallback, setId }) => {
                 grade.map((tea, index) => (
                   <tr key={tea.grade_id}>
                     <td>{index + 1}</td>
-                    <td>{tea.grade_code}</td>
                     <td>{tea.name}</td>
-                    <td>{tea.createddate}</td>
+                    <td>{tea.grade_code}</td>
+                    <td>{new Date(tea.createddate).toLocaleDateString('en-IN', { day: '2-digit', month: '2-digit', year: 'numeric' }).split('/').join('/')}</td>
                     <td>
                       <Button
                         onClick={() => {

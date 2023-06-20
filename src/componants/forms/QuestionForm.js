@@ -32,7 +32,7 @@ const Option = (props) => {
 };
 
 function MCQQuestionForm(props) {
-  const [AnswerSelected, setAnswerSelected] = useState("");
+  const [AnswerSelected, setAnswerSelected] = useState([]);
   const [questionType, setQuestionType] = useState(props?.mcq ? true : false);
   const [typeOfQuestion, setTypeOfQuestion] = useState(
     props?.mcq
@@ -43,7 +43,8 @@ function MCQQuestionForm(props) {
   );
 
   const handleAnswerSelected = (event) => {
-    setAnswerSelected(event.target.value);
+    // console.log("event.target.value::", event.target.value)
+    setAnswerSelected(event);
   };
 
   const [GradeResponse, setGradeResponse] = useState("")
@@ -138,10 +139,10 @@ function MCQQuestionForm(props) {
           question: "",
           option_count: 6,
           mark: "",
+          answer: "",
           grade_id: SelectedGrade,
           subject_id: SelectedSubject,
           chapter_id: SelectedChapter,
-          answer: "",
         }}
         // validationSchema={{}}
         onSubmit={(values, { setStatus, setSubmitting, resetForm }) => {
@@ -152,6 +153,9 @@ function MCQQuestionForm(props) {
             multiple_choice_question: {},
             select_relevent_picture_question: {},
             question_type: typeOfQuestion,
+            grade_id: SelectedGrade,
+            subject_id: SelectedSubject,
+            chapter_id: SelectedChapter,
           };
           if (typeOfQuestion == "objective") {
             formData["multiple_choice_question"] = values;
@@ -163,7 +167,7 @@ function MCQQuestionForm(props) {
               Swal.fire({
                 icon: "success",
                 title: "Success!",
-                text: "File submitted successfully!",
+                text: "Objective Question Added successfully!",
               }).then(() => { });
             })
             .catch((error) => {

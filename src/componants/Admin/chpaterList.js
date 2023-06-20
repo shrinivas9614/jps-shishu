@@ -36,10 +36,10 @@ export const ChapterList = ({ _setOpenCallback, setEdit }) => {
                 <Table striped bordered className='text-center'>
                     <thead>
                         <tr>
-                            <th>#</th>
+                            <th>Sr.No</th>
+                            <th>Grade</th>
                             <th>Subject</th>
-                            <th>Topic</th>
-                            <th>Action</th>
+                            <th>Chapter</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -47,7 +47,8 @@ export const ChapterList = ({ _setOpenCallback, setEdit }) => {
                             chapter.map((sub_chptr, index) => (
                                 <tr key={sub_chptr.chapter_id}>
                                     <td>{index + 1}</td>
-                                    <td>{sub_chptr.chapter_id}</td>
+                                    <td>{sub_chptr.subject_id.grade_id.name}</td>
+                                    <td>{sub_chptr.subject_id.name}</td>
                                     <td>{sub_chptr.name}</td>
                                     <td>
                                         <Button className='me-sm-1'

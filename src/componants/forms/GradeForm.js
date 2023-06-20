@@ -61,7 +61,7 @@ const GradeForm = ({_setOpenCallback}) => {
                       Swal.fire({
                         icon: "success",
                         title: "Success!",
-                        text: "File submitted successfully!",
+                        text: "Grade Added successfully!",
                       }).then(() => {});
                     })
                     .catch((error) => {

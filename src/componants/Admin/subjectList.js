@@ -36,7 +36,7 @@ export const SubjectList = ({ _setOpenCallback, setEdit }) => {
                 <Table striped bordered className='text-center'>
                     <thead>
                         <tr>
-                            <th>#</th>
+                            <th>Sr.No</th>
                             <th>Grade</th>
                             <th>Subject</th>
                             <th>Action</th>
@@ -53,7 +53,7 @@ export const SubjectList = ({ _setOpenCallback, setEdit }) => {
                                         <Button className='me-sm-1'
                                             onClick={() => {
                                                 _setOpenCallback("edit")
-                                                setEdit(sub.id)
+                                                setEdit(sub.subject_id)
                                             }}
                                         >
                                             <i className='fa fa-edit'></i>
