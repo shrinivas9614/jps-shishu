@@ -5,6 +5,7 @@ import { Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import QuestionForm from "../forms/QuestionForm";
 import MatchQuestionList from "./MatchQuestionList";
+import MatchThePairsQuestionForm from "../forms/MatchThePairsQueForm";
 
 export const MatchThePairs = () => {
   const [show, setShow] = useState(false);
@@ -18,7 +19,7 @@ export const MatchThePairs = () => {
           <i className="fa fa-times"></i>
         </Link>
       )}
-      {show ? <QuestionForm match={match} /> : <MatchQuestionList />}
+      {show ? <MatchThePairsQuestionForm match={match} /> : <MatchQuestionList />}
     </div>
   );
 };

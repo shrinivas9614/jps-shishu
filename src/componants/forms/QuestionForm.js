@@ -216,7 +216,7 @@ function MCQQuestionForm(props) {
                     onChange={(e) => (setSelectedSubject(e.target.value))}
                     value={SelectedSubject}
                   >
-                    <option selected>Subject</option>
+                    <option selected>Select Subject</option>
                     {SubjectResponse.length > 0 &&
                       SubjectResponse.map((sub, index) => (
                         <option value={sub.subject_id} > {sub.name}</option>
