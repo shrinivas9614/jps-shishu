@@ -5,7 +5,7 @@ import { Container, Row, Col, Form, Button, Card } from 'react-bootstrap';
 import axios from "axios";
 import '../../AdminLogin.css'; // Import custom CSS for styling
 import { useNavigate } from "react-router-dom";
-
+import Swal from 'sweetalert2';
 const LoginSchema = Yup.object().shape({
   username: Yup.string().required('Required'),
   password: Yup.string().required('Required'),
@@ -35,7 +35,11 @@ const AdminLogin = () => {
         .then((response) => {
           console.log(response);
           if (response.status === 200) {
-            alert("Successfully Logged In!");
+            Swal.fire({
+              icon: "success",
+              title: "Success!",
+              text: "File submitted successfully!",
+            })
             navigate('/admin-dashboard')
 
           } else {
