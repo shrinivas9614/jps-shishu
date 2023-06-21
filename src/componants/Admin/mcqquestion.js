@@ -11,14 +11,20 @@ export const MCQQuestionType = () => {
   const [mcq, setMcq] = useState(true);
   return (
     <div>
-      {show == false && <Link onClick={() => setShow(true)}>Add MCQ Question</Link>}
+      {show == false && (
+        <Link onClick={() => setShow(true)}>Add MCQ Question</Link>
+      )}
 
       {show == true && (
-        <Link onClick={() => setShow(false)}>
+        <Link className="pull-right mb-2" onClick={() => setShow(false)}>
           <i className="fa fa-times"></i>
         </Link>
       )}
-      {show ? <QuestionForm mcq={mcq} /> : <AssesmentQuestionList />}
+      <Card className="border-0">
+        <Card.Body>
+          {show ? <QuestionForm mcq={mcq} /> : <AssesmentQuestionList />}
+        </Card.Body>
+      </Card>
     </div>
   );
 };
