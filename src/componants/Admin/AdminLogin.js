@@ -1,22 +1,22 @@
-import React from 'react';
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
-import { Container, Row, Col, Form, Button, Card } from 'react-bootstrap';
+import React from "react";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import { Container, Row, Col, Form, Button, Card } from "react-bootstrap";
 import axios from "axios";
-import '../../AdminLogin.css'; // Import custom CSS for styling
+import "../../AdminLogin.css"; // Import custom CSS for styling
 import { useNavigate } from "react-router-dom";
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
 const LoginSchema = Yup.object().shape({
-  username: Yup.string().required('Required'),
-  password: Yup.string().required('Required'),
+  username: Yup.string().required("Required"),
+  password: Yup.string().required("Required"),
 });
 
 const AdminLogin = () => {
   const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
-      username: '',
-      password: '',
+      username: "",
+      password: "",
     },
     validationSchema: LoginSchema,
     onSubmit: (values, { setSubmitting }) => {
@@ -30,7 +30,7 @@ const AdminLogin = () => {
             "Access-Control-Allow-Origin": "*",
           },
           email: values.username,
-          password: values.password
+          password: values.password,
         })
         .then((response) => {
           console.log(response);
@@ -39,16 +39,20 @@ const AdminLogin = () => {
               icon: "success",
               title: "Success!",
               text: "File submitted successfully!",
-            })
-            navigate('/admin-dashboard')
-
+            });
+            navigate("/admin-dashboard");
           } else {
             alert("Failed to login username and password does not match");
           }
         })
         .catch(function (error) {
           console.log(error);
-          alert("Failed to login username and password does not match");
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "check email or password is currect",
+            footer: '<a href="">Why do I have this issue?</a>',
+          });
         });
     },
   });
@@ -71,14 +75,20 @@ const AdminLogin = () => {
                       value={formik.values.username}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
-                      className={formik.errors.username ? 'form-control is-invalid' : 'form-control'}
+                      className={
+                        formik.errors.username
+                          ? "form-control is-invalid"
+                          : "form-control"
+                      }
                     />
                     {formik.errors.username && formik.touched.username && (
-                      <div className="text-danger">{formik.errors.username}</div>
+                      <div className="text-danger">
+                        {formik.errors.username}
+                      </div>
                     )}
                   </Form.Group>
 
-                  <Form.Group controlId="password" className='mt-3'>
+                  <Form.Group controlId="password" className="mt-3">
                     <Form.Label>Password</Form.Label>
                     <Form.Control
                       type="password"
@@ -87,10 +97,16 @@ const AdminLogin = () => {
                       value={formik.values.password}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
-                      className={formik.errors.password ? 'form-control is-invalid' : 'form-control'}
+                      className={
+                        formik.errors.password
+                          ? "form-control is-invalid"
+                          : "form-control"
+                      }
                     />
                     {formik.errors.password && formik.touched.password && (
-                      <div className="text-danger">{formik.errors.password}</div>
+                      <div className="text-danger">
+                        {formik.errors.password}
+                      </div>
                     )}
                   </Form.Group>
 
@@ -100,7 +116,7 @@ const AdminLogin = () => {
                     disabled={formik.isSubmitting}
                     className="submit-button"
                   >
-                    {formik.isSubmitting ? 'Submitting...' : 'Submit'}
+                    {formik.isSubmitting ? "Submitting..." : "Submit"}
                   </Button>
                 </Form>
               </Card.Body>

@@ -10,6 +10,7 @@ export const AdminDashboard = () => {
   const [countStudent, setCountStudent] = useState();
   const [countTeacher, setCountTeacher] = useState();
   const [countGrade, setCountGrade] = useState();
+  const [CountAssesment, setCountAssesment] = useState();
   const getStudent = () => {
     api.get("/student-registration").then((response) => {
       setCountStudent(response.data.length);
@@ -27,11 +28,17 @@ export const AdminDashboard = () => {
       setCountGrade(response.data.length);
     });
   };
+  const getAssesment = () => {
+    api.get("assessment-api").then((response) => {
+      setCountAssesment(response.data.length);
+    });
+  };
 
   useEffect(() => {
     getStudent();
     getTeacher();
     getGrade();
+    getAssesment();
   }, []);
 
   return (
@@ -83,7 +90,7 @@ export const AdminDashboard = () => {
                       <a href="/assessment" className="text-white fw-bold fs-4">
                         Assements
                       </a>
-                      <p className="fs-3 text-white">0</p>
+                      <p className="fs-3 text-white"> {CountAssesment} </p>
                     </Card.Body>
                   </Card>
                 </Col>
