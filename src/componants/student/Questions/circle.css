@@ -1,0 +1,41 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.main_img{
+    position: absolute;
+    display:grid;
+  margin: auto;
+  padding: 100px;
+  padding-top: 230px; 
+  grid-template-columns: repeat(3,10rem);
+  grid-template-rows: minmax(25rem, auto) repeat(2, 20rem) ;
+  
+  grid-gap: 10rem;
+  justify-content: center;
+    width: 180px;
+    
+    height: 180px;
+    left: 50%;
+    
+  
+    transform: translate(-50%, -50%) ;
+
+
+}
+
+
+
+.image_one{
+    position: absolute;
+    top: 480px;
+    
+
+}
+
+.image_one img
+{
+    width: 180px;
+    height: 200px;
+}

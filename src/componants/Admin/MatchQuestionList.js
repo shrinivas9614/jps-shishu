@@ -1,9 +1,22 @@
 /** @format */
 import { Card, Col, Row, Table } from "react-bootstrap";
+import { useState } from "react";
 import { Link } from "react-router-dom";
-
+import api from "../forms/APIS";
 const MatchQuestionList = () => {
- 
+  const [Questions, setQuestions] = useState([]);
+  const get = () => {
+    api
+      .get("/match-pairs-api")
+      .then((response) => {
+        console.log(response.data);
+        setQuestions(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
   return (
     <Card>
       <Card.Header
