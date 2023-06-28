@@ -20,7 +20,7 @@ export function StudentAssessment() {
         <Card>
           <Card.Body style={{ minHeight: " 1043px" }}>
             <StudentContainer />
-            <Circle />
+           
           </Card.Body>
         </Card>
       </div>

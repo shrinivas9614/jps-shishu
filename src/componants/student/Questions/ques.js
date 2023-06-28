@@ -5,7 +5,7 @@ import Camel from "../images/camel.jpeg";
 import Elephant from "../images/elephant.jpeg";
 import Lion from "../images/Lion.jpg";
 import Tiger from "../images/tiger.jpg";
-function ques() {
+function Ques() {
   return (
     <Container className="mt-5">
       <Row>
@@ -137,4 +137,4 @@ function ques() {
   );
 }
 
-export default ques;
+export default Ques;

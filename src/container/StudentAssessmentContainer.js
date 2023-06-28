@@ -4,6 +4,7 @@ import Assesment from '../componants/Admin/Assesment'
 import Adminsidebar from '../componants/Admin/adminSidebard'
 import { QuestionConatiner } from './questionContainer'
 import Circle from "../componants/student/Questions/circle"
+import Ques from "../componants/student/Questions/ques"
 
 export const StudentContainer = () => {
     const [show, setShow] = useState("assement")
@@ -15,7 +16,7 @@ export const StudentContainer = () => {
     const shows = () => {
         switch (show) {
             case "assement": return(<Circle/>)
-            case "question":return (<QuestionConatiner/>)
+            case "question":return (<Ques/>)
         }
     }
   return (
