@@ -1,10 +1,10 @@
 import React from "react";
 import { Card, Col, Container, Row, Button, Form } from "react-bootstrap";
 import CardHeader from "react-bootstrap/esm/CardHeader";
-import Camel from "../images/camel.jpeg";
-import Elephant from "../images/elephant.jpeg";
-import Lion from "../images/Lion.jpg";
-import Tiger from "../images/tiger.jpg";
+import Camel from "./images/camel.jpeg";
+import Elephant from "./images/elephant.jpeg";
+import Lion from "./images/Lion.jpg";
+import Tiger from "./images/tiger.jpg";
 function Ques() {
   return (
     <Container className="mt-5">
@@ -51,7 +51,6 @@ function Ques() {
                         Tiger
                       </Form.Check.Label>
                     </Form.Check>
-
                     {/* <Form.Check
                       className=" mb-2"
                       type="radio"
@@ -59,7 +58,6 @@ function Ques() {
                       name="radioGroup"
                       value="option1"
                     />
-
                     <Form.Check
                       className="mb-2"
                       type="radio"
@@ -74,7 +72,6 @@ function Ques() {
                       name="radioGroup"
                       value="option3"
                     />
-
                     <Form.Check
                       className="mb-2"
                       type="radio"

@@ -1,13 +1,15 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Card, Col, Row, Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import api from "../forms/APIS";
+// import AiOutlineCheck from "rea"
+const AssesmentQuestionList = ({ setOpenCallback }) => {
+  const [questions, setQuestions] = useState([]);
+  const [selectedGrade, setSelectedGrade] = useState("");
 
-const AssesmentQuestionList = ({ _setOpenCallback }) => {
-  const [Questions, setQuestions] = useState([]);
-  const get = () => {
+  const fetchQuestions = () => {
     api
-      .get("/question-api")
+      .get("/question-api", { params: { grade: selectedGrade } })
       .then((response) => {
         console.log(response.data);
         setQuestions(response.data);
@@ -17,32 +19,42 @@ const AssesmentQuestionList = ({ _setOpenCallback }) => {
       });
   };
 
-
-
   useEffect(() => {
-    get();
-    
-  }, []);
+    fetchQuestions();
+  }, [selectedGrade]);
 
   return (
     <Card>
-      <Card.Header
-        style={{ backgroundColor: "transparent" }}
-        className="border-0"
-      >
+      <Card.Header className="border-0 bg-transparent">
         <Row>
           <Col>
-            <Link
-              className="float-end fs-5"
-              onClick={() => _setOpenCallback("add")}
-            >
+            <Link className="float-end fs-5" onClick={() => setOpenCallback("add")}>
               Add
             </Link>
           </Col>
         </Row>
       </Card.Header>
       <Card.Body>
-        <Table striped bordered hover className="text-center">
+        <Row>
+          <Col>
+            <h3>FILTER</h3>
+          </Col>
+          <Col>
+            <select
+              className="form-select"
+              value={selectedGrade}
+              onChange={(e) => setSelectedGrade(e.target.value)}
+            >
+              <option value="">All Grades</option>
+              <option value="3">LKG</option>
+              <option value="4">UKG</option>
+              <option value="1">Grade 1</option>
+              <option value="2">Grade 2</option>
+              {/* Add more grade options as needed */}
+            </select>
+          </Col>
+        </Row>
+        <Table striped bordered hover className="text-center mt-3">
           <thead>
             <tr>
               <th>#</th>
@@ -54,12 +66,14 @@ const AssesmentQuestionList = ({ _setOpenCallback }) => {
             </tr>
           </thead>
           <tbody>
-            {Questions.length > 0 &&
-              Questions.map((tea, index) => (
-                <tr key={tea.id}>
+            {questions.length > 0 &&
+              questions
+                .filter((question) => selectedGrade === "" || Number(question.grade_id) === Number(selectedGrade))
+                .map((question, index) => (
+                  <tr key={question.id}>
                   <td>{index + 1}</td>
                   <td>
-                    {new Date(tea.createddate)
+                    {new Date(question.createddate)
                       .toLocaleDateString("en-IN", {
                         day: "2-digit",
                         month: "2-digit",
@@ -68,13 +82,14 @@ const AssesmentQuestionList = ({ _setOpenCallback }) => {
                       .split("/")
                       .join("/")}
                   </td>
-                  <td>{tea.grade_id}</td>
-
-                  <td>{tea.chapter_id?.name}</td>
-                  <td>{tea.chapter_id?.subject_id?.name}</td>
-                  <td>{tea.multiple_choice_question?.question}</td>
+                 
+                  <td> {question.chapter_id?.subject_id?.grade_id?.name} </td>
+                  <td>{question.chapter_id?.subject_id?.name}</td>
+                  <td>{question.chapter_id?.name}</td>
+                  <td>{question.multiple_choice_question?.question}</td>
+                  
                 </tr>
-              ))}
+                ))}
           </tbody>
         </Table>
       </Card.Body>
@@ -83,3 +98,5 @@ const AssesmentQuestionList = ({ _setOpenCallback }) => {
 };
 
 export default AssesmentQuestionList;
+
+

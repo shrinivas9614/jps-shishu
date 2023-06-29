@@ -20,8 +20,10 @@ export default function Circle() {
     console.log(selectedOption)
   };
 
-  return (
+  return (<>
+<h3> ग ने सुरु होणाऱ्या चित्रावर खून करा </h3><br />  
     <div className="main_img" style={{ display: "grid", gridRow: "span 3" }}>
+      
        {selectedOption && (
         <ReactAudioPlayer src={selectedOption.audio} autoPlay  />
       )}
@@ -53,5 +55,6 @@ export default function Circle() {
       </div>
       
     </div>
+  </>
   );
 }
