@@ -46,14 +46,29 @@ function App() {
 
           {/* ================  Teacher Dashboard  ================= */}
           <Route path="/teacher-login" element={<TeacherLogin />}></Route>
-          <Route path="/teacher-dashboard" element={<TeacherDashboard />}></Route>
-          <Route path="/teacher-profile/:id" element={<TeacherProfile />}></Route>
+          <Route
+            path="/teacher-dashboard"
+            element={<TeacherDashboard />}
+          ></Route>
+          <Route
+            path="/teacher-profile/:id"
+            element={<TeacherProfile />}
+          ></Route>
 
           {/* ================  Student Dashboard  ================= */}
           <Route path="/student-login" element={<StudentLogin />}></Route>
-          <Route path="/student-dashboard" element={<StudentDashboard />}></Route>
-          <Route path="/student-profile/:id" element={<StudentProfile />}></Route>
-          <Route path="/student-assessment" element={ <StudentAssessment /> }></Route>
+          <Route
+            path="/student-dashboard"
+            element={<StudentDashboard />}
+          ></Route>
+          <Route
+            path="/student-profile/:id"
+            element={<StudentProfile />}
+          ></Route>
+          <Route
+            path="/student-assessment"
+            element={<StudentAssessment />}
+          ></Route>
           <Route path="/assessment" element={<StudentContainer />}></Route>
         </Routes>
       </BrowserRouter>

@@ -36,8 +36,8 @@ export const StudentDashboard  = () => {
               <Row>
                 <Col lg={3}>
                   <Card className="bg-secondary">
-                    <Card.Body>
-                      <a href="/student-assesment" className="text-white fw-bold fs-4">
+                    <Card.Body>``
+                      <a href="/student-assessment" className="text-white fw-bold fs-4">
                         Total Assesments
                       </a>
                       <p className="fs-3 text-white">{CountAssesment}</p>

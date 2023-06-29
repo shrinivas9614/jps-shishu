@@ -38,7 +38,7 @@ const AdminLogin = () => {
             Swal.fire({
               icon: "success",
               title: "Success!",
-              text: "File submitted successfully!",
+              text: "Login successful",
             });
             navigate("/admin-dashboard");
           } else {
