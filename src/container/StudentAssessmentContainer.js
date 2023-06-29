@@ -21,9 +21,6 @@ export const StudentContainer = () => {
     }
   return (
     <>
-   
-      <div className="content-wrapper-client-lead" style={{ minHeight: " 1043px" }}>
-        
           <Card>
             <Card.Header>
                 <Nav>
@@ -43,7 +40,6 @@ export const StudentContainer = () => {
                 {shows()}
             </Card.Body>
           </Card>
-    </div>
       </>
   )
 }

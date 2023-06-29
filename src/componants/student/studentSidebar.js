@@ -27,8 +27,8 @@ export const StudentSidebar = ({ id }) => {
                   </a>
                 </li>
                 <li>
-                  <a href="/">
-                    <BiBookContent /> Grade
+                  <a href="#">
+                    <AiFillQuestionCircle /> Grade
                   </a>
                 </li>
                 <li>

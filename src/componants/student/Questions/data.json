@@ -1,5 +1,5 @@
 {
-    "question": [{ "qimage": "ga.png" }],
+    "question": [{ "qimage": "Ga.png" }],
   
     "options": [
       { "audio":"./audios/ganapati.mp3","id":1, "name":"गणपती","image": "ganpati.png" },
