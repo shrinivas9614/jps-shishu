@@ -25,6 +25,7 @@ import { StudentDashboard } from "./componants/student/studentDashboard";
 import { StudentProfile } from "./componants/student/studentProfile";
 import { StudentAssessment } from "./componants/student/StudentAssessment";
 import { StudentContainer } from "./container/StudentAssessmentContainer";
+import TestForm from "./componants/forms/test_1";
 
 function App() {
   return (
@@ -55,6 +56,10 @@ function App() {
           <Route path="/student-profile/:id" element={<StudentProfile />}></Route>
           <Route path="/student-assessment" element={ <StudentAssessment /> }></Route>
           <Route path="/assessment" element={<StudentContainer />}></Route>
+
+          <Route path="/test-form" element={<TestForm />}></Route>
+
+
         </Routes>
       </BrowserRouter>
     </div>

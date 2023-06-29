@@ -71,6 +71,13 @@ function Adminsidebar() {
                   <AiFillQuestionCircle /> Assessment
                 </a>
               </li>
+
+              <li>
+                <a href="/test-form">
+                  <AiFillQuestionCircle /> Test
+                </a>
+              </li>
+
               <li>
                 <a href="/report">
                   <TbReportSearch /> Report
