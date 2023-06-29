@@ -1,6 +1,16 @@
 /** @format */
 import React, { useEffect, useState } from "react";
-import { Button, Card, Col, Form, FormGroup, InputGroup, Row, FormLabel, FormControl } from "react-bootstrap";
+import {
+  Button,
+  Card,
+  Col,
+  Form,
+  FormGroup,
+  InputGroup,
+  Row,
+  FormLabel,
+  FormControl,
+} from "react-bootstrap";
 // import Adminsidebar from "../Admin/adminSidebard";
 import { Link } from "react-router-dom";
 import { states, bloodGroups } from "../utils/Utils";
@@ -9,10 +19,41 @@ import api from "./APIS";
 import * as Yup from "yup";
 import Swal from "sweetalert2";
 
-
 function AssesmentForm({ _setOpenCallback }) {
-  const [SelectedGrade, setSelectedGrade] = useState(null)
-  const [GradeResponse, setGradeResponse] = useState("")
+  const [SelectedTeacher, setSelectedTeacher] = useState(null);
+  const [TeacherResponse, setTeacherResponse] = useState("");
+
+  const [GradeResponse, setGradeResponse] = useState("");
+  const [SubjectResponse, setSubjectResponse] = useState("");
+  const [ChapterResponse, setChapterResponse] = useState("");
+  const [SelectedQuestionResponse, setSelectedQuestionResponse] =
+    useState(null);
+
+  const [SelectedGrade, setSelectedGrade] = useState(null);
+  const [SelectedSubject, setSelectedSubject] = useState(null);
+  const [SelectedChapter, setSelectedChapter] = useState(null);
+  const [SelectedQuestionType, setSelectedQuestionType] = useState(null);
+
+  // Select Teacher
+  const getTeacher = () => {
+    api
+      .get("/teacher-list")
+      .then((res) => {
+        console.log("teacher response", res);
+        setTeacherResponse(res.data);
+      })
+      .catch((error) => {
+        console.log("error", error);
+      });
+  };
+
+  useEffect(() => {
+    getTeacher();
+  }, []);
+
+  const handleDropdownTeacherChange = (event) => {
+    setSelectedTeacher(event.target.value);
+  };
 
   // Select Grade
   const getGrades = () => {
@@ -20,7 +61,7 @@ function AssesmentForm({ _setOpenCallback }) {
       .get("/grade-api")
       .then((res) => {
         console.log("Grade response", res, "grade_id:", res.data.grade_id);
-        setGradeResponse(res.data)
+        setGradeResponse(res.data);
       })
       .catch((error) => {
         console.log("error", error);
@@ -33,6 +74,95 @@ function AssesmentForm({ _setOpenCallback }) {
 
   const handleDropdownGradeChange = (event) => {
     setSelectedGrade(event.target.value);
+  };
+
+  // Select Subject
+  const getSubjects = (grade_id) => {
+    api
+      .get(`/subject-list/${grade_id}/`)
+
+      .then((res) => {
+        console.log(
+          "Subject response",
+          res.data,
+          "SelectedGrade",
+          SelectedGrade
+        );
+        setSubjectResponse(res.data);
+      })
+      .catch((error) => {
+        console.log("error", error);
+      });
+  };
+
+  useEffect(() => {
+    if (SelectedGrade) {
+      getSubjects(SelectedGrade);
+    }
+  }, [SelectedGrade]);
+
+  const handleDropdownSubjectChange = (event) => {
+    setSelectedSubject(event.target.value);
+  };
+
+  // Select Chapter
+  const getChapters = (subject_id) => {
+    api
+      .get(`/chapter-list/${subject_id}/`)
+
+      .then((response) => {
+        console.log(
+          "Chapter response",
+          response.data,
+          "SelectedSubject",
+          SelectedSubject
+        );
+        setChapterResponse(response.data);
+      })
+      .catch((error) => {
+        console.log("error", error);
+      });
+  };
+
+  useEffect(() => {
+    if (SelectedSubject) {
+      getChapters(SelectedSubject);
+    }
+  }, [SelectedSubject]);
+
+  const handleDropdownChapterChange = (event) => {
+    setSelectedChapter(event.target.value);
+  };
+
+  // Select Chapter
+  // http://localhost:8000/question-list?question_type=objective&chapter_id=1
+  const getQuestions = () => {
+    api.get(
+      `/question-list?question_type=${SelectedQuestionType}&chapter_id=${SelectedChapter}`
+    )
+    
+      .then((response) => {
+        console.log(
+          "question response",
+          response.data,
+          "SelectedQuestionType",
+          SelectedQuestionType
+        );
+        setSelectedQuestionResponse(response.data);
+      })
+      .catch((error) => {
+        console.log("error", error);
+      });
+  };
+
+  useEffect(() => {
+    if (SelectedQuestionType) {
+      getQuestions(SelectedQuestionType);
+    }
+  }, [SelectedQuestionType]);
+
+  const QuestionTypeChange = (event) => {
+    setSelectedQuestionType(event.target.value);
   };
 
   return (
@@ -68,11 +198,17 @@ function AssesmentForm({ _setOpenCallback }) {
                   question_type: "",
                   teacher_name: "",
                   grade_id: "",
+                  subject_id: "",
+                  chapter_id: "",
                 }}
                 // validationSchema={schema}
                 onSubmit={(values, { setStatus, setSubmitting }) => {
-                  values.grade_id = SelectedGrade
-                  console.log("values:- ", values)
+                  values.grade_id = SelectedGrade;
+                  values.subject = SelectedSubject;
+                  values.chapter_id = SelectedChapter;
+                  values.teacher_name = SelectedTeacher;
+                  console.log("values:- ", values);
+
                   api
                     .post("/assessment-api", values)
                     .then((response) => {
@@ -81,7 +217,7 @@ function AssesmentForm({ _setOpenCallback }) {
                         icon: "success",
                         title: "Success!",
                         text: "Assessment Created Successfully!",
-                      }).then(() => { });
+                      }).then(() => {});
                       // _setOpenCallback("list");
                     })
                     .catch((error) => {
@@ -93,7 +229,6 @@ function AssesmentForm({ _setOpenCallback }) {
                     });
                 }}
               >
-
                 {({
                   values,
                   errors,
@@ -103,7 +238,7 @@ function AssesmentForm({ _setOpenCallback }) {
                   handleSubmit,
                   isSubmitting,
                   setFieldValue,
-                  status
+                  status,
                 }) => (
                   <>
                     <Form onSubmit={handleSubmit}>
@@ -121,6 +256,34 @@ function AssesmentForm({ _setOpenCallback }) {
                         </Col>
                         <Col>
                           <FormGroup>
+                            <FormLabel>Teacher Name</FormLabel>
+                            {/* <FormControl
+                              placeholder="Teacher Name"
+                              name="teacher_name"
+                              value={values.teacher_name}
+                              onChange={handleChange}
+                            /> */}
+
+                            <Form.Select
+                              name="teacher_name"
+                              onChange={(e) =>
+                                setSelectedTeacher(e.target.value)
+                              }
+                              value={SelectedTeacher}
+                            >
+                              <option selected>Select Teacher</option>
+                              {TeacherResponse.length > 0 &&
+                                TeacherResponse.map((tea, index) => (
+                                  <option value={tea.teacher_name}>
+                                    {" "}
+                                    {tea.firstname}
+                                  </option>
+                                ))}
+                            </Form.Select>
+                          </FormGroup>
+                        </Col>
+                        <Col>
+                          <FormGroup>
                             <FormLabel>Date of Assessment</FormLabel>
                             <FormControl
                               type="date"
@@ -132,6 +295,7 @@ function AssesmentForm({ _setOpenCallback }) {
                           </FormGroup>
                         </Col>
                       </Row>
+
                       <Row>
                         <Col>
                           <FormGroup>
@@ -140,26 +304,82 @@ function AssesmentForm({ _setOpenCallback }) {
                               name="grade_id"
                               onChange={(e) => setSelectedGrade(e.target.value)}
                               value={SelectedGrade}
-                            // type="number"
+                              // type="number"
                             >
                               <option>Select Grade</option>
                               {GradeResponse.length > 0 &&
                                 GradeResponse.map((grd, index) => (
-                                  <option key={grd.grade_id} value={grd.grade_id} > {grd.name}</option>
+                                  <option
+                                    key={grd.grade_id}
+                                    value={grd.grade_id}
+                                  >
+                                    {" "}
+                                    {grd.name}
+                                  </option>
                                 ))}
                             </Form.Select>
                           </FormGroup>
                         </Col>
                         <Col>
                           <FormGroup>
-                            <FormLabel>Subject of Assessment </FormLabel>
-                            <FormControl
-                              placeholder="Subject of Assessment"
-                              name="subject"
-                              type="text"
-                              value={values.subject}
+                            <FormLabel>Subject</FormLabel>
+                            <Form.Select
+                              name="subject_id"
+                              onChange={(e) =>
+                                setSelectedSubject(e.target.value)
+                              }
+                              value={SelectedSubject}
+                            >
+                              <option selected>Select Subject</option>
+                              {SubjectResponse.length > 0 &&
+                                SubjectResponse.map((sub, index) => (
+                                  <option value={sub.subject_id}>
+                                    {" "}
+                                    {sub.name}
+                                  </option>
+                                ))}
+                            </Form.Select>
+                          </FormGroup>
+                        </Col>
+                        <Col>
+                          <FormGroup>
+                            <FormLabel>Chapter</FormLabel>
+                            <Form.Select
+                              name="chapter_id"
+                              onChange={handleDropdownChapterChange}
+                              value={SelectedChapter}
+                            >
+                              <option selected>Select Chapter</option>
+                              {ChapterResponse.length > 0 &&
+                                ChapterResponse.map((chptr, index) => (
+                                  <option
+                                    key={chptr.chapter_id}
+                                    value={chptr.chapter_id}
+                                  >
+                                    {" "}
+                                    {chptr.name}
+                                  </option>
+                                ))}
+                            </Form.Select>
+                          </FormGroup>
+                        </Col>
+                      </Row>
+
+                      <Row>
+                        <Col>
+                          <FormGroup>
+                            <FormLabel>Types of Questions</FormLabel>
+                            <Form.Select
+                              placeholder="Types of Questions"
+                              name="question_type"
+                              value={values.question_type}
+                              onClick={QuestionTypeChange}
                               onChange={handleChange}
-                            />
+                            >
+                              <option>Select Question Type</option>
+                              <option value="matching_question">Match the Pairs</option>
+                              <option  value="objective">Objective</option>
+                            </Form.Select>
                           </FormGroup>
                         </Col>
                         <Col>
@@ -176,42 +396,35 @@ function AssesmentForm({ _setOpenCallback }) {
                             />
                           </FormGroup>
                         </Col>
-                      </Row>
-                      <Row>
                         <Col>
                           <FormGroup>
-                            <FormLabel>Types of Questions</FormLabel>
-                            <Form.Select
-                              placeholder="Types of Questions"
-                              name="question_type"
-                              value={values.question_type}
-                              onChange={handleChange}
-                            >
-                              <option>Select Question Type</option>
-                              <option>Match the Pairs</option>
-                              <option>Objective</option>
-                            </Form.Select>
-                          </FormGroup>
-                        </Col>
-                        <Col>
-                          <FormGroup>
-                            <FormLabel>Teacher Name</FormLabel>
-                            <FormControl
-                              placeholder="Teacher Name"
-                              name="teacher_name"
-                              value={values.teacher_name}
-                              onChange={handleChange}
-                            />
+                            <div className="text-center mt-4">
+                              <Button
+                                onClick={getQuestions}
+                                variant="primary"
+                                size="lg"
+                              >
+                                {" "}
+                                Get Q's{" "}
+                              </Button>
+                            </div>
+
+                            {/* <div className='text-center mt-4'>
+                              <Button type="submit" variant="primary" size="lg">
+                                {" "}
+                                Submit{" "}
+                              </Button>
+                            </div> */}
                           </FormGroup>
                         </Col>
                       </Row>
 
-                      <div className='text-center mt-4'>
+                      {/* <div className='text-center mt-4'>
                         <Button type="submit" variant="primary" size="lg">
                           {" "}
                           Submit{" "}
                         </Button>
-                      </div>
+                      </div> */}
                     </Form>
                   </>
                 )}
@@ -219,9 +432,9 @@ function AssesmentForm({ _setOpenCallback }) {
             </Card.Body>
           </Card>
         </section>
-      </div >
+      </div>
     </div>
   );
-};
+}
 
 export default AssesmentForm;

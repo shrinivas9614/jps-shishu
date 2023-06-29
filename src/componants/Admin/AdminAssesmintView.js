@@ -11,7 +11,7 @@ const AdminAssesmentView = ({ _setOpenCallback }) => {
     api
       .get("/assessment-api")
       .then((response) => {
-        console.log("assessment_list_data", response.data);
+        console.log("assessment_list_data", response.data, "asse.chapter_id.subject_id.grade_id.name", response.chapter_id.subject_id.name);
         setAssessment(response.data);
       })
       .catch((error) => {
@@ -45,12 +45,13 @@ const AdminAssesmentView = ({ _setOpenCallback }) => {
           <thead>
             <tr>
               <th>Sr.No</th>
-              <th>Date of asssement</th>
               <th>Assesment name</th>
               <th>Grade</th>
-              <th>Subject of assesment</th>
-              <th>Question type</th>
+              <th>Subject</th>
+              <th>Chapter</th>
               <th>Teacher name</th>
+              <th>Question type</th>
+              <th>Date of asssement</th>
               <th>Total marks</th>
             </tr>
           </thead>
@@ -59,12 +60,22 @@ const AdminAssesmentView = ({ _setOpenCallback }) => {
               assessment.map((asse, index) => (
                 <tr key={asse.id}>
                   <td>{index + 1}</td>
-                  <td>{new Date(asse.date_time).toLocaleDateString('en-IN', { day: '2-digit', month: '2-digit', year: 'numeric' }).split('/').join('/')}</td>
                   <td>{asse.name}</td>
-                  <td>{asse.grade_id}</td>
+                  <td>{asse.chapter_id.subject_id.grade_id.name}</td>
                   <td>{asse.subject}</td>
-                  <td>{asse.question_type}</td>
+                  <td>{asse.chapter_id}</td>
                   <td>{asse.teacher_name}</td>
+                  <td>{asse.question_type}</td>
+                  <td>
+                    {new Date(asse.date_time)
+                      .toLocaleDateString("en-IN", {
+                        day: "2-digit",
+                        month: "2-digit",
+                        year: "numeric",
+                      })
+                      .split("/")
+                      .join("/")}
+                  </td>
                   <td>{asse.marks}</td>
                 </tr>
               ))}
