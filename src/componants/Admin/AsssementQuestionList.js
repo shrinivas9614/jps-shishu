@@ -37,9 +37,9 @@ const AssesmentQuestionList = ({ setOpenCallback }) => {
       <Card.Body>
         <Row>
           <Col>
-            <h3>FILTER</h3>
+            {/* <h3>FILTER</h3> */}
           </Col>
-          <Col>
+          <Col md={4}>
             <select
               className="form-select"
               value={selectedGrade}

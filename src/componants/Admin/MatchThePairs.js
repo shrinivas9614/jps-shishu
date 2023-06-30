@@ -12,14 +12,20 @@ export const MatchThePairs = () => {
   const [match, setMatch] = useState(true);
   return (
     <div>
-      {show == false && <Link onClick={() => setShow(true)}>Add Match The Pair Question</Link>}
+      {show == false && 
+        <Link onClick={() => setShow(true)}>Add Match The Pair Question</Link>
+      }
 
       {show == true && (
-        <Link onClick={() => setShow(false)}>
+        <Link className="pull-right mb-2" onClick={() => setShow(false)}>
           <i className="fa fa-times"></i>
         </Link>
       )}
-      {show ? <MatchThePairsQuestionForm match={match} /> : <MatchQuestionList />}
+
+      <Card className="border-0">
+        <Card.Body></Card.Body>
+        {show ? ( <MatchThePairsQuestionForm match={match} /> ) : ( <MatchQuestionList /> )}
+      </Card>
     </div>
   );
 };
