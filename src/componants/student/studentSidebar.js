@@ -19,18 +19,26 @@ export const StudentSidebar = ({ id }) => {
                     <MdDashboard /> Dashboard
                   </a>
                 </li>
+
                 <li>
                   {/* <a href="/student-profile"> */}
                   <a href={`/student-profile/${id}`}>
                     <MdAccountCircle /> Profile
                   </a>
                 </li>
-                
+
+                <li>
+                  <a href="#">
+                    <AiFillQuestionCircle /> Grade
+                  </a>
+                </li>
+
                 <li>
                   <a href="/student-assessment">
                     <AiFillQuestionCircle /> Assessment
                   </a>
                 </li>
+                
                 <li>
                   <a href="/">
                     <AiOutlineLogout /> Logout

@@ -5,6 +5,9 @@ import Camel from "./images/camel.jpeg";
 import Elephant from "./images/elephant.jpeg";
 import Lion from "./images/Lion.jpg";
 import Tiger from "./images/tiger.jpg";
+import Rabbit from "./images/rabbit.jpeg";
+import Zebra from "./images/zebra.jpeg";
+
 function Ques() {
   return (
     <Container className="mt-5">
@@ -121,6 +124,7 @@ function Ques() {
                   </Form>
                 </Col>
               </Row>
+
               <Row>
                 <Col className="text-end">
                   <Button variant="outline-primary m-3">Previous</Button>
