@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import Data from "./data.json";
+import { AiOutlineCheck } from "react-icons/ai";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { Form } from "react-bootstrap";
 import "./circle.css";
-import ReactAudioPlayer from 'react-audio-player';
-import { Card, Col, Container, Row, Button, Form } from "react-bootstrap";
+import ReactAudioPlayer from "react-audio-player";
+import { Card, Col, Container, Row, Button } from "react-bootstrap";
 
 export default function Circle() {
   const [selectedNames, setSelectedNames] = useState([]);
@@ -12,13 +14,18 @@ export default function Circle() {
   const handleImageClick = (name) => {
     if (selectedNames.includes(name)) {
       setSelectedNames(selectedNames.filter((selectedName) => selectedName !== name));
+      setSelectedNames(selectedNames.filter((selectedName) => selectedName !== name));
     } else {
       setSelectedNames([...selectedNames, name]);
     }
   };
+  
+  const isImageSelected = (name) => {
+    return selectedNames.includes(name);
+  };
   const handleImageAudio = (option) => {
     setSelectedOption(option);
-    console.log(selectedOption)
+    console.log(selectedOption);
   };
 
   return (
@@ -36,13 +43,13 @@ export default function Circle() {
               <div
                 key={index}
                 className="square bg-secondary rounded-circle text-center"
-                style={{ width: "180px", height: "180px", margin: "5px", cursor: "pointer" }}
+                style={{ width: "180px", height: "180px", margin: "10px", cursor: "pointer" }}
                 onClick={() => { handleImageClick(option.name); handleImageAudio(option) }}>
 
                 <img
                   src={option.image}
                   alt=""
-                  style={{ width: "150px", height: "140px", paddingTop: "5px" }}
+                  style={{ width: "150px", height: "150px", paddingTop: "5px" }}
                 />
                 {selectedNames.includes(option.name) && <p className="fw-bolder" style={{ fontSize: '30px', padding: '40px', }}>{option.name}</p>}
               </div>
@@ -55,7 +62,7 @@ export default function Circle() {
             <div
               key={index}
               className="square bg-none rounded"
-              style={{ width: "220px", height: "220px", border: "10px solid", margin: "5px" }}
+              style={{ width: "220px", height: "230px", border: "10px solid", margin: "10px" }}
             >
               <img src={item.qimage} alt="" />
             </div>

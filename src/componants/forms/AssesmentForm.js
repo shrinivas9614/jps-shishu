@@ -33,6 +33,7 @@ function AssesmentForm({ _setOpenCallback }) {
   const [SelectedSubject, setSelectedSubject] = useState(null);
   const [SelectedChapter, setSelectedChapter] = useState(null);
   const [SelectedQuestionType, setSelectedQuestionType] = useState(null);
+  const [SelectedQuestions, setSelectedQuestions] = useState([]);
 
   // Select Teacher
   const getTeacher = () => {
@@ -137,10 +138,10 @@ function AssesmentForm({ _setOpenCallback }) {
   // Select Chapter
   // http://localhost:8000/question-list?question_type=objective&chapter_id=1
   const getQuestions = () => {
-    api.get(
-      `/question-list?question_type=${SelectedQuestionType}&chapter_id=${SelectedChapter}`
-    )
-    
+    api
+      .get(
+        `/question-list?question_type=${SelectedQuestionType}&chapter_id=${SelectedChapter}`
+      )
       .then((response) => {
         console.log(
           "question response",
@@ -148,18 +149,20 @@ function AssesmentForm({ _setOpenCallback }) {
           "SelectedQuestionType",
           SelectedQuestionType
         );
-        setSelectedQuestionResponse(response.data);
+        setSelectedQuestions(response.data.map((quest) => ({ id: quest.question_id, text: quest.question })));
       })
       .catch((error) => {
         console.log("error", error);
       });
   };
-
+  
   useEffect(() => {
-    if (SelectedQuestionType) {
-      getQuestions(SelectedQuestionType);
+    if (SelectedQuestionType && SelectedChapter) {
+      getQuestions();
     }
-  }, [SelectedQuestionType]);
+  }, [SelectedQuestionType, SelectedChapter]);
+
+
 
   const QuestionTypeChange = (event) => {
     setSelectedQuestionType(event.target.value);
@@ -364,7 +367,6 @@ function AssesmentForm({ _setOpenCallback }) {
                           </FormGroup>
                         </Col>
                       </Row>
-
                       <Row>
                         <Col>
                           <FormGroup>
@@ -377,8 +379,10 @@ function AssesmentForm({ _setOpenCallback }) {
                               onChange={handleChange}
                             >
                               <option>Select Question Type</option>
-                              <option value="matching_question">Match the Pairs</option>
-                              <option  value="objective">Objective</option>
+                              <option value="matching_question">
+                                Match the Pairs
+                              </option>
+                              <option value="objective">Objective</option>
                             </Form.Select>
                           </FormGroup>
                         </Col>
@@ -403,29 +407,29 @@ function AssesmentForm({ _setOpenCallback }) {
                                 onClick={getQuestions}
                                 variant="primary"
                                 size="lg"
+                                disabled={
+                                  !SelectedQuestionType || !SelectedChapter
+                                }
                               >
-                                {" "}
-                                Get Q's{" "}
+                                Get Q's
                               </Button>
                             </div>
-
-                            {/* <div className='text-center mt-4'>
-                              <Button type="submit" variant="primary" size="lg">
-                                {" "}
-                                Submit{" "}
-                              </Button>
-                            </div> */}
                           </FormGroup>
                         </Col>
                       </Row>
-
-                      {/* <div className='text-center mt-4'>
-                        <Button type="submit" variant="primary" size="lg">
-                          {" "}
-                          Submit{" "}
-                        </Button>
-                      </div> */}
                     </Form>
+                    {SelectedQuestions.length > 0 && (
+                      <div className="mt-4">
+                        <h4>Selected Questions:</h4>
+                        <ul>
+                          {SelectedQuestions.map((quest) => (
+                            <ol key={quest.id}>
+                              <li>{quest.multiple_choice_question?.question}</li>
+                            </ol>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
                   </>
                 )}
               </Formik>

@@ -89,12 +89,14 @@ function TeacherForm({ _setOpenCallback }) {
               values.state = selectedState ? selectedState : "";
               values.city = selectedCity ? selectedCity : "";
               api
+              .post("/teacher-registration", values)
               .then((res) => {
+
                 console.log("response", res);
                 Swal.fire({
                   icon: "success",
                   title: "Success!",
-                  text: "File submitted successfully!",
+                  text: "Teacher added successfully!",
                 }).then(() => {});
               })
               .catch((error) => {
@@ -342,6 +344,7 @@ function TeacherForm({ _setOpenCallback }) {
                           value={values.gender}
                           onChange={handleChange}
                         >
+                          <option value="#">select gender</option>
                           <option value="male">Male</option>
                           <option value="female">Female</option>
                           <option value="other">Other</option>

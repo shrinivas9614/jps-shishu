@@ -1,13 +1,13 @@
 *{
     margin: 0;
-    padding: 0;
+    padding: 0
 }
 
 .main_img{
     position: absolute;
     display:grid;
   margin: auto;
-  padding: 100px;
+  padding: 50px;
   padding-top: 230px; 
   grid-template-columns: repeat(3,10rem);
   grid-template-rows: minmax(25rem, auto) repeat(2, 20rem) ;
