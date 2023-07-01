@@ -2,12 +2,12 @@
     "question": [{ "qimage": "ga.png" }],
   
     "options": [
-      { "audio":"./audios/ganapati.mp3","id":1, "name":"गणपती","image": "ganpati.png" },
-      { "audio":"./audios/gadhave.mp3","id": 2,"name":"गाढव","image": "gadhave.png" },
-      {"audio":"./audios/gajar.mp3", "id": 3,"name":"गाजर","image": "gajar.png" },
-      {"audio":"./audios/gavat.mp3", "id": 4,"name":"गवत", "image": "gavat.png" },
-      {"audio":"./audios/engeen.mp3", "id": 5,"name":"इंजिन", "image": "train.png" },
-      {"audio":"./audios/gai.mp3", "id": 6,"name": "गाय", "image": "gai.png"}
+      { "audio":"./audios/ganapati.mp3","id":1, "name":"गणपती","image": "https://jps-shishu.s3.ap-south-1.amazonaws.com/ganpati.png", "istrue": true },
+      { "audio":"./audios/gadhave.mp3","id": 2,"name":"गाढव","image": "https://jps-shishu.s3.ap-south-1.amazonaws.com/gadhave.png", "istrue": true },
+      {"audio":"./audios/gajar.mp3", "id": 3,"name":"गाजर","image": "https://jps-shishu.s3.ap-south-1.amazonaws.com/gajar.png", "istrue": true },
+      {"audio":"./audios/gavat.mp3", "id": 4,"name":"गवत", "image": "https://jps-shishu.s3.ap-south-1.amazonaws.com/gavat.png", "istrue": true },
+      {"audio":"./audios/engeen.mp3", "id": 5,"name":"इंजिन", "image": "https://jps-shishu.s3.ap-south-1.amazonaws.com/train.png", "istrue": false },
+      {"audio":"./audios/gai.mp3", "id": 6,"name": "गाय", "image": "https://jps-shishu.s3.ap-south-1.amazonaws.com/gai.png", "istrue": true}
   
     ]
   }

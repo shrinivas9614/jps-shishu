@@ -23,7 +23,7 @@ export const StudentContainer = () => {
   return (
     <>
       <div
-        className="content-wrapper-client-lead"
+        // className="content-wrapper-client-lead"
         style={{ minHeight: " 1043px" }}
       >
         <Card>
