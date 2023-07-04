@@ -62,7 +62,7 @@ export default function Circle() {
             <div
               key={index}
               className="square bg-none rounded"
-              style={{ width: "220px", height: "230px", border: "10px solid", margin: "10px" }}
+              style={{ width: "200px", height: "220px", border: "10px solid", margin: "10px" }}
             >
               <img src={item.qimage} alt="" />
             </div>

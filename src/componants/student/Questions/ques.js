@@ -16,8 +16,8 @@ function Ques() {
           <Card>
             <CardHeader className="m-3">MCQ QUESTIONS</CardHeader>
             <Card.Body style={{ background: "#E7E7E7" }}>
-              <Card.Title className="p-3 "> प्रश्न १. </Card.Title>
-              <Card.Title className="p-3 ">जंगलाचा राजा कोण आहे?</Card.Title>
+              <Card.Title className="p-3 "> प्रश्न १. जंगलाचा राजा कोण आहे?</Card.Title>
+              {/* <Card.Title className="p-3 ">जंगलाचा राजा कोण आहे?</Card.Title> */}
               <Row className="d-flex m-2 p-2 bg-white rounded">
                 <Col>
                   <Form className="p-5 mx-5">

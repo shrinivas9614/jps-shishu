@@ -7,11 +7,11 @@ import api from "../forms/APIS";
 const AdminAssesmentView = ({ _setOpenCallback }) => {
   const [assessment, setAssessment] = useState([]);
 
-  const get = () => {
+  const getAssessment = () => {
     api
       .get("/assessment-api")
       .then((response) => {
-        console.log("assessment_list_data", response.data, "asse.chapter_id.subject_id.grade_id.name", response.chapter_id.subject_id.name);
+        console.log("assessment list data", response.data);
         setAssessment(response.data);
       })
       .catch((error) => {
@@ -20,7 +20,7 @@ const AdminAssesmentView = ({ _setOpenCallback }) => {
   };
 
   useEffect(() => {
-    get();
+    getAssessment();
   }, []);
 
   return (
@@ -63,11 +63,11 @@ const AdminAssesmentView = ({ _setOpenCallback }) => {
                   <td>{asse.name}</td>
                   <td>{asse.chapter_id.subject_id.grade_id.name}</td>
                   <td>{asse.subject}</td>
-                  <td>{asse.chapter_id}</td>
-                  <td>{asse.teacher_name}</td>
+                  <td>{asse.chapter_id.name}</td>
+                  <td>{asse.teacher_id.firstname + " "+ asse.teacher_id.lastname} </td>
                   <td>{asse.question_type}</td>
                   <td>
-                    {new Date(asse.date_time)
+                    {new Date(asse.date)
                       .toLocaleDateString("en-IN", {
                         day: "2-digit",
                         month: "2-digit",

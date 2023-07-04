@@ -72,11 +72,11 @@ function Adminsidebar() {
                 </a>
               </li>
 
-              <li>
+              {/* <li>
                 <a href="/test-form">
                   <AiFillQuestionCircle /> Test
                 </a>
-              </li>
+              </li> */}
 
               <li>
                 <a href="/report">

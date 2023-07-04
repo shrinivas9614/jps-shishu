@@ -1,5 +1,5 @@
 /** @format */
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import {
   Button,
   Card,
@@ -18,6 +18,7 @@ import { Formik } from "formik";
 import api from "./APIS";
 import * as Yup from "yup";
 import Swal from "sweetalert2";
+import moment from "moment";
 
 function AssesmentForm({ _setOpenCallback }) {
   const [SelectedTeacher, setSelectedTeacher] = useState(null);
@@ -35,6 +36,14 @@ function AssesmentForm({ _setOpenCallback }) {
   const [SelectedQuestionType, setSelectedQuestionType] = useState(null);
   const [SelectedQuestions, setSelectedQuestions] = useState([]);
 
+  const [getSelectQuestion, setGetSelectQuestion] = useState([]);
+
+  const [selectedIds, setSelectedIds] = useState([]);
+  const [TotalMarks, setTotalMarks] = useState(0);
+  const [SubjectName, setSubjectName] = useState('');
+
+  console.log("select ", selectedIds);
+
   // Select Teacher
   const getTeacher = () => {
     api
@@ -51,6 +60,8 @@ function AssesmentForm({ _setOpenCallback }) {
   useEffect(() => {
     getTeacher();
   }, []);
+
+  useEffect(() => {}, [TotalMarks]);
 
   const handleDropdownTeacherChange = (event) => {
     setSelectedTeacher(event.target.value);
@@ -149,7 +160,7 @@ function AssesmentForm({ _setOpenCallback }) {
           "SelectedQuestionType",
           SelectedQuestionType
         );
-        setSelectedQuestions(response.data.map((quest) => ({ id: quest.question_id, text: quest.question, multiple_choice_question: quest.multiple_choice_question })));
+        setSelectedQuestions(response.data);
       })
       .catch((error) => {
         console.log("error", error);
@@ -158,14 +169,41 @@ function AssesmentForm({ _setOpenCallback }) {
 
   useEffect(() => {
     if (SelectedQuestionType && SelectedChapter) {
-      // getQuestions();
+      getQuestions();
     }
   }, [SelectedQuestionType, SelectedChapter]);
 
-
-
   const QuestionTypeChange = (event) => {
     setSelectedQuestionType(event.target.value);
+  };
+
+  const handleMarks = (value) => {
+    console.log("values:", value);
+    if (selectedIds.includes(value.id)) {
+      setSelectedIds(selectedIds.filter((id) => id !== value.id));
+    } else {
+      setSelectedIds([...selectedIds, value.id]);
+    }
+    var mrks = 0;
+    for (const iterator of SelectedQuestions) {
+      if (selectedIds.includes(iterator.multiple_choice_question.id)) {
+        mrks = mrks + iterator.multiple_choice_question.mark;
+      }
+    }
+    setTotalMarks(mrks);
+  };
+
+  const Subname = (value) => {
+    console.log("values:", value.target.value);
+    for (const iterator of SubjectResponse) {
+      console.log("iterator", iterator)
+      if ( parseInt(iterator.subject_id) === parseInt(value.target.value) ) {
+        console.log("subject_id: ", iterator.subject_id)
+        setSubjectName(iterator.name)
+        setSelectedSubject(value.target.value)
+        break;
+      }
+    }
   };
 
   return (
@@ -194,8 +232,10 @@ function AssesmentForm({ _setOpenCallback }) {
               <Formik
                 // enableReinitialize={true}
                 initialValues={{
-                  name: "",
-                  date_time: "",
+                  title: "",
+                  date: new Date(),
+                  start_time: "",
+                  end_time: "",
                   subject: "",
                   marks: "",
                   question_type: "",
@@ -203,24 +243,50 @@ function AssesmentForm({ _setOpenCallback }) {
                   grade_id: "",
                   subject_id: "",
                   chapter_id: "",
+                  test_duration: "",
+                  test_type: "",
+                  teacher_id: "",
+                  test_category: "",
+                  int_ext_type: "",
                 }}
                 // validationSchema={schema}
                 onSubmit={(values, { setStatus, setSubmitting }) => {
-                  values.grade_id = SelectedGrade;
+                  values.name = values.title;
+                  // values.test_type = "online";
                   values.subject = SelectedSubject;
+                  values.test_category = null;
+                  values.int_ext_type = null;
+                  values.grade_id = SelectedGrade;
+                  values.standard = SelectedGrade;
+                  values.subject_id = SelectedSubject;
                   values.chapter_id = SelectedChapter;
-                  values.teacher_name = SelectedTeacher;
+                  values.teacher_id = SelectedTeacher;
+                  values.questions = selectedIds;
+                  // values.marks = 10;
+                  // var time = new Date();
+                  // values.date = new Date();
+                  // values.start_time = time;
+                  // values.end_time = time;
+                  // values.test_duration = 30;
+                  for (const iterator of SubjectResponse) {
+                    console.log("iterator", iterator)
+                    if ( parseInt(iterator.subject_id) === parseInt(SelectedSubject) ) {
+                      console.log("subject_id: ", iterator.subject_id)
+                      values.subject = iterator.name
+                      break;
+                    }
+                  }
                   console.log("values:- ", values);
 
                   api
                     .post("/assessment-api", values)
                     .then((response) => {
-                      console.log("response", response);
+                      console.log("assessment response", response);
                       Swal.fire({
                         icon: "success",
                         title: "Success!",
                         text: "Assessment Created Successfully!",
-                      }).then(() => { });
+                      }).then(() => {});
                       // _setOpenCallback("list");
                     })
                     .catch((error) => {
@@ -250,9 +316,9 @@ function AssesmentForm({ _setOpenCallback }) {
                           <FormGroup>
                             <FormLabel>Assessment Name</FormLabel>
                             <FormControl
-                              name="name"
+                              name="title"
                               placeholder="Assessment Name"
-                              value={values.name}
+                              value={values.title}
                               onChange={handleChange}
                             />
                           </FormGroup>
@@ -260,13 +326,6 @@ function AssesmentForm({ _setOpenCallback }) {
                         <Col>
                           <FormGroup>
                             <FormLabel>Teacher Name</FormLabel>
-                            {/* <FormControl
-                              placeholder="Teacher Name"
-                              name="teacher_name"
-                              value={values.teacher_name}
-                              onChange={handleChange}
-                            /> */}
-
                             <Form.Select
                               name="teacher_name"
                               onChange={(e) =>
@@ -277,9 +336,9 @@ function AssesmentForm({ _setOpenCallback }) {
                               <option selected>Select Teacher</option>
                               {TeacherResponse.length > 0 &&
                                 TeacherResponse.map((tea, index) => (
-                                  <option value={tea.teacher_name}>
+                                  <option value={tea.id}>
                                     {" "}
-                                    {tea.firstname}
+                                    {tea.firstname} {tea.lastname}
                                   </option>
                                 ))}
                             </Form.Select>
@@ -291,8 +350,8 @@ function AssesmentForm({ _setOpenCallback }) {
                             <FormControl
                               type="date"
                               placeholder="Date of Assessment"
-                              name="date_time"
-                              value={values.date_time}
+                              name="date"
+                              value={values.date}
                               onChange={handleChange}
                             />
                           </FormGroup>
@@ -307,6 +366,7 @@ function AssesmentForm({ _setOpenCallback }) {
                               name="grade_id"
                               onChange={(e) => setSelectedGrade(e.target.value)}
                               value={SelectedGrade}
+                              // type="number"
                             >
                               <option>Select Grade</option>
                               {GradeResponse.length > 0 &&
@@ -330,6 +390,9 @@ function AssesmentForm({ _setOpenCallback }) {
                               onChange={(e) =>
                                 setSelectedSubject(e.target.value)
                               }
+                              // onChange={(e) =>
+                              //   {Subname(e)}
+                              // }
                               value={SelectedSubject}
                             >
                               <option selected>Select Subject</option>
@@ -366,6 +429,50 @@ function AssesmentForm({ _setOpenCallback }) {
                           </FormGroup>
                         </Col>
                       </Row>
+
+                      <Row>
+                        <Col>
+                          <FormGroup>
+                            <FormLabel>Test Type</FormLabel>
+                            <Form.Select
+                              placeholder="test_type"
+                              name="test_type"
+                              value={values.test_type}
+                              // onClick={QuestionTypeChange}
+                              onChange={handleChange}
+                            >
+                              <option>Select Test Type</option>
+                              <option value="Online">Online</option>
+                              <option value="Offline">Offline</option>
+                            </Form.Select>
+                          </FormGroup>
+                        </Col>
+                        <Col>
+                          <FormGroup>
+                            <FormLabel>Start Time</FormLabel>
+                            <FormControl
+                              type="time"
+                              placeholder="Start Time"
+                              name="start_time"
+                              value={values.start_time}
+                              onChange={handleChange}
+                            />
+                          </FormGroup>
+                        </Col>
+                        <Col>
+                          <FormGroup>
+                            <FormLabel>End Time</FormLabel>
+                            <FormControl
+                              type="time"
+                              placeholder="End Time"
+                              name="end_time"
+                              value={values.end_time}
+                              onChange={handleChange}
+                            />
+                          </FormGroup>
+                        </Col>
+                      </Row>
+
                       <Row>
                         <Col>
                           <FormGroup>
@@ -401,6 +508,37 @@ function AssesmentForm({ _setOpenCallback }) {
                         </Col>
                         <Col>
                           <FormGroup>
+                            <FormLabel>Test Duration</FormLabel>
+                            <Form.Control
+                              type="number"
+                              // step={0.1}
+                              id="test_duration"
+                              name="test_duration"
+                              placeholder="Test Duration"
+                              value={values.test_duration}
+                              onChange={handleChange}
+                            />
+                          </FormGroup>
+                        </Col>
+                      </Row>
+
+                      <Row>
+                        <Col>
+                          <FormGroup>
+                            <FormLabel>No.of Selected Questions</FormLabel>
+                            <Form.Control
+                              type="number"
+                              // step={0.1}
+                              id="questions"
+                              name="questions"
+                              placeholder="Selected Questions"
+                              value={selectedIds.length}
+                              onChange={handleChange}
+                            />
+                          </FormGroup>
+                        </Col>
+                        <Col>
+                          <FormGroup>
                             <div className="text-center mt-4">
                               <Button
                                 onClick={getQuestions}
@@ -415,169 +553,310 @@ function AssesmentForm({ _setOpenCallback }) {
                             </div>
                           </FormGroup>
                         </Col>
+                        <Col>
+                          {/* <FormGroup>
+                            <div className="text-center mt-4">
+                              <Button
+                                // onClick={getQuestions}
+                                variant="primary"
+                                size="lg"
+                                type="submit"
+                                // disabled={
+                                //   !SelectedQuestionType || !SelectedChapter
+                                // }
+                              >
+                                Create Assesment
+                              </Button>
+                            </div>
+                          </FormGroup> */}
+                        </Col>
                       </Row>
+
+                      {/* <Row>
+                        {selectedIds.length > 0 && (
+                          <p>hiiiiii{selectedIds.length}</p>
+                        )}
+                      </Row> */}
+                      {SelectedQuestions.length > 0 && (
+                        <div className="mt-4">
+                          {/* <Row>
+                            <Col>
+                              <h4>Multiple Choice Questions</h4>
+                            </Col>
+                            <Col></Col>
+                            <Col>
+                              <FormGroup>
+                                <FormLabel>Selected Questions</FormLabel>
+                                <Form.Control
+                                  // type="number"
+                                  // step={0.1}
+                                  id="TotalMarks1"
+                                  name="TotalMarks1"
+                                  // placeholder="Selected Questions"
+                                  value={TotalMarks}
+                                  // onChange={handleChange}
+                                />
+                              </FormGroup>
+                            </Col>
+                          </Row> */}
+                          <Row>
+                            <h4>Multiple Choice Questions</h4>
+                          </Row>
+                          <ul style={{ marginRight: "40px" }}>
+                            {SelectedQuestions.map((quest, index) => (
+                              <ol key={quest.id}>
+                                <div
+                                  className="row ques_div"
+                                  id="assess_test_row"
+                                  style={{ fontSize: "19px" }}
+                                >
+                                  <div
+                                    className="row"
+                                    style={{ marginRight: "20px" }}
+                                  >
+                                    <div className="col-lg-10">
+                                      {/* <span className="que_tag">
+                                        <span>
+                                          &nbsp;&nbsp;
+                                          {quest.multiple_choice_question?.id}
+                                          .&nbsp;
+                                        </span>
+                                        <span>
+                                          {" "}
+                                          {
+                                            quest.multiple_choice_question
+                                              ?.question
+                                          }
+                                        </span>
+                                      </span> */}
+                                      <Form.Check
+                                        id={quest.multiple_choice_question.id}
+                                        type="checkbox"
+                                        label={
+                                          quest?.multiple_choice_question
+                                            ?.question
+                                        }
+                                        // onChange={() => {
+                                        //   if (
+                                        //     selectedIds.includes(
+                                        //       quest.multiple_choice_question.id
+                                        //     )
+                                        //   ) {
+                                        //     setSelectedIds(
+                                        //       selectedIds.filter(
+                                        //         (id) =>
+                                        //           id !==
+                                        //           quest.multiple_choice_question
+                                        //             .id
+                                        //       )
+                                        //     );
+                                        //   } else {
+                                        //     setSelectedIds([
+                                        //       ...selectedIds,
+                                        //       quest.multiple_choice_question.id,
+                                        //     ]);
+                                        //   }
+                                        // }}
+                                        onChange={() => {
+                                          handleMarks(
+                                            quest.multiple_choice_question
+                                          );
+                                        }}
+                                        checked={selectedIds.includes(
+                                          quest.multiple_choice_question.id
+                                        )}
+                                        value={
+                                          quest?.multiple_choice_question
+                                            ?.question
+                                        }
+                                      />
+                                      {/* &nbsp;&nbsp; */}
+                                      <span
+                                        className="oval"
+                                        style={{
+                                          backgroundColor: "rgb(20, 221, 94)",
+                                          marginTop: "3px",
+                                        }}
+                                      ></span>
+                                      {/* <span className="que_tag">
+                                        <span>
+                                          &nbsp;&nbsp;
+                                          {quest.multiple_choice_question?.id}
+                                          .&nbsp;
+                                        </span>
+                                        <span>
+                                          {" "}
+                                          {
+                                            quest.multiple_choice_question
+                                              ?.question
+                                          }
+                                        </span>
+                                      </span> */}
+                                    </div>
+                                    <div className="col-lg-1">
+                                      <span>
+                                        <input
+                                          id="weight797"
+                                          type="number"
+                                          placeholder="Marks"
+                                          className="form-control"
+                                          value={
+                                            quest.multiple_choice_question?.mark
+                                          }
+                                          style={{ paddingRight: "0px" }}
+                                          disabled
+                                        />
+                                      </span>
+                                    </div>
+                                    <div className="col-lg-1">
+                                      <span className="que_tag">marks</span>
+                                    </div>
+                                  </div>
+                                  <div className="row">
+                                    <div className="col-lg-1"></div>
+                                    <div className="col-lg-11">
+                                      <span
+                                        className="que_option radio_check"
+                                        style={{ fontSize: "19px" }}
+                                      >
+                                        <span>
+                                          <input type="radio" disabled />
+                                          <label
+                                            style={{ paddingLeft: "20px" }}
+                                          >
+                                            <p>
+                                              {
+                                                quest.multiple_choice_question
+                                                  ?.option1
+                                              }
+                                            </p>
+                                          </label>
+                                        </span>
+                                      </span>
+                                      <span
+                                        className="que_option radio_check"
+                                        style={{ fontSize: "19px" }}
+                                      >
+                                        <span>
+                                          <input type="radio" disabled />
+                                          <label
+                                            style={{ paddingLeft: "20px" }}
+                                          >
+                                            <p>
+                                              {
+                                                quest.multiple_choice_question
+                                                  ?.option2
+                                              }
+                                            </p>
+                                          </label>
+                                        </span>
+                                      </span>
+                                      <span
+                                        className="que_option radio_check"
+                                        style={{ fontSize: "19px" }}
+                                      >
+                                        <span>
+                                          <input type="radio" disabled />
+                                          <label
+                                            style={{ paddingLeft: "20px" }}
+                                          >
+                                            <p>
+                                              {
+                                                quest.multiple_choice_question
+                                                  ?.option3
+                                              }
+                                            </p>
+                                          </label>
+                                        </span>
+                                      </span>
+                                      <span
+                                        className="que_option"
+                                        style={{ fontSize: "19px" }}
+                                      >
+                                        <span>
+                                          <input type="radio" disabled />
+                                          <label
+                                            style={{ paddingLeft: "20px" }}
+                                          >
+                                            <p>
+                                              {
+                                                quest.multiple_choice_question
+                                                  ?.option4
+                                              }
+                                            </p>
+                                          </label>
+                                        </span>
+                                      </span>
+                                      <span
+                                        className="que_option"
+                                        style={{ fontSize: "19px" }}
+                                      >
+                                        <span>
+                                          <input type="radio" disabled />
+                                          <label
+                                            style={{ paddingLeft: "20px" }}
+                                          >
+                                            <p>
+                                              {
+                                                quest.multiple_choice_question
+                                                  ?.option5
+                                              }
+                                            </p>
+                                          </label>
+                                        </span>
+                                      </span>
+                                      <span
+                                        className="que_option"
+                                        style={{ fontSize: "19px" }}
+                                      >
+                                        <span>
+                                          <input type="radio" disabled />
+                                          <label
+                                            style={{ paddingLeft: "20px" }}
+                                          >
+                                            <p>
+                                              {
+                                                quest.multiple_choice_question
+                                                  ?.option6
+                                              }
+                                            </p>
+                                          </label>
+                                        </span>
+                                      </span>
+                                    </div>
+                                  </div>
+                                </div>
+                              </ol>
+                            ))}
+                          </ul>
+
+                          <Row>
+                            <Col>
+                              <FormGroup>
+                                <div className="text-center">
+                                  <Button
+                                    // onClick={getQuestions}
+                                    variant="primary"
+                                    size="lg"
+                                    type="submit"
+                                    // disabled={
+                                    //   !SelectedQuestionType || !SelectedChapter
+                                    // }
+                                  >
+                                    Create Assesment
+                                  </Button>
+                                </div>
+                              </FormGroup>
+                            </Col>
+                          </Row>
+                        </div>
+                      )}
                     </Form>
                   </>
                 )}
               </Formik>
             </Card.Body>
           </Card>
-          {SelectedQuestions.length > 0 && (
-            <div className="mt-4">
-              <h4>Selected Questions:</h4>
-              <ul style={{ marginRight: "40px" }}>
-                {SelectedQuestions.map((quest) => (
-                  <ol key={quest.id}>
-                    {/* <li>{quest.multiple_choice_question?.question}</li> */}
-                    <div className="row ques_div" id="assess_test_row" style={{ fontSize: "19px" }}>
-                      <div className="row" style={{ marginRight: "20px" }}>
-                        <div className="col-lg-10">
-                          <input id='{"question_id":797,"question_level":"EASY"}' className="test_type_chkbox quest_type_chkbox" type="checkbox" />
-                          &nbsp;&nbsp;
-                          <span className="oval" style={{ backgroundColor: "rgb(20, 221, 94)", marginTop: "5px", }}></span>
-                          <span className="que_tag">
-                            <span>&nbsp;&nbsp;{quest.multiple_choice_question?.id}.&nbsp;</span>
-                            <span> {quest.multiple_choice_question?.question} </span>
-                          </span>
-                        </div>
-                        <div className="col-lg-1">
-                          <span>
-                            <input
-                              id="weight797" type="number" placeholder="Marks" className="form-control" value={quest.multiple_choice_question?.mark} style={{ paddingRight: "0px" }} />
-                          </span>
-                        </div>
-                        <div className="col-lg-1">
-                          <span className="que_tag">marks</span>
-                        </div>
-                      </div>
-                      <div className="row">
-                        <div className="col-lg-1"></div>
-                        <div className="col-lg-11">
-                          <span className="que_option radio_check" style={{ fontSize: "19px" }}>
-                            {/* <span>&nbsp;&nbsp;&nbsp;</span> */}
-                            <span>
-                              <input
-                                type="radio"
-                              // value="a"
-                              // checked={selectedOption === "a"}
-                              // onChange={handleOptionChange}
-                              // style={{ paddingLeft: "10px" }}
-                              />
-                              <label style={{ paddingLeft: "20px" }}>
-                                <p>{quest.multiple_choice_question?.option1}</p>
-                              </label>
-                            </span>
-                          </span>
-                          <span className="que_option radio_check" style={{ fontSize: "19px" }}>
-                            {/* <span>&nbsp;&nbsp;&nbsp;</span> */}
-                            <span>
-                              <input
-                                type="radio"
-                              // value="a"
-                              // checked={selectedOption === "a"}
-                              // onChange={handleOptionChange}
-                              // style={{ paddingLeft: "10px" }}
-                              />
-                              <label style={{ paddingLeft: "20px" }}>
-                                <p>{quest.multiple_choice_question?.option2}</p>
-                              </label>
-                            </span>
-                          </span>
-                          <span className="que_option radio_check" style={{ fontSize: "19px" }}>
-                            {/* <span>&nbsp;&nbsp;&nbsp;</span> */}
-                            <span>
-                              <input
-                                type="radio"
-                              // value="a"
-                              // checked={selectedOption === "a"}
-                              // onChange={handleOptionChange}
-                              // style={{ paddingLeft: "10px" }}
-                              />
-                              <label style={{ paddingLeft: "20px" }}>
-                                <p>{quest.multiple_choice_question?.option3}</p>
-                              </label>
-                            </span>
-                          </span>
-                          <span className="que_option" style={{ fontSize: "19px" }}>
-                            {/* <span>&nbsp;&nbsp;&nbsp;</span> */}
-                            <span>
-                              <input
-                                type="radio"
-                              // value="a"
-                              // checked={selectedOption === "a"}
-                              // onChange={handleOptionChange}
-                              // style={{ paddingLeft: "10px" }}
-                              />
-                              <label style={{ paddingLeft: "20px" }}>
-                                <p>{quest.multiple_choice_question?.option4}</p>
-                              </label>
-                            </span>
-                          </span>
-                          <span className="que_option" style={{ fontSize: "19px" }}>
-                            {/* <span>&nbsp;&nbsp;&nbsp;</span> */}
-                            <span>
-                              <input
-                                type="radio"
-                              // value="a"
-                              // checked={selectedOption === "a"}
-                              // onChange={handleOptionChange}
-                              // style={{ paddingLeft: "10px" }}
-                              />
-                              <label style={{ paddingLeft: "20px" }}>
-                                <p>{quest.multiple_choice_question?.option5}</p>
-                              </label>
-                            </span>
-                          </span>
-                          <span className="que_option" style={{ fontSize: "19px" }}>
-                            {/* <span>&nbsp;&nbsp;&nbsp;</span> */}
-                            <span>
-                              <input
-                                type="radio"
-                              // value="a"
-                              // checked={selectedOption === "a"}
-                              // onChange={handleOptionChange}
-                              // style={{ paddingLeft: "10px" }}
-                              />
-                              <label style={{ paddingLeft: "20px" }}>
-                                <p>{quest.multiple_choice_question?.option6}</p>
-                              </label>
-                            </span>
-                          </span>
-                          {/* <div>
-                        <span style={{ color: "rgb(0, 0, 0)" }}>Chapter :</span>
-                        <span>Integration of Positive integers</span>
-                        <span style={{ color: "rgb(0, 0, 0)" }}>,Topic :</span>
-                        <span>Positive integers</span>
-                      </div> */}
-                        </div>
-                      </div>
-                    </div>
-                    {/* <li>{quest.multiple_choice_question?.option1}</li>
-                    <li>{quest.multiple_choice_question?.option2}</li>
-                    <li>{quest.multiple_choice_question?.option3}</li>
-                    <li>{quest.multiple_choice_question?.option4}</li>
-                    <li>{quest.multiple_choice_question?.option5}</li>
-                    <li>{quest.multiple_choice_question?.option6}</li><br /> */}
-                  </ol>
-                ))}
-              </ul>
-
-              <div className="text-center mt-4">
-                <Button
-                  onClick={getQuestions}
-                  variant="primary"
-                  size="lg"
-                  type="submit"
-                  disabled={
-                    !SelectedQuestionType || !SelectedChapter
-                  }
-                >
-                  Create Assessment
-                </Button>
-              </div>
-              
-            </div>
-          )}
         </section>
       </div>
     </div>

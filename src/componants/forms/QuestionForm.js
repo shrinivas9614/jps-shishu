@@ -147,7 +147,7 @@ function MCQQuestionForm(props) {
         }}
         // validationSchema={{}}
         onSubmit={(values, { setStatus, setSubmitting, resetForm }) => {
-          values.question_type = typeOfQuestion;
+          // values.question_type = typeOfQuestion;
           values.answer = JSON.stringify(AnswerSelected);
           const formData = {
             match_the_pairs_question: {},
@@ -161,7 +161,7 @@ function MCQQuestionForm(props) {
           if (typeOfQuestion == "objective") {
             formData["multiple_choice_question"] = values;
           }
-          console.log("valkues:", values, "formData", formData)
+          // console.log("valkues:", values, "formData", formData)
           api
             .post("/question-api", formData)
             .then((res) => {
