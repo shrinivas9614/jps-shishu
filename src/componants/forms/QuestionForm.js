@@ -138,6 +138,7 @@ function MCQQuestionForm(props) {
           option6: "",
           question: "",
           option_count: 6,
+          question_type: "",
           mark: "",
           answer: "",
           grade_id: SelectedGrade,
@@ -146,11 +147,11 @@ function MCQQuestionForm(props) {
         }}
         // validationSchema={{}}
         onSubmit={(values, { setStatus, setSubmitting, resetForm }) => {
-          // values.answer = AnswerSelected;
+          values.question_type = typeOfQuestion;
           values.answer = JSON.stringify(AnswerSelected);
           const formData = {
             match_the_pairs_question: {},
-            multiple_choice_question: {},
+            multiple_choice_question: {values},
             select_relevent_picture_question: {},
             question_type: typeOfQuestion,
             grade_id: SelectedGrade,
@@ -160,6 +161,7 @@ function MCQQuestionForm(props) {
           if (typeOfQuestion == "objective") {
             formData["multiple_choice_question"] = values;
           }
+          console.log("valkues:", values, "formData", formData)
           api
             .post("/question-api", formData)
             .then((res) => {

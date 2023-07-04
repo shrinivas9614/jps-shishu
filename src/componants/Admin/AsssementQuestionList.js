@@ -98,5 +98,3 @@ const AssesmentQuestionList = ({ setOpenCallback }) => {
 };
 
 export default AssesmentQuestionList;
-
-

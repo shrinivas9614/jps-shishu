@@ -16,16 +16,11 @@ export function StudentAssessment() {
       </Helmet>
 
       <StudentSidebar />
-      <div className="content-wrapper-client-lead">
         <Card>
           <Card.Body style={{ minHeight: " 1043px" }}>
             <StudentContainer />
-           
           </Card.Body>
         </Card>
-      </div>
     </>
   );
 };
-
-;

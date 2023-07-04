@@ -149,16 +149,16 @@ function AssesmentForm({ _setOpenCallback }) {
           "SelectedQuestionType",
           SelectedQuestionType
         );
-        setSelectedQuestions(response.data.map((quest) => ({ id: quest.question_id, text: quest.question })));
+        setSelectedQuestions(response.data.map((quest) => ({ id: quest.question_id, text: quest.question, multiple_choice_question: quest.multiple_choice_question })));
       })
       .catch((error) => {
         console.log("error", error);
       });
   };
-  
+
   useEffect(() => {
     if (SelectedQuestionType && SelectedChapter) {
-      getQuestions();
+      // getQuestions();
     }
   }, [SelectedQuestionType, SelectedChapter]);
 
@@ -220,7 +220,7 @@ function AssesmentForm({ _setOpenCallback }) {
                         icon: "success",
                         title: "Success!",
                         text: "Assessment Created Successfully!",
-                      }).then(() => {});
+                      }).then(() => { });
                       // _setOpenCallback("list");
                     })
                     .catch((error) => {
@@ -307,7 +307,6 @@ function AssesmentForm({ _setOpenCallback }) {
                               name="grade_id"
                               onChange={(e) => setSelectedGrade(e.target.value)}
                               value={SelectedGrade}
-                              // type="number"
                             >
                               <option>Select Grade</option>
                               {GradeResponse.length > 0 &&
@@ -418,23 +417,167 @@ function AssesmentForm({ _setOpenCallback }) {
                         </Col>
                       </Row>
                     </Form>
-                    {SelectedQuestions.length > 0 && (
-                      <div className="mt-4">
-                        <h4>Selected Questions:</h4>
-                        <ul>
-                          {SelectedQuestions.map((quest) => (
-                            <ol key={quest.id}>
-                              <li>{quest.multiple_choice_question?.question}</li>
-                            </ol>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
                   </>
                 )}
               </Formik>
             </Card.Body>
           </Card>
+          {SelectedQuestions.length > 0 && (
+            <div className="mt-4">
+              <h4>Selected Questions:</h4>
+              <ul style={{ marginRight: "40px" }}>
+                {SelectedQuestions.map((quest) => (
+                  <ol key={quest.id}>
+                    {/* <li>{quest.multiple_choice_question?.question}</li> */}
+                    <div className="row ques_div" id="assess_test_row" style={{ fontSize: "19px" }}>
+                      <div className="row" style={{ marginRight: "20px" }}>
+                        <div className="col-lg-10">
+                          <input id='{"question_id":797,"question_level":"EASY"}' className="test_type_chkbox quest_type_chkbox" type="checkbox" />
+                          &nbsp;&nbsp;
+                          <span className="oval" style={{ backgroundColor: "rgb(20, 221, 94)", marginTop: "5px", }}></span>
+                          <span className="que_tag">
+                            <span>&nbsp;&nbsp;{quest.multiple_choice_question?.id}.&nbsp;</span>
+                            <span> {quest.multiple_choice_question?.question} </span>
+                          </span>
+                        </div>
+                        <div className="col-lg-1">
+                          <span>
+                            <input
+                              id="weight797" type="number" placeholder="Marks" className="form-control" value={quest.multiple_choice_question?.mark} style={{ paddingRight: "0px" }} />
+                          </span>
+                        </div>
+                        <div className="col-lg-1">
+                          <span className="que_tag">marks</span>
+                        </div>
+                      </div>
+                      <div className="row">
+                        <div className="col-lg-1"></div>
+                        <div className="col-lg-11">
+                          <span className="que_option radio_check" style={{ fontSize: "19px" }}>
+                            {/* <span>&nbsp;&nbsp;&nbsp;</span> */}
+                            <span>
+                              <input
+                                type="radio"
+                              // value="a"
+                              // checked={selectedOption === "a"}
+                              // onChange={handleOptionChange}
+                              // style={{ paddingLeft: "10px" }}
+                              />
+                              <label style={{ paddingLeft: "20px" }}>
+                                <p>{quest.multiple_choice_question?.option1}</p>
+                              </label>
+                            </span>
+                          </span>
+                          <span className="que_option radio_check" style={{ fontSize: "19px" }}>
+                            {/* <span>&nbsp;&nbsp;&nbsp;</span> */}
+                            <span>
+                              <input
+                                type="radio"
+                              // value="a"
+                              // checked={selectedOption === "a"}
+                              // onChange={handleOptionChange}
+                              // style={{ paddingLeft: "10px" }}
+                              />
+                              <label style={{ paddingLeft: "20px" }}>
+                                <p>{quest.multiple_choice_question?.option2}</p>
+                              </label>
+                            </span>
+                          </span>
+                          <span className="que_option radio_check" style={{ fontSize: "19px" }}>
+                            {/* <span>&nbsp;&nbsp;&nbsp;</span> */}
+                            <span>
+                              <input
+                                type="radio"
+                              // value="a"
+                              // checked={selectedOption === "a"}
+                              // onChange={handleOptionChange}
+                              // style={{ paddingLeft: "10px" }}
+                              />
+                              <label style={{ paddingLeft: "20px" }}>
+                                <p>{quest.multiple_choice_question?.option3}</p>
+                              </label>
+                            </span>
+                          </span>
+                          <span className="que_option" style={{ fontSize: "19px" }}>
+                            {/* <span>&nbsp;&nbsp;&nbsp;</span> */}
+                            <span>
+                              <input
+                                type="radio"
+                              // value="a"
+                              // checked={selectedOption === "a"}
+                              // onChange={handleOptionChange}
+                              // style={{ paddingLeft: "10px" }}
+                              />
+                              <label style={{ paddingLeft: "20px" }}>
+                                <p>{quest.multiple_choice_question?.option4}</p>
+                              </label>
+                            </span>
+                          </span>
+                          <span className="que_option" style={{ fontSize: "19px" }}>
+                            {/* <span>&nbsp;&nbsp;&nbsp;</span> */}
+                            <span>
+                              <input
+                                type="radio"
+                              // value="a"
+                              // checked={selectedOption === "a"}
+                              // onChange={handleOptionChange}
+                              // style={{ paddingLeft: "10px" }}
+                              />
+                              <label style={{ paddingLeft: "20px" }}>
+                                <p>{quest.multiple_choice_question?.option5}</p>
+                              </label>
+                            </span>
+                          </span>
+                          <span className="que_option" style={{ fontSize: "19px" }}>
+                            {/* <span>&nbsp;&nbsp;&nbsp;</span> */}
+                            <span>
+                              <input
+                                type="radio"
+                              // value="a"
+                              // checked={selectedOption === "a"}
+                              // onChange={handleOptionChange}
+                              // style={{ paddingLeft: "10px" }}
+                              />
+                              <label style={{ paddingLeft: "20px" }}>
+                                <p>{quest.multiple_choice_question?.option6}</p>
+                              </label>
+                            </span>
+                          </span>
+                          {/* <div>
+                        <span style={{ color: "rgb(0, 0, 0)" }}>Chapter :</span>
+                        <span>Integration of Positive integers</span>
+                        <span style={{ color: "rgb(0, 0, 0)" }}>,Topic :</span>
+                        <span>Positive integers</span>
+                      </div> */}
+                        </div>
+                      </div>
+                    </div>
+                    {/* <li>{quest.multiple_choice_question?.option1}</li>
+                    <li>{quest.multiple_choice_question?.option2}</li>
+                    <li>{quest.multiple_choice_question?.option3}</li>
+                    <li>{quest.multiple_choice_question?.option4}</li>
+                    <li>{quest.multiple_choice_question?.option5}</li>
+                    <li>{quest.multiple_choice_question?.option6}</li><br /> */}
+                  </ol>
+                ))}
+              </ul>
+
+              <div className="text-center mt-4">
+                <Button
+                  onClick={getQuestions}
+                  variant="primary"
+                  size="lg"
+                  type="submit"
+                  disabled={
+                    !SelectedQuestionType || !SelectedChapter
+                  }
+                >
+                  Create Assessment
+                </Button>
+              </div>
+              
+            </div>
+          )}
         </section>
       </div>
     </div>
