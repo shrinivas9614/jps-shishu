@@ -40,7 +40,7 @@ function AssesmentForm({ _setOpenCallback }) {
 
   const [selectedIds, setSelectedIds] = useState([]);
   const [TotalMarks, setTotalMarks] = useState(0);
-  const [SubjectName, setSubjectName] = useState('');
+  const [SubjectName, setSubjectName] = useState("");
 
   console.log("select ", selectedIds);
 
@@ -196,11 +196,11 @@ function AssesmentForm({ _setOpenCallback }) {
   const Subname = (value) => {
     console.log("values:", value.target.value);
     for (const iterator of SubjectResponse) {
-      console.log("iterator", iterator)
-      if ( parseInt(iterator.subject_id) === parseInt(value.target.value) ) {
-        console.log("subject_id: ", iterator.subject_id)
-        setSubjectName(iterator.name)
-        setSelectedSubject(value.target.value)
+      console.log("iterator", iterator);
+      if (parseInt(iterator.subject_id) === parseInt(value.target.value)) {
+        console.log("subject_id: ", iterator.subject_id);
+        setSubjectName(iterator.name);
+        setSelectedSubject(value.target.value);
         break;
       }
     }
@@ -218,7 +218,7 @@ function AssesmentForm({ _setOpenCallback }) {
               <Row>
                 <Col>
                   <Link
-                    className="float-end fs-2 text-danger"
+                    className="float-end text-danger"
                     onClick={() => {
                       _setOpenCallback("list");
                     }}
@@ -269,10 +269,13 @@ function AssesmentForm({ _setOpenCallback }) {
                   // values.end_time = time;
                   // values.test_duration = 30;
                   for (const iterator of SubjectResponse) {
-                    console.log("iterator", iterator)
-                    if ( parseInt(iterator.subject_id) === parseInt(SelectedSubject) ) {
-                      console.log("subject_id: ", iterator.subject_id)
-                      values.subject = iterator.name
+                    console.log("iterator", iterator);
+                    if (
+                      parseInt(iterator.subject_id) ===
+                      parseInt(SelectedSubject)
+                    ) {
+                      console.log("subject_id: ", iterator.subject_id);
+                      values.subject = iterator.name;
                       break;
                     }
                   }
@@ -358,7 +361,7 @@ function AssesmentForm({ _setOpenCallback }) {
                         </Col>
                       </Row>
 
-                      <Row>
+                      <Row className="mt-2">
                         <Col>
                           <FormGroup>
                             <FormLabel>Grade</FormLabel>
@@ -430,7 +433,7 @@ function AssesmentForm({ _setOpenCallback }) {
                         </Col>
                       </Row>
 
-                      <Row>
+                      <Row className="mt-2">
                         <Col>
                           <FormGroup>
                             <FormLabel>Test Type</FormLabel>
@@ -473,7 +476,7 @@ function AssesmentForm({ _setOpenCallback }) {
                         </Col>
                       </Row>
 
-                      <Row>
+                      <Row className="mt-2">
                         <Col>
                           <FormGroup>
                             <FormLabel>Types of Questions</FormLabel>
@@ -522,7 +525,7 @@ function AssesmentForm({ _setOpenCallback }) {
                         </Col>
                       </Row>
 
-                      <Row>
+                      <Row className="mt-2">
                         <Col>
                           <FormGroup>
                             <FormLabel>No.of Selected Questions</FormLabel>
@@ -554,51 +557,11 @@ function AssesmentForm({ _setOpenCallback }) {
                           </FormGroup>
                         </Col>
                         <Col>
-                          {/* <FormGroup>
-                            <div className="text-center mt-4">
-                              <Button
-                                // onClick={getQuestions}
-                                variant="primary"
-                                size="lg"
-                                type="submit"
-                                // disabled={
-                                //   !SelectedQuestionType || !SelectedChapter
-                                // }
-                              >
-                                Create Assesment
-                              </Button>
-                            </div>
-                          </FormGroup> */}
                         </Col>
                       </Row>
 
-                      {/* <Row>
-                        {selectedIds.length > 0 && (
-                          <p>hiiiiii{selectedIds.length}</p>
-                        )}
-                      </Row> */}
                       {SelectedQuestions.length > 0 && (
                         <div className="mt-4">
-                          {/* <Row>
-                            <Col>
-                              <h4>Multiple Choice Questions</h4>
-                            </Col>
-                            <Col></Col>
-                            <Col>
-                              <FormGroup>
-                                <FormLabel>Selected Questions</FormLabel>
-                                <Form.Control
-                                  // type="number"
-                                  // step={0.1}
-                                  id="TotalMarks1"
-                                  name="TotalMarks1"
-                                  // placeholder="Selected Questions"
-                                  value={TotalMarks}
-                                  // onChange={handleChange}
-                                />
-                              </FormGroup>
-                            </Col>
-                          </Row> */}
                           <Row>
                             <h4>Multiple Choice Questions</h4>
                           </Row>
@@ -614,49 +577,17 @@ function AssesmentForm({ _setOpenCallback }) {
                                     className="row"
                                     style={{ marginRight: "20px" }}
                                   >
-                                    <div className="col-lg-10">
-                                      {/* <span className="que_tag">
-                                        <span>
-                                          &nbsp;&nbsp;
-                                          {quest.multiple_choice_question?.id}
-                                          .&nbsp;
-                                        </span>
-                                        <span>
-                                          {" "}
-                                          {
-                                            quest.multiple_choice_question
-                                              ?.question
-                                          }
-                                        </span>
-                                      </span> */}
+                                    <div
+                                      className="col-lg-10 que_option"
+                                      style={{ fontSize: "19px" }}
+                                    >
                                       <Form.Check
                                         id={quest.multiple_choice_question.id}
                                         type="checkbox"
-                                        label={
+                                        label={`Q ${index + 1}. ${
                                           quest?.multiple_choice_question
                                             ?.question
-                                        }
-                                        // onChange={() => {
-                                        //   if (
-                                        //     selectedIds.includes(
-                                        //       quest.multiple_choice_question.id
-                                        //     )
-                                        //   ) {
-                                        //     setSelectedIds(
-                                        //       selectedIds.filter(
-                                        //         (id) =>
-                                        //           id !==
-                                        //           quest.multiple_choice_question
-                                        //             .id
-                                        //       )
-                                        //     );
-                                        //   } else {
-                                        //     setSelectedIds([
-                                        //       ...selectedIds,
-                                        //       quest.multiple_choice_question.id,
-                                        //     ]);
-                                        //   }
-                                        // }}
+                                        }`}
                                         onChange={() => {
                                           handleMarks(
                                             quest.multiple_choice_question
@@ -670,7 +601,6 @@ function AssesmentForm({ _setOpenCallback }) {
                                             ?.question
                                         }
                                       />
-                                      {/* &nbsp;&nbsp; */}
                                       <span
                                         className="oval"
                                         style={{
@@ -678,20 +608,6 @@ function AssesmentForm({ _setOpenCallback }) {
                                           marginTop: "3px",
                                         }}
                                       ></span>
-                                      {/* <span className="que_tag">
-                                        <span>
-                                          &nbsp;&nbsp;
-                                          {quest.multiple_choice_question?.id}
-                                          .&nbsp;
-                                        </span>
-                                        <span>
-                                          {" "}
-                                          {
-                                            quest.multiple_choice_question
-                                              ?.question
-                                          }
-                                        </span>
-                                      </span> */}
                                     </div>
                                     <div className="col-lg-1">
                                       <span>
@@ -821,6 +737,18 @@ function AssesmentForm({ _setOpenCallback }) {
                                               }
                                             </p>
                                           </label>
+                                        </span>
+                                      </span>
+                                      <span className="que_option">
+                                        <span>
+                                          <Row className="md-3">
+                                            <Col>
+                                              <FormLabel>
+                                                Chapter:-{" "}
+                                                {quest.chapter_id?.name}
+                                              </FormLabel>
+                                            </Col>
+                                          </Row>
                                         </span>
                                       </span>
                                     </div>

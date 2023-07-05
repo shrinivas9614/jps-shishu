@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import api from "../forms/APIS";
 // import Swal from 'sweetalert2';
 
-const AdminAssesmentView = ({ _setOpenCallback }) => {
+const AdminAssesmentView = ({ _setOpenCallback, setId }) => {
   const [assessment, setAssessment] = useState([]);
 
   const getAssessment = () => {
@@ -35,7 +35,7 @@ const AdminAssesmentView = ({ _setOpenCallback }) => {
               className="float-end fs-5"
               onClick={() => _setOpenCallback("add")}
             >
-              Add
+              Create Assessment
             </Link>
           </Col>
         </Row>
@@ -53,6 +53,7 @@ const AdminAssesmentView = ({ _setOpenCallback }) => {
               <th>Question type</th>
               <th>Date of asssement</th>
               <th>Total marks</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -64,7 +65,9 @@ const AdminAssesmentView = ({ _setOpenCallback }) => {
                   <td>{asse.chapter_id.subject_id.grade_id.name}</td>
                   <td>{asse.subject}</td>
                   <td>{asse.chapter_id.name}</td>
-                  <td>{asse.teacher_id.firstname + " "+ asse.teacher_id.lastname} </td>
+                  <td>
+                    {asse.teacher_id.firstname + " " + asse.teacher_id.lastname}{" "}
+                  </td>
                   <td>{asse.question_type}</td>
                   <td>
                     {new Date(asse.date)
@@ -77,6 +80,16 @@ const AdminAssesmentView = ({ _setOpenCallback }) => {
                       .join("/")}
                   </td>
                   <td>{asse.marks}</td>
+                  <td>
+                    <Button
+                      onClick={() => {
+                        _setOpenCallback("assessmentInfo");
+                        setId(asse.id);
+                      }}
+                    >
+                      <i class="fa fa-eye" aria-hidden="true"></i>
+                    </Button>
+                  </td>
                 </tr>
               ))}
           </tbody>
