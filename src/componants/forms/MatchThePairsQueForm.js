@@ -228,7 +228,8 @@ function MatchThePairsQuestionForm(props) {
                 </FormGroup>
               </Col>
             </Row>
-            <Row className="mb-2">
+            
+            <Row>
               <Col md={6}>
                 <FormGroup>
                   <FormLabel>Chapter</FormLabel>
@@ -263,15 +264,16 @@ function MatchThePairsQuestionForm(props) {
                 </FormGroup>
               </Col>
             </Row>
+
             <Row>
-              <Col md={5}>
+              <Col md={6}>
                 <FormGroup>
-                  <FormLabel>question 1</FormLabel>
+                  <FormLabel>Question 1</FormLabel>
                   <FormControl
                     type="text"
                     id="question1"
                     name="question1"
-                    placeholder="Question1"
+                    placeholder="Question 1"
                     value={values.question1}
                     onChange={handleChange}
                   ></FormControl>
@@ -285,14 +287,14 @@ function MatchThePairsQuestionForm(props) {
                   </div>{" "}
                 </FormGroup>
               </Col>
-              <Col>
+              <Col md={6}>
                 <FormGroup>
-                  <FormLabel>option 1</FormLabel>
+                  <FormLabel>Option 1</FormLabel>
                   <FormControl
                     type="text"
                     id="option1"
                     name="option1"
-                    placeholder="Option1"
+                    placeholder="Option 1"
                     value={values.option1}
                     onChange={handleChange}
                   />
@@ -307,15 +309,16 @@ function MatchThePairsQuestionForm(props) {
                 </FormGroup>
               </Col>
             </Row>
+
             <Row>
-              <Col md={5}>
+              <Col md={6}>
                 <FormGroup>
-                  <FormLabel>question 2</FormLabel>
+                  <FormLabel>Question 2</FormLabel>
                   <FormControl
                     type="text"
                     id="question2"
                     name="question2"
-                    placeholder="Question2"
+                    placeholder="Question 2"
                     value={values.question2}
                     onChange={handleChange}
                   />
@@ -329,14 +332,14 @@ function MatchThePairsQuestionForm(props) {
                   </div>{" "}
                 </FormGroup>
               </Col>
-              <Col>
+              <Col md={6}>
                 <FormGroup>
-                  <FormLabel>option 2</FormLabel>
+                  <FormLabel>Option 2</FormLabel>
                   <FormControl
                     type="text"
                     id="option2"
                     name="option2"
-                    placeholder="Option2"
+                    placeholder="Option 2"
                     value={values.option2}
                     onChange={handleChange}
                   />
@@ -351,15 +354,16 @@ function MatchThePairsQuestionForm(props) {
                 </FormGroup>
               </Col>
             </Row>
+
             <Row>
-              <Col md={5}>
+              <Col md={6}>
                 <FormGroup>
-                  <FormLabel>question 3</FormLabel>
+                  <FormLabel>Question 3</FormLabel>
                   <FormControl
                     type="text"
                     id="question3"
                     name="question3"
-                    placeholder="Question3"
+                    placeholder="Question 3"
                     value={values.question3}
                     onChange={handleChange}
                   />
@@ -373,14 +377,14 @@ function MatchThePairsQuestionForm(props) {
                   </div>{" "}
                 </FormGroup>
               </Col>
-              <Col>
+              <Col md={6}>
                 <FormGroup>
-                  <FormLabel>option 3</FormLabel>
+                  <FormLabel>Option 3</FormLabel>
                   <FormControl
                     type="text"
                     id="option3"
                     name="option3"
-                    placeholder="Question"
+                    placeholder="Question 3"
                     value={values.option3}
                     onChange={handleChange}
                   />
@@ -395,15 +399,16 @@ function MatchThePairsQuestionForm(props) {
                 </FormGroup>
               </Col>
             </Row>
+
             <Row>
-              <Col md={5}>
+              <Col md={6}>
                 <FormGroup>
-                  <FormLabel>question 4</FormLabel>
+                  <FormLabel>Question 4</FormLabel>
                   <FormControl
                     type="text"
                     id="question4"
                     name="question4"
-                    placeholder="Question4"
+                    placeholder="Question 4"
                     value={values.question4}
                     onChange={handleChange}
                   />
@@ -417,14 +422,14 @@ function MatchThePairsQuestionForm(props) {
                   </div>{" "}
                 </FormGroup>
               </Col>
-              <Col>
+              <Col md={6}>
                 <FormGroup>
-                  <FormLabel>option 4</FormLabel>
+                  <FormLabel>Option 4</FormLabel>
                   <FormControl
                     type="text"
                     id="option4"
                     name="option4"
-                    placeholder="Option4"
+                    placeholder="Option 4"
                     value={values.option4}
                     onChange={handleChange}
                   />
@@ -439,15 +444,16 @@ function MatchThePairsQuestionForm(props) {
                 </FormGroup>
               </Col>
             </Row>
+
             <Row>
-              <Col md={5}>
+              <Col md={6}>
                 <FormGroup>
-                  <FormLabel>question 5</FormLabel>
+                  <FormLabel>Question 5</FormLabel>
                   <FormControl
                     type="text"
                     id="question5"
                     name="question5"
-                    placeholder="Question5"
+                    placeholder="Question 5"
                     value={values.question5}
                     onChange={handleChange}
                   />
@@ -461,14 +467,14 @@ function MatchThePairsQuestionForm(props) {
                   </div>{" "}
                 </FormGroup>
               </Col>
-              <Col>
+              <Col md={6}>
                 <FormGroup>
-                  <FormLabel>option 5</FormLabel>
+                  <FormLabel>Option 5</FormLabel>
                   <FormControl
                     type="text"
                     id="option5"
                     name="option5"
-                    placeholder="option5"
+                    placeholder="Option 5"
                     value={values.option5}
                     onChange={handleChange}
                   />
@@ -479,20 +485,20 @@ function MatchThePairsQuestionForm(props) {
                       class="form-control-file"
                       id="img5"
                     />
-                  </div>{" "}
-                  <FormControl />
+                  </div>
                 </FormGroup>
               </Col>
             </Row>
+
             <Row>
-              <Col md={5}>
+              <Col md={6}>
                 <FormGroup>
-                  <FormLabel>question 6</FormLabel>
+                  <FormLabel>Question 6</FormLabel>
                   <FormControl
                     type="text"
                     id="question6"
                     name="question6"
-                    placeholder="Question6"
+                    placeholder="Question 6"
                     value={values.question6}
                     onChange={handleChange}
                   />
@@ -506,14 +512,14 @@ function MatchThePairsQuestionForm(props) {
                   </div>{" "}
                 </FormGroup>
               </Col>
-              <Col>
+              <Col md={6}>
                 <FormGroup>
-                  <FormLabel>option 6</FormLabel>
+                  <FormLabel>Option 6</FormLabel>
                   <FormControl
                     type="text"
                     id="option6"
                     name="option6"
-                    placeholder="Option6"
+                    placeholder="Option 6"
                     value={values.option6}
                     onChange={handleChange}
                   />
@@ -528,6 +534,7 @@ function MatchThePairsQuestionForm(props) {
                 </FormGroup>
               </Col>
             </Row>
+
             <Row className="mb-2">
               <Col md={6}>
                 <Form.Group as={Col} controlId="my_multiselect_field">
@@ -545,6 +552,7 @@ function MatchThePairsQuestionForm(props) {
                 </Form.Group>
               </Col>
             </Row>
+
             <Row className="mb-2">
               <Col md={12}>
                 <div className="d-flex gap-2 justify-content-center mt-3 ">
