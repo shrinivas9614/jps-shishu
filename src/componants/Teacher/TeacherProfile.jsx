@@ -38,7 +38,7 @@ export const TeacherProfile = () => {
                 <title>Teacher Profile | JPS</title>
             </Helmet>
 
-            <TeacherSidebar />
+            <TeacherSidebar id={id}/>
             <div className="content-wrapper-client-lead" >
 
                 <Card>

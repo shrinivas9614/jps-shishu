@@ -43,7 +43,7 @@ function TeacherSidebar({ id }) {
                 </a>
               </li>
               <li>
-                <a href="#">
+                <a href={`/teacher-assessment/${id}`}>
                   <AiFillQuestionCircle /> Assessment
                 </a>
               </li>

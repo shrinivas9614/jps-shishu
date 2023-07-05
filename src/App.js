@@ -26,6 +26,7 @@ import { StudentProfile } from "./componants/student/studentProfile";
 import { StudentAssessment } from "./componants/student/StudentAssessment";
 import { StudentContainer } from "./container/StudentAssessmentContainer";
 import TestForm from "./componants/forms/test_1";
+import { TeacherAssessment } from "./componants/Teacher/assement";
 
 function App() {
   return (
@@ -49,6 +50,7 @@ function App() {
           <Route path="/teacher-login" element={<TeacherLogin />}></Route>
           <Route path="/teacher-dashboard" element={<TeacherDashboard />}></Route>
           <Route path="/teacher-profile/:id" element={<TeacherProfile />}></Route>
+          <Route path="/teacher-assessment/:id" element={<TeacherAssessment/>}></Route>
 
           {/* ================  Student Dashboard  ================= */}
           <Route path="/student-login" element={<StudentLogin />}></Route>
