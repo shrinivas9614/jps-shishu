@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Card, Col, Row, Table } from "react-bootstrap";
+import { Card, Col, Row, Table, Button, Form, FormGroup, InputGroup, FormLabel, FormControl } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import api from "../forms/APIS";
 // import AiOutlineCheck from "rea"
+
 const AssesmentQuestionList = ({ setOpenCallback }) => {
   const [questions, setQuestions] = useState([]);
   const [selectedGrade, setSelectedGrade] = useState("");
+  const [GradeResponse, setGradeResponse] = useState("");
 
   const fetchQuestions = () => {
     api
@@ -23,9 +25,26 @@ const AssesmentQuestionList = ({ setOpenCallback }) => {
     fetchQuestions();
   }, [selectedGrade]);
 
+  // All Grades
+  const getGrades = () => {
+    api
+      .get("/grade-api")
+      .then((res) => {
+        console.log("Grade response", res, "grade_id:", res.data.grade_id);
+        setGradeResponse(res.data);
+      })
+      .catch((error) => {
+        console.log("error", error);
+      });
+  };
+
+  useEffect(() => {
+    getGrades();
+  }, []);
+
   return (
     <Card>
-      <Card.Header className="border-0 bg-transparent">
+      {/* <Card.Header className="border-0 bg-transparent">
         <Row>
           <Col>
             <Link className="float-end fs-5" onClick={() => setOpenCallback("add")}>
@@ -33,24 +52,24 @@ const AssesmentQuestionList = ({ setOpenCallback }) => {
             </Link>
           </Col>
         </Row>
-      </Card.Header>
+      </Card.Header> */}
       <Card.Body>
         <Row>
-          <Col>
-            {/* <h3>FILTER</h3> */}
-          </Col>
-          <Col md={4}>
+          <Col>{/* <h3>FILTER</h3> */}</Col>
+          <Col md={3}>
             <select
               className="form-select"
-              value={selectedGrade}
               onChange={(e) => setSelectedGrade(e.target.value)}
+              value={selectedGrade}
             >
-              <option value="">All Grades</option>
-              <option value="3">LKG</option>
-              <option value="4">UKG</option>
-              <option value="1">Grade 1</option>
-              <option value="2">Grade 2</option>
-              {/* Add more grade options as needed */}
+              <option>All Grades</option>
+              {GradeResponse.length > 0 &&
+                GradeResponse.map((grd, index) => (
+                  <option key={grd.grade_id} value={grd.grade_id}>
+                    {" "}
+                    {grd.name}
+                  </option>
+                ))}
             </select>
           </Col>
         </Row>
@@ -68,27 +87,30 @@ const AssesmentQuestionList = ({ setOpenCallback }) => {
           <tbody>
             {questions.length > 0 &&
               questions
-                .filter((question) => selectedGrade === "" || Number(question.grade_id) === Number(selectedGrade))
+                .filter(
+                  (question) =>
+                    selectedGrade === "" ||
+                    Number(question.grade_id) === Number(selectedGrade)
+                )
                 .map((question, index) => (
                   <tr key={question.id}>
-                  <td>{index + 1}</td>
-                  <td>
-                    {new Date(question.createddate)
-                      .toLocaleDateString("en-IN", {
-                        day: "2-digit",
-                        month: "2-digit",
-                        year: "numeric",
-                      })
-                      .split("/")
-                      .join("/")}
-                  </td>
-                 
-                  <td> {question.chapter_id?.subject_id?.grade_id?.name} </td>
-                  <td>{question.chapter_id?.subject_id?.name}</td>
-                  <td>{question.chapter_id?.name}</td>
-                  <td>{question.multiple_choice_question?.question}</td>
-                  
-                </tr>
+                    <td>{index + 1}</td>
+                    <td>
+                      {new Date(question.createddate)
+                        .toLocaleDateString("en-IN", {
+                          day: "2-digit",
+                          month: "2-digit",
+                          year: "numeric",
+                        })
+                        .split("/")
+                        .join("/")}
+                    </td>
+
+                    <td> {question.chapter_id?.subject_id?.grade_id?.name} </td>
+                    <td>{question.chapter_id?.subject_id?.name}</td>
+                    <td>{question.chapter_id?.name}</td>
+                    <td>{question.multiple_choice_question?.question}</td>
+                  </tr>
                 ))}
           </tbody>
         </Table>
