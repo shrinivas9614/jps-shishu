@@ -27,6 +27,7 @@ import { StudentAssessment } from "./componants/student/StudentAssessment";
 import { StudentContainer } from "./container/StudentAssessmentContainer";
 import TestForm from "./componants/forms/test_1";
 import { TeacherAssessment } from "./componants/Teacher/assement";
+import StudentReport from "./componants/student/StudentReport";
 
 function App() {
   return (
@@ -48,20 +49,37 @@ function App() {
 
           {/* ================  Teacher Dashboard  ================= */}
           <Route path="/teacher-login" element={<TeacherLogin />}></Route>
-          <Route path="/teacher-dashboard" element={<TeacherDashboard />}></Route>
-          <Route path="/teacher-profile/:id" element={<TeacherProfile />}></Route>
-          <Route path="/teacher-assessment/:id" element={<TeacherAssessment/>}></Route>
+          <Route
+            path="/teacher-dashboard"
+            element={<TeacherDashboard />}
+          ></Route>
+          <Route
+            path="/teacher-profile/:id"
+            element={<TeacherProfile />}
+          ></Route>
+          <Route
+            path="/teacher-assessment/:id"
+            element={<TeacherAssessment />}
+          ></Route>
 
           {/* ================  Student Dashboard  ================= */}
           <Route path="/student-login" element={<StudentLogin />}></Route>
-          <Route path="/student-dashboard" element={<StudentDashboard />}></Route>
-          <Route path="/student-profile/:id" element={<StudentProfile />}></Route>
-          <Route path="/student-assessment" element={ <StudentAssessment /> }></Route>
+          <Route
+            path="/student-dashboard"
+            element={<StudentDashboard />}
+          ></Route>
+          <Route
+            path="/student-profile/:id"
+            element={<StudentProfile />}
+          ></Route>
+          <Route
+            path="/student-assessment"
+            element={<StudentAssessment />}
+          ></Route>
           <Route path="/assessment" element={<StudentContainer />}></Route>
+          <Route path="/student-report" element={<StudentReport />}></Route>
 
           <Route path="/test-form" element={<TestForm />}></Route>
-
-
         </Routes>
       </BrowserRouter>
     </div>

@@ -2,6 +2,7 @@ import React from "react";
 import { MdDashboard } from "react-icons/md";
 import { AiFillQuestionCircle, AiOutlineLogout } from "react-icons/ai";
 import { MdAccountCircle } from "react-icons/md";
+import { TbReportSearch } from "react-icons/tb";
 
 export const StudentSidebar = ({ id }) => {
   return (
@@ -26,18 +27,17 @@ export const StudentSidebar = ({ id }) => {
                     <MdAccountCircle /> Profile
                   </a>
                 </li>
-
-                <li>
-                  <a href="#">
-                    <AiFillQuestionCircle /> Grade
-                  </a>
-                </li>
-
                 <li>
                   <a href="/student-assessment">
                     <AiFillQuestionCircle /> Assessment
                   </a>
                 </li>
+                <li>
+                <a href="/student-report">
+                  <TbReportSearch /> Report
+                </a>
+                </li>
+                
                 
                 <li>
                   <a href="/">
