@@ -4,6 +4,7 @@ import React, { useState, useCallback } from "react";
 import { Card, Nav } from "react-bootstrap";
 import { MCQQuestionType } from "../componants/Admin/mcqquestion";
 import { MatchThePairs } from "../componants/Admin/MatchThePairs";
+import { ReleventPicture } from "../componants/Admin/ReleventPicture";
 
 export const QuestionConatiner = () => {
   const [show, setShow] = useState("mcq");
@@ -16,6 +17,8 @@ export const QuestionConatiner = () => {
         return <MCQQuestionType />;
       case "pair":
         return <MatchThePairs />;
+      case "related":
+        return <ReleventPicture/>;
     }
   };
   return (
@@ -39,6 +42,11 @@ export const QuestionConatiner = () => {
                 }}
               >
                 Match the pairs
+              </Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link onClick={()=>_setOpenCallback("related")}>
+                Relatvent Picture
               </Nav.Link>
             </Nav.Item>
           </Nav>

@@ -166,7 +166,7 @@ function AssesmentForm({ _setOpenCallback }) {
         console.log("error", error);
       });
   };
-
+  console.log("SelectedQuestionType", SelectedQuestionType);
   useEffect(() => {
     if (SelectedQuestionType && SelectedChapter) {
       getQuestions();
@@ -179,15 +179,23 @@ function AssesmentForm({ _setOpenCallback }) {
 
   const handleMarks = (value) => {
     console.log("values:", value);
-    if (selectedIds.includes(value.id)) {
-      setSelectedIds(selectedIds.filter((id) => id !== value.id));
+    if (selectedIds.includes(value.question_id)) {
+      setSelectedIds(selectedIds.filter((id) => id !== value.question_id));
     } else {
-      setSelectedIds([...selectedIds, value.id]);
+      setSelectedIds([...selectedIds, value.question_id]);
     }
     var mrks = 0;
     for (const iterator of SelectedQuestions) {
-      if (selectedIds.includes(iterator.multiple_choice_question.id)) {
-        mrks = mrks + iterator.multiple_choice_question.mark;
+      if (SelectedQuestionType == "objective") {
+        if (selectedIds.includes(iterator.multiple_choice_question.id)) {
+          mrks = mrks + iterator.multiple_choice_question.mark;
+        }
+      } else {
+        if (
+          selectedIds.includes(iterator.select_relevent_picture_question.id)
+        ) {
+          mrks = mrks + iterator.select_relevent_picture_question.mark;
+        }
       }
     }
     setTotalMarks(mrks);
@@ -491,6 +499,9 @@ function AssesmentForm({ _setOpenCallback }) {
                               <option value="matching_question">
                                 Match the Pairs
                               </option>
+                              <option value="relevent_picture">
+                                Relevent Picture
+                              </option>
                               <option value="objective">Objective</option>
                             </Form.Select>
                           </FormGroup>
@@ -556,14 +567,240 @@ function AssesmentForm({ _setOpenCallback }) {
                             </div>
                           </FormGroup>
                         </Col>
-                        <Col>
-                        </Col>
+                        <Col></Col>
                       </Row>
 
-                      {SelectedQuestions.length > 0 && (
+                      {SelectedQuestionType == "objective" &&
+                        SelectedQuestions.length > 0 && (
+                          <div className="mt-4">
+                            <Row>
+                              <h4>Multiple Choice Questions</h4>
+                            </Row>
+                            <ul style={{ marginRight: "40px" }}>
+                              {SelectedQuestions.map((quest, index) => (
+                                <ol key={quest.id}>
+                                  <div
+                                    className="row ques_div"
+                                    id="assess_test_row"
+                                    style={{ fontSize: "19px" }}
+                                  >
+                                    <div
+                                      className="row"
+                                      style={{ marginRight: "20px" }}
+                                    >
+                                      <div
+                                        className="col-lg-10 que_option"
+                                        style={{ fontSize: "19px" }}
+                                      >
+                                        <Form.Check
+                                          id={
+                                            quest?.multiple_choice_question?.id
+                                          }
+                                          type="checkbox"
+                                          label={`Q ${index + 1}. ${
+                                            quest?.multiple_choice_question
+                                              ?.question
+                                          }`}
+                                          onChange={() => {
+                                            handleMarks(quest);
+                                          }}
+                                          checked={selectedIds.includes(
+                                            quest?.multiple_choice_question?.id
+                                          )}
+                                          value={
+                                            quest?.multiple_choice_question
+                                              ?.question
+                                          }
+                                        />
+                                        <span
+                                          className="oval"
+                                          style={{
+                                            backgroundColor: "rgb(20, 221, 94)",
+                                            marginTop: "3px",
+                                          }}
+                                        ></span>
+                                      </div>
+                                      <div className="col-lg-1">
+                                        <span>
+                                          <input
+                                            id="weight797"
+                                            type="number"
+                                            placeholder="Marks"
+                                            className="form-control"
+                                            value={
+                                              quest?.multiple_choice_question
+                                                ?.mark
+                                            }
+                                            style={{ paddingRight: "0px" }}
+                                            disabled
+                                          />
+                                        </span>
+                                      </div>
+                                      <div className="col-lg-1">
+                                        <span className="que_tag">marks</span>
+                                      </div>
+                                    </div>
+                                    <div className="row">
+                                      <div className="col-lg-1"></div>
+                                      <div className="col-lg-11">
+                                        <span
+                                          className="que_option radio_check"
+                                          style={{ fontSize: "19px" }}
+                                        >
+                                          <span>
+                                            <input type="radio" disabled />
+                                            <label
+                                              style={{ paddingLeft: "20px" }}
+                                            >
+                                              <p>
+                                                {
+                                                  quest
+                                                    ?.multiple_choice_question
+                                                    ?.option1
+                                                }
+                                              </p>
+                                            </label>
+                                          </span>
+                                        </span>
+                                        <span
+                                          className="que_option radio_check"
+                                          style={{ fontSize: "19px" }}
+                                        >
+                                          <span>
+                                            <input type="radio" disabled />
+                                            <label
+                                              style={{ paddingLeft: "20px" }}
+                                            >
+                                              <p>
+                                                {
+                                                  quest
+                                                    ?.multiple_choice_question
+                                                    ?.option2
+                                                }
+                                              </p>
+                                            </label>
+                                          </span>
+                                        </span>
+                                        <span
+                                          className="que_option radio_check"
+                                          style={{ fontSize: "19px" }}
+                                        >
+                                          <span>
+                                            <input type="radio" disabled />
+                                            <label
+                                              style={{ paddingLeft: "20px" }}
+                                            >
+                                              <p>
+                                                {
+                                                  quest
+                                                    ?.multiple_choice_question
+                                                    ?.option3
+                                                }
+                                              </p>
+                                            </label>
+                                          </span>
+                                        </span>
+                                        <span
+                                          className="que_option"
+                                          style={{ fontSize: "19px" }}
+                                        >
+                                          <span>
+                                            <input type="radio" disabled />
+                                            <label
+                                              style={{ paddingLeft: "20px" }}
+                                            >
+                                              <p>
+                                                {
+                                                  quest
+                                                    ?.multiple_choice_question
+                                                    ?.option4
+                                                }
+                                              </p>
+                                            </label>
+                                          </span>
+                                        </span>
+                                        <span
+                                          className="que_option"
+                                          style={{ fontSize: "19px" }}
+                                        >
+                                          <span>
+                                            <input type="radio" disabled />
+                                            <label
+                                              style={{ paddingLeft: "20px" }}
+                                            >
+                                              <p>
+                                                {
+                                                  quest
+                                                    ?.multiple_choice_question
+                                                    ?.option5
+                                                }
+                                              </p>
+                                            </label>
+                                          </span>
+                                        </span>
+                                        <span
+                                          className="que_option"
+                                          style={{ fontSize: "19px" }}
+                                        >
+                                          <span>
+                                            <input type="radio" disabled />
+                                            <label
+                                              style={{ paddingLeft: "20px" }}
+                                            >
+                                              <p>
+                                                {
+                                                  quest
+                                                    ?.multiple_choice_question
+                                                    ?.option6
+                                                }
+                                              </p>
+                                            </label>
+                                          </span>
+                                        </span>
+                                        <span className="que_option">
+                                          <span>
+                                            <Row className="md-3">
+                                              <Col>
+                                                <FormLabel>
+                                                  Chapter:-{" "}
+                                                  {quest?.chapter_id?.name}
+                                                </FormLabel>
+                                              </Col>
+                                            </Row>
+                                          </span>
+                                        </span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </ol>
+                              ))}
+                            </ul>
+
+                            <Row>
+                              <Col>
+                                <FormGroup>
+                                  <div className="text-center">
+                                    <Button
+                                      // onClick={getQuestions}
+                                      variant="primary"
+                                      size="lg"
+                                      type="submit"
+                                      // disabled={
+                                      //   !SelectedQuestionType || !SelectedChapter
+                                      // }
+                                    >
+                                      Create Assesment
+                                    </Button>
+                                  </div>
+                                </FormGroup>
+                              </Col>
+                            </Row>
+                          </div>
+                        )}
+                      {SelectedQuestionType == "relevent_picture" && (
                         <div className="mt-4">
                           <Row>
-                            <h4>Multiple Choice Questions</h4>
+                            <h4>Relevent Picture Questions</h4>
                           </Row>
                           <ul style={{ marginRight: "40px" }}>
                             {SelectedQuestions.map((quest, index) => (
@@ -582,22 +819,22 @@ function AssesmentForm({ _setOpenCallback }) {
                                       style={{ fontSize: "19px" }}
                                     >
                                       <Form.Check
-                                        id={quest.multiple_choice_question.id}
+                                        id={quest?.question_id}
                                         type="checkbox"
                                         label={`Q ${index + 1}. ${
-                                          quest?.multiple_choice_question
+                                          quest
+                                            ?.select_relevent_picture_question
                                             ?.question
                                         }`}
                                         onChange={() => {
-                                          handleMarks(
-                                            quest.multiple_choice_question
-                                          );
+                                          handleMarks(quest);
                                         }}
                                         checked={selectedIds.includes(
-                                          quest.multiple_choice_question.id
+                                          quest?.question_id
                                         )}
                                         value={
-                                          quest?.multiple_choice_question
+                                          quest
+                                            ?.select_relevent_picture_question
                                             ?.question
                                         }
                                       />
@@ -617,7 +854,9 @@ function AssesmentForm({ _setOpenCallback }) {
                                           placeholder="Marks"
                                           className="form-control"
                                           value={
-                                            quest.multiple_choice_question?.mark
+                                            quest
+                                              ?.select_relevent_picture_question
+                                              ?.mark
                                           }
                                           style={{ paddingRight: "0px" }}
                                           disabled
@@ -628,7 +867,8 @@ function AssesmentForm({ _setOpenCallback }) {
                                       <span className="que_tag">marks</span>
                                     </div>
                                   </div>
-                                  <div className="row">
+                                  {/* images show */}
+                                  {/* <div className="row">
                                     <div className="col-lg-1"></div>
                                     <div className="col-lg-11">
                                       <span
@@ -637,122 +877,185 @@ function AssesmentForm({ _setOpenCallback }) {
                                       >
                                         <span>
                                           <input type="radio" disabled />
-                                          <label
-                                            style={{ paddingLeft: "20px" }}
-                                          >
-                                            <p>
-                                              {
-                                                quest.multiple_choice_question
-                                                  ?.option1
-                                              }
-                                            </p>
-                                          </label>
+                                          <Row>
+                                            <Col lg={6}>
+                                              <div
+                                                key={index}
+                                                className="square bg-secondary rounded-circle text-center"
+                                                style={{
+                                                  width: "180px",
+                                                  height: "180px",
+                                                  margin: "10px",
+                                                  cursor: "pointer",
+                                                }}
+                                              >
+                                                <img
+                                                  src={
+                                                    quest
+                                                      ?.select_relevent_picture_question
+                                                      ?.option1
+                                                  }
+                                                  alt=""
+                                                  style={{
+                                                    width: "150px",
+                                                    height: "150px",
+                                                    paddingTop: "5px",
+                                                  }}
+                                                />
+                                              </div>
+                                            </Col>
+                                            <Col lg={6}>
+                                              <div
+                                                key={index}
+                                                className="square bg-secondary rounded-circle text-center"
+                                                style={{
+                                                  width: "180px",
+                                                  height: "180px",
+                                                  margin: "10px",
+                                                  cursor: "pointer",
+                                                }}
+                                              >
+                                                <img
+                                                  src={
+                                                    quest
+                                                      ?.select_relevent_picture_question
+                                                      ?.option2
+                                                  }
+                                                  alt=""
+                                                  style={{
+                                                    width: "150px",
+                                                    height: "150px",
+                                                    paddingTop: "5px",
+                                                  }}
+                                                />
+                                              </div>
+                                            </Col>
+                                          </Row>
+                                          <Row className="mb-2">
+                                            <Col lg={6}>
+                                              <div
+                                                key={index}
+                                                className="square bg-secondary rounded-circle text-center"
+                                                style={{
+                                                  width: "180px",
+                                                  height: "180px",
+                                                  margin: "10px",
+                                                  cursor: "pointer",
+                                                }}
+                                              >
+                                                <img
+                                                  src={
+                                                    quest
+                                                      ?.select_relevent_picture_question
+                                                      ?.option3
+                                                  }
+                                                  alt=""
+                                                  style={{
+                                                    width: "150px",
+                                                    height: "150px",
+                                                    paddingTop: "5px",
+                                                  }}
+                                                />
+                                              </div>
+                                            </Col>
+                                            <Col lg={6}>
+                                              <div
+                                                key={index}
+                                                className="square bg-secondary rounded-circle text-center"
+                                                style={{
+                                                  width: "180px",
+                                                  height: "180px",
+                                                  margin: "10px",
+                                                  cursor: "pointer",
+                                                }}
+                                              >
+                                                <img
+                                                  src={
+                                                    quest
+                                                      ?.select_relevent_picture_question
+                                                      ?.option4
+                                                  }
+                                                  alt=""
+                                                  style={{
+                                                    width: "150px",
+                                                    height: "150px",
+                                                    paddingTop: "5px",
+                                                  }}
+                                                />
+                                              </div>
+                                            </Col>
+                                          </Row>
+                                          <Row className="mb-2">
+                                            <Col lg={6}>
+                                              <div
+                                                key={index}
+                                                className="square bg-secondary rounded-circle text-center"
+                                                style={{
+                                                  width: "180px",
+                                                  height: "180px",
+                                                  margin: "10px",
+                                                  cursor: "pointer",
+                                                }}
+                                              >
+                                                <img
+                                                  src={
+                                                    quest
+                                                      ?.select_relevent_picture_question
+                                                      ?.option
+                                                  }
+                                                  alt=""
+                                                  style={{
+                                                    width: "150px",
+                                                    height: "150px",
+                                                    paddingTop: "5px",
+                                                  }}
+                                                />
+                                              </div>
+                                            </Col>
+                                            <Col lg={6}>
+                                              <div
+                                                key={index}
+                                                className="square bg-secondary rounded-circle text-center"
+                                                style={{
+                                                  width: "180px",
+                                                  height: "180px",
+                                                  margin: "10px",
+                                                  cursor: "pointer",
+                                                }}
+                                              >
+                                                <img
+                                                  src={
+                                                    quest
+                                                      ?.select_relevent_picture_question
+                                                      ?.option6
+                                                  }
+                                                  alt=""
+                                                  style={{
+                                                    width: "150px",
+                                                    height: "150px",
+                                                    paddingTop: "5px",
+                                                  }}
+                                                />
+                                              </div>
+                                            </Col>
+                                          </Row>
                                         </span>
                                       </span>
-                                      <span
-                                        className="que_option radio_check"
-                                        style={{ fontSize: "19px" }}
-                                      >
-                                        <span>
-                                          <input type="radio" disabled />
-                                          <label
-                                            style={{ paddingLeft: "20px" }}
-                                          >
-                                            <p>
-                                              {
-                                                quest.multiple_choice_question
-                                                  ?.option2
-                                              }
-                                            </p>
-                                          </label>
-                                        </span>
-                                      </span>
-                                      <span
-                                        className="que_option radio_check"
-                                        style={{ fontSize: "19px" }}
-                                      >
-                                        <span>
-                                          <input type="radio" disabled />
-                                          <label
-                                            style={{ paddingLeft: "20px" }}
-                                          >
-                                            <p>
-                                              {
-                                                quest.multiple_choice_question
-                                                  ?.option3
-                                              }
-                                            </p>
-                                          </label>
-                                        </span>
-                                      </span>
-                                      <span
-                                        className="que_option"
-                                        style={{ fontSize: "19px" }}
-                                      >
-                                        <span>
-                                          <input type="radio" disabled />
-                                          <label
-                                            style={{ paddingLeft: "20px" }}
-                                          >
-                                            <p>
-                                              {
-                                                quest.multiple_choice_question
-                                                  ?.option4
-                                              }
-                                            </p>
-                                          </label>
-                                        </span>
-                                      </span>
-                                      <span
-                                        className="que_option"
-                                        style={{ fontSize: "19px" }}
-                                      >
-                                        <span>
-                                          <input type="radio" disabled />
-                                          <label
-                                            style={{ paddingLeft: "20px" }}
-                                          >
-                                            <p>
-                                              {
-                                                quest.multiple_choice_question
-                                                  ?.option5
-                                              }
-                                            </p>
-                                          </label>
-                                        </span>
-                                      </span>
-                                      <span
-                                        className="que_option"
-                                        style={{ fontSize: "19px" }}
-                                      >
-                                        <span>
-                                          <input type="radio" disabled />
-                                          <label
-                                            style={{ paddingLeft: "20px" }}
-                                          >
-                                            <p>
-                                              {
-                                                quest.multiple_choice_question
-                                                  ?.option6
-                                              }
-                                            </p>
-                                          </label>
-                                        </span>
-                                      </span>
+
                                       <span className="que_option">
                                         <span>
                                           <Row className="md-3">
                                             <Col>
                                               <FormLabel>
                                                 Chapter:-{" "}
-                                                {quest.chapter_id?.name}
+                                                {quest?.chapter_id?.name}
                                               </FormLabel>
                                             </Col>
                                           </Row>
                                         </span>
                                       </span>
                                     </div>
-                                  </div>
+                                  </div> */}
                                 </div>
                               </ol>
                             ))}
