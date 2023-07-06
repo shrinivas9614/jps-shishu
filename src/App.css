@@ -257,6 +257,57 @@ img ,svg{
 }
 img,
 svg {
-  color: white;
-  font-size: 20px;
+  color: blue;
+  font-size: 25px;
+}
+
+.sidebar {
+  position: fixed;
+  overflow-y: scroll;
+  padding-bottom: 0;
+  padding-left: 0;
+  padding-right: 0.5rem;
+  padding-top: 0;
+  transition: all .5s ease-in-out;
+  height: 100%;
+  width: 250px;
+  overflow-x: hidden;
+}
+
+.w3-bar-block .w3-bar-item {
+  width: 80%;
+  display: block;
+  padding: 8px 16px;
+  border: none;
+  white-space: normal;
+  float: none;
+  outline: 0;
+  color: blue;
+}
+
+/* .w3-button:hover {
+    color: #000!important;
+    background-color: #cd354ff0!important;
+} */
+
+.table-header {
+  line-height: 1.5!important;
+  border: 0;
+  background-color: #f6f8fc;
+  color: #2162c1!important;
+  font-weight: 800;
+  font-size: 17px;
+}
+
+.title_label {
+  object-fit: contain;
+  font-family: Manrope;
+  font-size: 28px;
+  font-weight: 800;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 2.21;
+  letter-spacing: normal;
+  text-align: left;
+  color: #2162c1;
 }

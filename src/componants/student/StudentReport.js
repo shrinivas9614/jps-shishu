@@ -33,7 +33,7 @@ export default function StudentReport() {
       >
         <Card style={{ minHeight: "1043px" }}>
           <Card.Body>
-            <h4 className="text-center">student report</h4>
+            <h4 className="text-center title_label table-header">Student Report</h4>
             {shows()}
           </Card.Body>
         </Card>

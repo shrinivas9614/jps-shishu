@@ -16,13 +16,13 @@ export const StudentReportTable = ({ _setOpenCallback, setId }) => {
           <Table striped bordered hover className="text-center">
             <thead>
               <tr>
-                <th>Class</th>
-                <th> Student name</th>
-                <th>Date</th>
-                <th>Assesment name</th>
-                <th>Subject</th>
-                <th>Teacher Name</th>
-                <th>Status</th>
+                <th className="table-header">Class</th>
+                <th className="table-header">Student name</th>
+                <th className="table-header">Date</th>
+                <th className="table-header">Assesment name</th>
+                <th className="table-header">Subject</th>
+                <th className="table-header">Teacher Name</th>
+                <th className="table-header">Status</th>
               </tr>
             </thead>
             <tbody>
