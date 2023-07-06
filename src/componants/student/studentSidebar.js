@@ -11,40 +11,37 @@ export const StudentSidebar = ({ id }) => {
 
       <>
         <aside
-          // style={{ backgroundColor: "#67A1FF", fontSize: "30px" }}
-          className="main-sidebar vertical-line w3-sidebar w3-light-blue w3-bar-block" style={{width:"17%", fontSize: "20px" }}
-          // style={{ backgroundColor: "#000080", fontSize: "30px"  }}
-          // className="main-sidebar vertical-line"
+          className="main-sidebar w3-sidebar w3-light-blue w3-bar-block" style={{width:"17%", fontSize: "20px" }}
         >
           <section className="sidebar">
             <div className="user-panel ">
               <ul className="sidebar-menu active menu-open tree">
                 <li>
-                  <a  className="w3-bar-item w3-button" href="/student-dashboard">
+                  <a className="w3-bar-item w3-button" href="/student-dashboard">
                     <MdDashboard /> Dashboard
                   </a>
                 </li>
 
                 <li>
-                  {/* <a  className="w3-bar-item w3-button" href="/student-profile"> */}
-                  <a  className="w3-bar-item w3-button" href={`/student-profile/${id}`}>
+                  {/* <a className="w3-bar-item w3-button" href="/student-profile"> */}
+                  <a className="w3-bar-item w3-button" href={`/student-profile/${id}`}>
                     <MdAccountCircle /> Profile
                   </a>
                 </li>
                 <li>
-                  <a  className="w3-bar-item w3-button" href="/student-assessment">
+                  <a className="w3-bar-item w3-button" href="/student-assessment">
                     <AiFillQuestionCircle /> Assessment
                   </a>
                 </li>
                 <li>
-                <a  className="w3-bar-item w3-button" href="/student-report">
+                <a className="w3-bar-item w3-button" href="/student-report">
                   <TbReportSearch /> Report
                 </a>
                 </li>
                 
                 
                 <li>
-                  <a  className="w3-bar-item w3-button" href="/">
+                  <a className="w3-bar-item w3-button" href="/">
                     <AiOutlineLogout /> Logout
                   </a>
                 </li>

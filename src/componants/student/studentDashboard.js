@@ -31,7 +31,7 @@ export const StudentDashboard  = () => {
       <div className="content-wrapper-client-lead">
         <Card>
           <Card.Body style={{ minHeight: " 1043px" }}>
-            <h2 className="text-center">Student</h2>
+            <h2 className="m-3 text-center title_label table-header">Student Console</h2>
             <div className="mt-4">
               <Row>
                 <Col lg={3}>
