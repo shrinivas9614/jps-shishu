@@ -407,21 +407,12 @@ export const StudentContainer = () => {
                 <Table className="text-center">
                   <thead>
                     <tr>
-<<<<<<< HEAD
-                      <th>#</th>
-                      <th>Tittle</th>
-                      <th>Assessment type</th>
-                      <th>Date</th>
-                      <th>Time</th>
-                      <th>Duration</th>
-                      <th>Action</th>
-=======
                       <th className="table-header">#</th>
                       <th className="table-header">Assessment</th>
                       <th className="table-header">Test Category</th>
+                      <th className="table-header">Assessment Date</th>
                       <th className="table-header">Test Duration</th>
                       <th className="table-header">Test</th>
->>>>>>> deepa_jps
                     </tr>
                   </thead>
                   <tbody>
@@ -430,15 +421,10 @@ export const StudentContainer = () => {
                         <tr>
                           <td>{index + 1}</td>
                           <td>{test.name}</td>
-<<<<<<< HEAD
                           <td>{test.question_type}</td>
                           <td>{moment(test.date).format("DD-MM-YYYY")}</td>
-                          <td>{test.start_time}</td>
-                          <td>{test.test_duration}</td>
-=======
-                          <th>{test.question_type}</th>
+                          {/* <td>{test.start_time}</td> */}
                           <td>{test.test_duration} hr</td>
->>>>>>> deepa_jps
                           <th>
                             <Button
                               onClick={() => {
