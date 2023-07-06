@@ -36,10 +36,10 @@ export const StudentProfile = () => {
         <Card>
           <Card.Body>
             {edit == false && (
-              <div className="text-end m-3">
+              <div className="text-end m-3 mt-2">
                 <div>
                   <Form.Group>
-                    <h4 className="text-center">Profile Details</h4>
+                    <h4 className="text-center title_label">Student Details</h4>
                   </Form.Group>
                 </div>
 

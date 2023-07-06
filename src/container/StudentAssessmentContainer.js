@@ -86,7 +86,7 @@ export const StudentContainer = () => {
         style={{ minHeight: " 1043px" }}
       >
         <Card>
-          <Card.Header className="m-3">MCQ QUESTIONS</Card.Header>
+          <Card.Header className="m-3 text-center title_label table-header" >MCQ QUESTIONS</Card.Header>
           <Card.Body>
             {testStart ? (
               <>
@@ -184,10 +184,11 @@ export const StudentContainer = () => {
                 <Table className="text-center">
                   <thead>
                     <tr>
-                      <th>Sr.No</th>
-                      <th>Assessment</th>
-                      <th>Test Duration</th>
-                      <th>Test</th>
+                      <th className="table-header">#</th>
+                      <th className="table-header">Assessment</th>
+                      <th className="table-header">Test Category</th>
+                      <th className="table-header">Test Duration</th>
+                      <th className="table-header">Test</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -196,7 +197,8 @@ export const StudentContainer = () => {
                         <tr>
                           <td>{index + 1}</td>
                           <td>{test.name}</td>
-                          <td>{test.test_duration}</td>
+                          <th>{test.question_type}</th>
+                          <td>{test.test_duration} hr</td>
                           <th>
                             <Button
                               onClick={() => {
